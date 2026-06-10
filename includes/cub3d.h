@@ -6,7 +6,7 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:07 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/10 17:13:52 by MP9              ###   ########.fr       */
+/*   Updated: 2026/06/10 21:24:22 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,14 @@
 # include <stdbool.h>
 # include <stdlib.h>
 # include <fcntl.h> 
+# include <stdio.h>
 # include <limits.h>
 # include "get_next_line.h"
+# include "libft.h"
+# include "structs.h"
 
+void assign_colors(t_colors *colors, char *floor, char *ceiling);
+int get_rgb(char **part);
 
 
 #endif
