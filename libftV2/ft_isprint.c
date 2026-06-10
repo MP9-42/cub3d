@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/10 14:54:35 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/10 17:13:19 by MP9              ###   ########.fr       */
+/*   Created: 2025/07/10 15:30:18 by MP9               #+#    #+#             */
+/*   Updated: 2025/07/10 15:32:30 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "libft.h"
 
-int main(int argc, char **argv)
+int	ft_isprint(int c)
 {
-	if (argc != 2)
-		return(2);
-	int fd = open(argv[1], O_RDONLY);
-	if (fd < 3)
-		return(2);
-	char *line = get_next_line(fd);
-	(void)line;
-	return(0);
+	return (c >= 32 && c <= 126);
 }

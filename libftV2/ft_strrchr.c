@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/10 14:54:35 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/10 17:13:19 by MP9              ###   ########.fr       */
+/*   Created: 2025/07/13 15:30:04 by MP9               #+#    #+#             */
+/*   Updated: 2025/07/17 20:58:55 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "libft.h"
 
-int main(int argc, char **argv)
+char	*ft_strrchr(const char *s, int c)
 {
-	if (argc != 2)
-		return(2);
-	int fd = open(argv[1], O_RDONLY);
-	if (fd < 3)
-		return(2);
-	char *line = get_next_line(fd);
-	(void)line;
-	return(0);
+	int	i;
+
+	i = ft_strlen(s);
+	while (i >= 0)
+	{
+		if (s[i] == (char)c)
+			return ((char *)&s[i]);
+		i--;
+	}
+	return (0);
 }
+
+// int	main()
+// {
+// 	char 
+// 	return (0);
+// }

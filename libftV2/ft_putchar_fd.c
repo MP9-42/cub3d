@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/10 14:54:35 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/10 17:13:19 by MP9              ###   ########.fr       */
+/*   Created: 2025/07/16 15:05:33 by MP9               #+#    #+#             */
+/*   Updated: 2025/07/16 15:19:05 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "libft.h"
 
-int main(int argc, char **argv)
+void	ft_putchar_fd(char c, int fd)
 {
-	if (argc != 2)
-		return(2);
-	int fd = open(argv[1], O_RDONLY);
-	if (fd < 3)
-		return(2);
-	char *line = get_next_line(fd);
-	(void)line;
-	return(0);
+	write(fd, &c, 1);
 }
