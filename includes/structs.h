@@ -6,7 +6,7 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:16 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/10 22:22:17 by MP9              ###   ########.fr       */
+/*   Updated: 2026/06/11 18:15:52 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,12 @@ typedef struct s_textures
 
 typedef struct s_parsing
 {
-	int maplen;
-	char *lines;
+	int file_len;
+	int map_len;
+	char *line;
 	char **floor;
 	char **ceiling;
-	char **map;
+	char **file;
 }				t_parsing;
 
 typedef struct s_colors
@@ -41,10 +42,17 @@ typedef struct s_colors
 	int ceiling;
 }				t_colors;
 
+typedef struct s_map
+{
+	char **rmap;
+	char **fmap;
+	int		size;
+}				t_map;
+
 typedef struct s_cub
 {
 	t_textures *textures;
 	t_colors	*colors;
-	char		**map;
+	t_map		**map;
 	int			*fd;								//bro vertrau wir machen eif multiple maps mit den fds damit man mehrere lvl hat, die man ohne exiten starten kann;
 }				t_cub;
