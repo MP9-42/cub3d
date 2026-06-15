@@ -6,7 +6,7 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/11 13:40:43 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/11 13:41:03 by MP9              ###   ########.fr       */
+/*   Updated: 2026/06/12 20:47:11 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,13 @@ int get_rgb(char **part)
 	return(color);
 }
 
-void assign_colors(t_colors *colors, char *floor, char *ceiling)
+t_colors *assign_colors(char *floor, char *ceiling)
 {
 	char **chao;
 	char **teto;
+	t_colors *colors;
 
+	colors = ft_calloc(sizeof(t_colors), 1);
 	chao = ft_split(floor, ',');
 	teto = ft_split(ceiling, ',');
 	colors->ceiling = get_rgb(teto);

@@ -6,7 +6,7 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:07 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/11 15:15:38 by MP9              ###   ########.fr       */
+/*   Updated: 2026/06/13 14:36:48 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include "libft.h"
 # include "structs.h"
 
-void assign_colors(t_colors *colors, char *floor, char *ceiling);
+t_colors *assign_colors(char *floor, char *ceiling);
 int get_rgb(char **part);
 bool is_valid(char a);
 bool is_correct(char **map);
