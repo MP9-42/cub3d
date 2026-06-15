@@ -6,7 +6,7 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:07 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/13 14:36:48 by MP9              ###   ########.fr       */
+/*   Updated: 2026/06/15 19:21:17 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int get_rgb(char **part);
 bool is_valid(char a);
 bool is_correct(char **map);
 int error_exit(int num);
+void rf_helper(t_parsing *parsing, int *capacity, int i);
 int space_skip(char *str);
 
 #endif

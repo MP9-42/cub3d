@@ -6,7 +6,7 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:16 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/12 20:43:52 by MP9              ###   ########.fr       */
+/*   Updated: 2026/06/15 19:02:10 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,6 @@ typedef struct s_cub
 	t_parsing	*parsing;
 	t_textures *textures;
 	t_colors	*colors;
-	t_map		**map;
+	t_map		*map;
 	int			*fd;								//bro vertrau wir machen eif multiple maps mit den fds damit man mehrere lvl hat, die man ohne exiten starten kann;
 }				t_cub;

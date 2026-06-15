@@ -6,7 +6,7 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/11 13:40:43 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/12 20:47:11 by MP9              ###   ########.fr       */
+/*   Updated: 2026/06/15 19:06:13 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,5 @@ t_colors *assign_colors(char *floor, char *ceiling)
 	teto = ft_split(ceiling, ',');
 	colors->ceiling = get_rgb(teto);
 	colors->floor = get_rgb(chao);
+	return(colors);
 }
