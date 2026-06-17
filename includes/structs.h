@@ -6,7 +6,7 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:16 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/15 19:02:10 by MP9              ###   ########.fr       */
+/*   Updated: 2026/06/17 14:06:01 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ typedef struct s_textures
 	char *west;
 	char *east;
 }				t_textures;
+
+typedef struct s_rowcols
+{
+	int rows;
+	int cols;
+}				t_rowcols;
 
 typedef struct s_parsing
 {
@@ -47,6 +53,7 @@ typedef struct s_map
 {
 	char **rmap;
 	int		size;
+	int		max_width;
 }				t_map;
 
 typedef struct s_cub
@@ -57,3 +64,9 @@ typedef struct s_cub
 	t_map		*map;
 	int			*fd;								//bro vertrau wir machen eif multiple maps mit den fds damit man mehrere lvl hat, die man ohne exiten starten kann;
 }				t_cub;
+
+typedef struct s_point
+{
+	int x;
+	int y;
+}				t_point;

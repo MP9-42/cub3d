@@ -6,7 +6,7 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:35 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/15 19:33:25 by MP9              ###   ########.fr       */
+/*   Updated: 2026/06/17 13:40:16 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,9 +161,10 @@ t_map *get_map(t_cub *cub, t_parsing *parsing)
 	i = start;
 	while (mi < count)
 	{
-		map->rmap[mi] = ft_strdup(parsing->file[i]);
+		map->rmap[mi] = ft_linedup(parsing->file[i]);
 		if (!map->rmap[mi])
 			return (error_exit(2), NULL);
+		kill_n(map->rmap[mi]);
 		mi++;
 		i++;
 	}
@@ -194,7 +195,7 @@ int main(int argc, char **argv)
 	cub->parsing = parsing;
 	cub->map = get_map(cub, parsing);
 	for (int i = 0; cub->map->rmap[i] ; i++)
-		printf("%s", cub->map->rmap[i]);
+		printf("%s\n", cub->map->rmap[i]);
 	close(parsing->fd);
 	exit(0);
 }

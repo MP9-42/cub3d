@@ -6,14 +6,14 @@
 #    By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/10 17:13:59 by MP9               #+#    #+#              #
-#    Updated: 2026/06/11 13:46:00 by MP9              ###   ########.fr        #
+#    Updated: 2026/06/17 13:10:40 by MP9              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 BIG_DIR = objs
 SRCFILES = srcs/main.c srcs/parsing/colors.c srcs/parsing/map_parse.c srcs/utils/utils1.c \
-			srcs/errors/errors1.c 
+			srcs/errors/errors1.c srcs/parsing/parser_utils.c
 			
 
 OBJS = $(SRCFILES:srcs/%.c=$(BIG_DIR)/%.o)
