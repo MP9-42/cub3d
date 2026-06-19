@@ -6,7 +6,7 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/17 12:29:56 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/17 14:29:08 by MP9              ###   ########.fr       */
+/*   Updated: 2026/06/19 14:58:21 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char **deep_copy_map(t_map *map)
 
 void free_map(char **map, int size)
 {
-	while (size >= 0)
+	while (size > 0)
 	{
 		free(map[size]);
 		size--;

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+         #
+#    By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/10 17:13:59 by MP9               #+#    #+#              #
-#    Updated: 2026/06/19 13:25:39 by alegeber         ###   ########.fr        #
+#    Updated: 2026/06/19 14:49:33 by MP9              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,11 +19,25 @@ SRCFILES = srcs/main.c srcs/parsing/colors.c srcs/parsing/map_parse.c srcs/utils
 
 OBJS = $(SRCFILES:srcs/%.c=$(BIG_DIR)/%.o)
 CC = cc
-MLX_DIR = ./minilibx-linux
-MLX = $(MLX_DIR)/libmlx.a
-MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
 
-CFLAGS = -Wall -Wextra -Werror -I./includes/ -I./libftV2/ -I./gnl/ -I$(MLX_DIR)
+CFLAGS = -Ofast -funroll-loops -ftree-vectorize \
+	-fomit-frame-pointer -finline-functions \
+	-Wall -Wextra -Werror -I./includes/ -I./libft/includes/ \
+
+LDFLAGS := -ldl -lglfw -pthread -lm
+UNAME_S :=$(shell uname -s)
+
+CFLAGS += -I./includes/ -I./libftV2/ -I./gnl/ -I$(MLX42_DIR)/include/MLX42
+
+ifeq ($(UNAME_S),Linux)
+	LIBMLX = $(MLX42_DIR)/build/libmlx42.a -ldl -lglfw -pthread -lm
+	CFLAGS += -D LINUX
+else ifeq ($(UNAME_S),Darwin)
+	LIBMLX = $(MLX42_DIR)/build/libmlx42.a -lglfw -framework Cocoa -framework OpenGL -framework IOKit
+	CFLAGS += -D OSX
+else
+	$(error OS not supported: $(UNAME_S))
+endif
 
 RESET = \033[0m
 BOLD = \033[1m

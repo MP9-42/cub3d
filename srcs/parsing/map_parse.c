@@ -6,7 +6,7 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:27 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/17 14:42:03 by MP9              ###   ########.fr       */
+/*   Updated: 2026/06/19 14:42:15 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,5 @@ char	**pad_map(char **map, int rows, int max_width)
 	padded[rows] = NULL;
 	return (padded);
 }
-
 
 
