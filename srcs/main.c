@@ -6,7 +6,7 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:35 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/17 13:40:16 by MP9              ###   ########.fr       */
+/*   Updated: 2026/06/19 15:50:02 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void rf_helper(t_parsing *parsing, int *capacity, int i)
 		new_file[j] = parsing->file[j];
 		j++;
 	}
+	new_file[i] = NULL;
 	free(parsing->file);
 	parsing->file = new_file;
 }
@@ -194,6 +195,8 @@ int main(int argc, char **argv)
 		parsing->file_len++;
 	cub->parsing = parsing;
 	cub->map = get_map(cub, parsing);
+	if (!validate_map(cub->map))
+		error_exit(2);
 	for (int i = 0; cub->map->rmap[i] ; i++)
 		printf("%s\n", cub->map->rmap[i]);
 	close(parsing->fd);

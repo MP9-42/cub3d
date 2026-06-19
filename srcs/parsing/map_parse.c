@@ -6,7 +6,7 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:27 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/19 14:42:15 by MP9              ###   ########.fr       */
+/*   Updated: 2026/06/19 15:47:53 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,10 @@ bool flood_fill(char **map, int row, int col, t_rowcols rowcols)
 {
 	if (row < 0 || col < 0 || row >= rowcols.rows || col >= rowcols.cols)
 		return(false);
-	if (col >= rowcols.cols)
-		return(false);
 	if (map[row][col] == ' ' || map[row][col] == '\t')
 		return(false);
 	if (map[row][col] == '1' || map[row][col] == 'V')
-		return(1);
+		return(true);
 	map[row][col] = 'V';
 	if (!flood_fill(map, row + 1, col, rowcols))
 		return(false);

@@ -6,7 +6,7 @@
 #    By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/10 17:13:59 by MP9               #+#    #+#              #
-#    Updated: 2026/06/19 14:49:33 by MP9              ###   ########.fr        #
+#    Updated: 2026/06/19 16:23:48 by MP9              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,9 @@ LDFLAGS := -ldl -lglfw -pthread -lm
 UNAME_S :=$(shell uname -s)
 
 CFLAGS += -I./includes/ -I./libftV2/ -I./gnl/ -I$(MLX42_DIR)/include/MLX42
+
+LIBMLX := ./MLX42/build/libmlx42.a
+MLX42_DIR = ./MLX42
 
 ifeq ($(UNAME_S),Linux)
 	LIBMLX = $(MLX42_DIR)/build/libmlx42.a -ldl -lglfw -pthread -lm
@@ -63,14 +66,20 @@ GNL_DIR = ./gnl
 GNL_SRCS = $(GNL_DIR)/get_next_line.c $(GNL_DIR)/get_next_line_utils.c
 GNL_OBJS = $(GNL_SRCS:$(GNL_DIR)/%.c=$(GNL_DIR)/%.o)
 
-all : $(LIBFT) $(MLX) $(GARBAGE_OBJS) $(GNL_OBJS) $(NAME)
+all : $(LIBFT) $(LIBMLX) $(GARBAGE_OBJS) $(GNL_OBJS) $(NAME)
 
 $(NAME): $(OBJS) $(GARBAGE_OBJS) $(GNL_OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) $(GARBAGE_OBJS) $(GNL_OBJS) $(LIBFT) $(MLX_FLAGS) $(WRAPPERS) -o $(NAME)
 
-$(MLX):
-	@$(MAKE) -s --no-print-directory -C $(MLX_DIR)
-
+$(LIBMLX):
+	@if [ ! -d $(MLX42_DIR) ]; then \
+		git clone https://github.com/codam-coding-college/MLX42.git \
+		$(MLX42_DIR); \
+	fi
+	@if [ ! -f $(MLX42_DIR)/build/libmlx42.a ]; then \
+		cmake $(MLX42_DIR) -B $(MLX42_DIR)/build && \
+		cmake --build $(MLX42_DIR)/build -j4; \
+	fi
 
 $(BIG_DIR)/%.o: srcs/%.c includes/cub3d.h
 	@mkdir -p $(dir $@)
@@ -93,6 +102,7 @@ clean:
 
 fclean: clean
 	@rm -f $(NAME)
+	@rm -rf $(MLX42_DIR)
 	@$(MAKE) -s --no-print-directory fclean -C $(LIBFT_DIR) > /dev/null
 
 re:
