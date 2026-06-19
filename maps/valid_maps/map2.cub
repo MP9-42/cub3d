@@ -1,3 +1,8 @@
+NO ../textures/map2/NO.png
+SO ../textures/map2/SO.png
+WE ../textures/map2/WE.png
+EA ../textures/map2/EA.png
+
 F 220,100,0
 C 225,30,0
 

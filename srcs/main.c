@@ -6,7 +6,7 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:35 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/19 15:50:02 by MP9              ###   ########.fr       */
+/*   Updated: 2026/06/19 21:03:47 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int line_starts_map(char *line)
 	return (is_valid(line[i]) && line[i] != ' ');
 }
 
-static char *find_config_value(char **file, char id)
+static char *find_config_value(char **file, char *id)
 {
 	char **parts;
 	char *value;
@@ -33,10 +33,10 @@ static char *find_config_value(char **file, char id)
 	int si;
 
 	i = 0;
-	while (file[i] && !line_starts_map(file[i]))
+	while (file[i])
 	{
 		si = space_skip(file[i]);
-		if (file[i][si] == id)
+		if (ft_strncmp(file[i], id, ft_strlen(id)) == 0)
 		{
 			parts = ft_split(file[i], ' ');
 			if (!parts || !parts[1])
@@ -132,8 +132,13 @@ t_map *get_map(t_cub *cub, t_parsing *parsing)
 
 	if (!cub || !parsing || !parsing->file)
 		return (error_exit(2), NULL);
-	floor = find_config_value(parsing->file, 'F');
-	ceiling = find_config_value(parsing->file, 'C');
+	floor = find_config_value(parsing->file, "F");
+	ceiling = find_config_value(parsing->file, "C");
+	cub->textures = ft_calloc(sizeof(t_textures), 1);
+	cub->textures->east = find_config_value(parsing->file, "EA");
+	cub->textures->south = find_config_value(parsing->file, "SO");
+	cub->textures->north = find_config_value(parsing->file, "NO");
+	cub->textures->west = find_config_value(parsing->file, "WE");
 	if (!floor || !ceiling)
 		return (error_exit(2), NULL);
 	cub->colors = assign_colors(floor, ceiling);

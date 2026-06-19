@@ -1,42 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils1.c                                           :+:      :+:    :+:   */
+/*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/11 13:36:52 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/19 21:03:10 by MP9              ###   ########.fr       */
+/*   Created: 2026/06/19 18:49:44 by MP9               #+#    #+#             */
+/*   Updated: 2026/06/19 21:07:40 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-bool is_valid(char a)
+void add_wall_textures(t_textures *textures)
 {
-	if (a == '0' || a == '1' || a == ' ')
-		return(true);
-	return (false);
-}
-
-int space_skip(char *str)
-{
-	int i = 0;
-	
-	while (str[i] && ((str[i] >= 9 && str[i] <= 13 )|| str[i] == 32))
-		i++;
-	return(i);
-}
-
-void kill_n(char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] == '\n')
-			str[i] = '\0';
-		i++;
-	}
+	mlx_load_png(textures->north);
+	mlx_load_png(textures->south);
+	mlx_load_png(textures->east);
+	mlx_load_png(textures->west);
 }
