@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
+/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:16 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/17 14:06:01 by MP9              ###   ########.fr       */
+/*   Updated: 2026/06/19 13:24:22 by alegeber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ typedef struct s_textures t_textures;
 typedef struct s_cub t_cub;
 typedef struct s_parsing t_parsing;
 typedef struct s_player t_player;
+typedef struct s_ray t_ray;
 
 typedef struct s_textures
 {
@@ -66,6 +67,25 @@ typedef struct s_player
 	double		plane_x;
 	double		plane_y;
 }				t_player;
+
+typedef struct s_ray
+{
+	double		dir_x;
+	double		dir_y;
+	int			map_x;
+	int			map_y;
+	int			step_x;
+	int			step_y;
+	double		delta_dist_x;
+	double		delta_dist_y;
+	double		side_dist_x;
+	double		side_dist_y;
+	double		perp_wall_dist;
+	int			side;
+	int			line_height;
+	int			draw_start;
+	int			draw_end;
+}				t_ray;
 
 typedef struct s_cub
 {

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+         #
+#    By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/10 17:13:59 by MP9               #+#    #+#              #
-#    Updated: 2026/06/17 13:10:40 by MP9              ###   ########.fr        #
+#    Updated: 2026/06/19 13:25:39 by alegeber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,12 +14,16 @@ NAME = cub3d
 BIG_DIR = objs
 SRCFILES = srcs/main.c srcs/parsing/colors.c srcs/parsing/map_parse.c srcs/utils/utils1.c \
 			srcs/errors/errors1.c srcs/parsing/parser_utils.c \
-			srcs/player/player_init.c
-			
+			srcs/player/player_init.c srcs/raycaster/dda.c \
+
 
 OBJS = $(SRCFILES:srcs/%.c=$(BIG_DIR)/%.o)
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I./includes/ -I./libftV2/ -I./gnl/
+MLX_DIR = ./minilibx-linux
+MLX = $(MLX_DIR)/libmlx.a
+MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
+
+CFLAGS = -Wall -Wextra -Werror -I./includes/ -I./libftV2/ -I./gnl/ -I$(MLX_DIR)
 
 RESET = \033[0m
 BOLD = \033[1m
@@ -45,10 +49,13 @@ GNL_DIR = ./gnl
 GNL_SRCS = $(GNL_DIR)/get_next_line.c $(GNL_DIR)/get_next_line_utils.c
 GNL_OBJS = $(GNL_SRCS:$(GNL_DIR)/%.c=$(GNL_DIR)/%.o)
 
-all : $(LIBFT) $(GARBAGE_OBJS) $(GNL_OBJS) $(NAME)
+all : $(LIBFT) $(MLX) $(GARBAGE_OBJS) $(GNL_OBJS) $(NAME)
 
 $(NAME): $(OBJS) $(GARBAGE_OBJS) $(GNL_OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) $(GARBAGE_OBJS) $(GNL_OBJS) $(LIBFT) $(WRAPPERS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(GARBAGE_OBJS) $(GNL_OBJS) $(LIBFT) $(MLX_FLAGS) $(WRAPPERS) -o $(NAME)
+
+$(MLX):
+	@$(MAKE) -s --no-print-directory -C $(MLX_DIR)
 
 
 $(BIG_DIR)/%.o: srcs/%.c includes/cub3d.h
