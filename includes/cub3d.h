@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
+/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:07 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/17 14:31:43 by MP9              ###   ########.fr       */
+/*   Updated: 2026/06/19 12:55:29 by alegeber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 # include <stdbool.h>
 # include <stdlib.h>
-# include <fcntl.h> 
+# include <fcntl.h>
 # include <stdio.h>
 # include <limits.h>
 # include "get_next_line.h"
@@ -40,5 +40,6 @@ int error_exit(int num);
 void readfile(t_parsing *parsing);
 void rf_helper(t_parsing *parsing, int *capacity, int i);
 int space_skip(char *str);
+t_player	*init_player(t_map *map);
 
 #endif

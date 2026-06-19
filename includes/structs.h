@@ -18,6 +18,7 @@ typedef struct s_map t_map;
 typedef struct s_textures t_textures;
 typedef struct s_cub t_cub;
 typedef struct s_parsing t_parsing;
+typedef struct s_player t_player;
 
 typedef struct s_textures
 {
@@ -56,12 +57,23 @@ typedef struct s_map
 	int		max_width;
 }				t_map;
 
+typedef struct s_player
+{
+	double		pos_x;
+	double		pos_y;
+	double		dir_x;
+	double		dir_y;
+	double		plane_x;
+	double		plane_y;
+}				t_player;
+
 typedef struct s_cub
 {
 	t_parsing	*parsing;
-	t_textures *textures;
+	t_textures	*textures;
 	t_colors	*colors;
 	t_map		*map;
+	t_player	*player;
 	int			*fd;								//bro vertrau wir machen eif multiple maps mit den fds damit man mehrere lvl hat, die man ohne exiten starten kann;
 }				t_cub;
 
