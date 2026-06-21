@@ -6,7 +6,7 @@
 #    By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/10 17:13:59 by MP9               #+#    #+#              #
-#    Updated: 2026/06/21 17:05:34 by MP9              ###   ########.fr        #
+#    Updated: 2026/06/21 19:12:33 by MP9              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,7 @@ GNL_OBJS = $(GNL_SRCS:$(GNL_DIR)/%.c=$(GNL_DIR)/%.o)
 all : $(LIBFT) $(LIBMLX) $(GARBAGE_OBJS) $(GNL_OBJS) $(NAME)
 
 $(NAME): $(OBJS) $(GARBAGE_OBJS) $(GNL_OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) $(GARBAGE_OBJS) $(GNL_OBJS) $(LIBFT) $(MLX_FLAGS) $(WRAPPERS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(GARBAGE_OBJS) $(GNL_OBJS) $(LIBFT) $(LIBMLX) $(WRAPPERS) -o $(NAME)
 
 $(LIBMLX):
 	@if [ ! -d $(MLX42_DIR) ]; then \

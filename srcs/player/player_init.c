@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 12:00:00 by alegeber          #+#    #+#             */
-/*   Updated: 2026/06/19 12:57:09 by alegeber         ###   ########.fr       */
+/*   Updated: 2026/06/21 19:14:57 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,6 @@ t_player	*init_player(t_map *map)
 	t_player	*player;
 
 	player = ft_calloc(sizeof(t_player), 1);
-	if (!player)
-		return (NULL);
 	if (!find_spawn(player, map->rmap))
 		return (free(player), NULL);
 	return (player);

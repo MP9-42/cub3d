@@ -6,7 +6,7 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/21 15:37:17 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/21 17:10:34 by MP9              ###   ########.fr       */
+/*   Updated: 2026/06/21 19:19:50 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,15 @@
 
 mlx_t *init_window(t_cub *cub)
 {
-	mlx_t *mlx = ft_calloc(sizeof(mlx_t), 1);
+	mlx_t *mlx;
+
 	mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
+	if (!mlx)
+		return (NULL);
+	cub->game->mlx = mlx;
 	get_image(cub->game, cub);
 	mlx_loop(mlx);
-	return(mlx);
+	return (mlx);
 }
 
 void	get_image(t_game *game, t_cub *cub)
