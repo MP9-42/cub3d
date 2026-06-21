@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:16 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/19 13:24:22 by alegeber         ###   ########.fr       */
+/*   Updated: 2026/06/21 17:02:45 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ typedef struct s_colors t_colors;
 typedef struct s_map t_map;
 typedef struct s_textures t_textures;
 typedef struct s_cub t_cub;
+typedef struct s_rowcols t_rowcols;
 typedef struct s_parsing t_parsing;
+typedef struct s_game t_game;
 typedef struct s_player t_player;
 typedef struct s_ray t_ray;
 
@@ -34,6 +36,13 @@ typedef struct s_rowcols
 	int rows;
 	int cols;
 }				t_rowcols;
+
+typedef struct s_game
+{
+	mlx_t		*mlx;
+	mlx_image_t *img;
+	t_player	*player;
+}				t_game;
 
 typedef struct s_parsing
 {
@@ -53,7 +62,7 @@ typedef struct s_colors
 
 typedef struct s_map
 {
-	char **rmap;
+	char 	**rmap;
 	int		size;
 	int		max_width;
 }				t_map;
@@ -89,6 +98,7 @@ typedef struct s_ray
 
 typedef struct s_cub
 {
+	t_game		*game;
 	t_parsing	*parsing;
 	t_textures	*textures;
 	t_colors	*colors;

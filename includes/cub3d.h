@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:07 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/19 12:55:29 by alegeber         ###   ########.fr       */
+/*   Updated: 2026/06/21 17:10:10 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,22 @@
 
 # define _GNU_SOURCE
 
+# define WIDTH 800
+# define HEIGHT 600
+# define TILE 32
+
+# define WHITE 0xFFFFFFFF
+# define BLACK 0x000000FF
+# define RED   0xFF0000FF
+# define GREEN 0x00FF00FF
+
 # include <stdbool.h>
 # include <stdlib.h>
 # include <fcntl.h>
 # include <stdio.h>
 # include <limits.h>
 # include "get_next_line.h"
+# include "../MLX42/include/MLX42/MLX42.h"
 # include "libft.h"
 # include "structs.h"
 
@@ -35,7 +45,11 @@ bool flood_fill(char **map, int row, int col, t_rowcols rowcols);
 bool is_valid(char a);
 bool valid_chars(char **map);
 bool	validate_map(t_map *map);
+void	get_image(t_game *game, t_cub *cub);
+mlx_t *init_window(t_cub *cub);
+void draw_tile(mlx_image_t *img, int start_x, int start_y, int size, uint32_t color);
 char **deep_copy_map(t_map *map);
+void render_map(mlx_image_t *img, t_map *map);
 int error_exit(int num);
 void readfile(t_parsing *parsing);
 void rf_helper(t_parsing *parsing, int *capacity, int i);
