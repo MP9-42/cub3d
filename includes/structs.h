@@ -6,7 +6,7 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:16 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/22 14:04:46 by MP9              ###   ########.fr       */
+/*   Updated: 2026/06/23 15:01:32 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,10 @@ typedef struct s_window t_window;
 
 typedef struct s_window
 {
-	uint32_t height;
-	uint32_t width;
-	uint32_t tilesize;
+	void	*win;
+	int32_t height;
+	int32_t width;
+	int32_t tilesize;
 }				t_window;
 
 typedef struct s_textures
@@ -49,6 +50,7 @@ typedef struct s_rowcols
 typedef struct s_game
 {
 	mlx_t		*mlx;
+	t_window	*window;
 	mlx_image_t *img;
 	t_player	*player;
 }				t_game;

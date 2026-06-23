@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:07 by MP9               #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2026/06/23 14:34:10 by alegeber         ###   ########.fr       */
+=======
+/*   Updated: 2026/06/23 15:19:22 by MP9              ###   ########.fr       */
+>>>>>>> bbf4669 (tried to fix window, still segfaulting)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +49,7 @@ char	**pad_map(char **map, int rows, int max_width);
 bool flood_fill(char **map, int row, int col, t_rowcols rowcols);
 bool is_valid(char a);
 bool valid_chars(char **map);
+void	redraw(t_game *game);
 bool	validate_map(t_map *map);
 void	get_image(t_game *game, t_cub *cub);
 mlx_t *init_window(t_cub *cub);
@@ -52,6 +57,7 @@ void draw_tile(mlx_image_t *img, int start_x, int start_y, int size, uint32_t co
 char **deep_copy_map(t_map *map);
 void render_map(mlx_image_t *img, t_map *map);
 int error_exit(int num);
+void	resize_hook(int32_t width, int32_t height, void *param);
 void readfile(t_parsing *parsing);
 void rf_helper(t_parsing *parsing, int *capacity, int i);
 int space_skip(char *str);

@@ -3,29 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 14:29:14 by alegeber          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2026/06/23 14:42:31 by alegeber         ###   ########.fr       */
+=======
+/*   Updated: 2026/06/23 14:03:08 by MP9              ###   ########.fr       */
+>>>>>>> bbf4669 (tried to fix window, still segfaulting)
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
+<<<<<<< HEAD
 // Returns 1 if the grid cell (x, y) is out of bounds or a wall tile ('1').
 // Used by perform_dda to know when the ray has hit something.
 static int is_wall(t_map *map, int x, int y)
 {
 	int	len;
+=======
+// static int is_wall(t_map *map, int x, int y)
+// {
+// 	int	len;
+>>>>>>> bbf4669 (tried to fix window, still segfaulting)
 
-	if (y < 0 || y >= map->size || x < 0)
-		return 1;
-	len = ft_strlen(map->rmap[y]);
-	if (x >= len)
-		return 1;
-	return (map->rmap[y][x] == '1');
-}
+// 	if (y < 0 || y >= map->size || x < 0)
+// 		return 1;
+// 	len = ft_strlen(map->rmap[y]);
+// 	if (x >= len)
+// 		return 1;
+// 	return (map->rmap[y][x] == '1');
+// }
 
+<<<<<<< HEAD
 // Sets the starting grid cell and computes delta_dist: how far the ray travels
 // to cross one full grid unit in X and Y. Zero direction gets near-infinity.
 static void	init_dda(t_player *player, t_ray *ray)
@@ -105,3 +116,44 @@ void	cast_ray(t_player *player, t_map *map, t_ray *ray, double camera_x)
 	else
 		ray->perp_wall_dist = ray->side_dist_y - ray->delta_dist_y;
 }
+=======
+// static void	init_dda(t_player *player, t_ray *ray)
+// {
+// 	ray->map_x = (int)player->pos_x;
+// 	ray->map_y = (int)player->pos_y;
+// 	if (ray->dir_x == 0)
+// 		ray->delta_dist_x = 1e30;
+// 	else
+// 		ray->delta_dist_x = fabs(1 / ray->dir_x);
+// 	if (ray->dir_y == 0)
+// 		ray->delta_dist_y = 1e30;
+// 	else
+// 		ray->delta_dist_y = fabs(1 / ray->dir_y);
+// }
+
+// static void	init_step_side(t_player *player, t_ray *ray)
+// {
+// 	if (ray->dir_x < 0)
+// 	{
+// 		ray->step_x = -1;
+// 		ray->side_dist_x = (player->pos_x - ray->map_x) * ray->delta_dist_x;
+// 	}
+// 	else
+// 	{
+// 		ray->step_x = 1;
+// 		ray->side_dist_x = (ray->map_x + 1.0 - player->pos_x);
+// 		ray->side_dist_x *= ray->delta_dist_x;
+// 	}
+// 	if (ray->dir_y < 0)
+// 	{
+// 		ray->step_y = -1;
+// 		ray->side_dist_y = (player->pos_y - ray->map_y) * ray->delta_dist_y;
+// 	}
+// 	else
+// 	{
+// 		ray->step_y = 1;
+// 		ray->side_dist_y = (ray->map_y + 1.0 - player->pos_y);
+// 		ray->side_dist_y *= ray->delta_dist_y;
+// 	}
+// }
+>>>>>>> bbf4669 (tried to fix window, still segfaulting)
