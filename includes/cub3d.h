@@ -6,7 +6,7 @@
 /*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:07 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/23 11:09:44 by alegeber         ###   ########.fr       */
+/*   Updated: 2026/06/23 14:34:10 by alegeber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,6 @@ void readfile(t_parsing *parsing);
 void rf_helper(t_parsing *parsing, int *capacity, int i);
 int space_skip(char *str);
 t_player	*init_player(t_map *map);
+void		cast_ray(t_player *player, t_map *map, t_ray *ray, double camera_x);
 
 #endif
