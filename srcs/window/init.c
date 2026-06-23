@@ -6,7 +6,7 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/21 15:37:17 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/21 19:19:50 by MP9              ###   ########.fr       */
+/*   Updated: 2026/06/23 13:28:11 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 mlx_t *init_window(t_cub *cub)
 {
 	mlx_t *mlx;
+	// int width;
+	// int height;
 
+	// mlx_get_monitor_size(0, WIDTH, HEIGHT);
 	mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
 	if (!mlx)
 		return (NULL);
@@ -59,7 +62,7 @@ void render_map(mlx_image_t *img, t_map *map)
 	while(map->rmap[y])
 	{
 		x = 0;
-		while (map->rmap[y][x])
+		while (x < map->max_width)
 		{
 			if (map->rmap[y][x] == '1')
 				draw_tile(img, x * TILE, y * TILE, TILE, WHITE);

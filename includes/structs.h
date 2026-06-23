@@ -6,7 +6,7 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:16 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/21 17:02:45 by MP9              ###   ########.fr       */
+/*   Updated: 2026/06/22 14:04:46 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,15 @@ typedef struct s_parsing t_parsing;
 typedef struct s_game t_game;
 typedef struct s_player t_player;
 typedef struct s_ray t_ray;
+typedef struct s_window t_window;
+
+
+typedef struct s_window
+{
+	uint32_t height;
+	uint32_t width;
+	uint32_t tilesize;
+}				t_window;
 
 typedef struct s_textures
 {

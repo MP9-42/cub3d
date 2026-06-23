@@ -6,7 +6,7 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:35 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/21 19:15:22 by MP9              ###   ########.fr       */
+/*   Updated: 2026/06/23 13:54:03 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,13 +200,14 @@ int main(int argc, char **argv)
 		parsing->file_len++;
 	cub->parsing = parsing;
 	cub->map = get_map(cub, parsing);
+	close(parsing->fd);
+	free(parsing);
 	if (!validate_map(cub->map))
 		error_exit(2);
 
 	cub->game = ft_calloc(sizeof(t_game), 1);
 	cub->player = init_player(cub->map);
 	cub->game->mlx = init_window(cub);
-	close(parsing->fd);
 	mlx_terminate(cub->game->mlx);
 	exit(0);
 }

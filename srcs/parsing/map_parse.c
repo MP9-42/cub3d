@@ -6,7 +6,7 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:27 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/22 13:17:15 by MP9              ###   ########.fr       */
+/*   Updated: 2026/06/23 13:49:01 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ bool	validate_map(t_map *map)
 			{
 				if (!flood_fill(copy, bi, si, rowcols))
 					error_exit(2);
-				free_map(copy, map->size);
+				free_map(map->rmap, map->size);
+				map->rmap = copy;
 				return(true);
 			}
 			si++;
