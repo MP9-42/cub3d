@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
+/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:07 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/21 17:10:10 by MP9              ###   ########.fr       */
+/*   Updated: 2026/06/23 11:09:44 by alegeber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <limits.h>
+# include <math.h>
 # include "get_next_line.h"
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "libft.h"
