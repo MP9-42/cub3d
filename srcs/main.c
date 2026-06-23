@@ -208,6 +208,7 @@ int main(int argc, char **argv)
 	cub->game = ft_calloc(sizeof(t_game), 1);
 	cub->player = init_player(cub->map);
 	cub->game->mlx = init_window(cub);
-	mlx_terminate(cub->game->mlx);
+	if (cub->game->mlx)
+		mlx_terminate(cub->game->mlx);
 	exit(0);
 }

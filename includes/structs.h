@@ -51,8 +51,9 @@ typedef struct s_game
 {
 	mlx_t		*mlx;
 	t_window	*window;
-	mlx_image_t *img;
+	mlx_image_t	*img;
 	t_player	*player;
+	t_cub		*cub;
 }				t_game;
 
 typedef struct s_parsing

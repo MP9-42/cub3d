@@ -6,11 +6,7 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:07 by MP9               #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2026/06/23 14:34:10 by alegeber         ###   ########.fr       */
-=======
-/*   Updated: 2026/06/23 15:19:22 by MP9              ###   ########.fr       */
->>>>>>> bbf4669 (tried to fix window, still segfaulting)
+/*   Updated: 2026/06/23 17:45:10 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +51,7 @@ void	get_image(t_game *game, t_cub *cub);
 mlx_t *init_window(t_cub *cub);
 void draw_tile(mlx_image_t *img, int start_x, int start_y, int size, uint32_t color);
 char **deep_copy_map(t_map *map);
-void render_map(mlx_image_t *img, t_map *map);
+void render_map(mlx_image_t *img, t_cub *cub);
 int error_exit(int num);
 void	resize_hook(int32_t width, int32_t height, void *param);
 void readfile(t_parsing *parsing);

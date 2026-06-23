@@ -34,19 +34,21 @@ bool flood_fill(char **map, int row, int col, t_rowcols rowcols)
 
 bool	validate_map(t_map *map)
 {
-	int bi;
-	int si;
-	t_rowcols rowcols;
-	char **copy;
-	
+	int		bi;
+	int		si;
+	t_rowcols	rowcols;
+	char		**padded;
+	char		**copy;
+
 	if (!valid_chars(map->rmap))
-		return(false);
+		return (false);
 	map->max_width = get_max_width(map->rmap);
+	padded = pad_map(map->rmap, map->size, map->max_width);
 	copy = pad_map(map->rmap, map->size, map->max_width);
+	if (!padded || !copy)
+		return (free_map(padded, map->size), free_map(copy, map->size), false);
 	rowcols.cols = map->max_width;
 	rowcols.rows = map->size;
-	if (!copy)
-		return(false);
 	bi = 0;
 	while (copy[bi])
 	{
@@ -56,17 +58,19 @@ bool	validate_map(t_map *map)
 			if (ft_strchr("NSEW", copy[bi][si]))
 			{
 				if (!flood_fill(copy, bi, si, rowcols))
-					error_exit(2);
+					return (free_map(padded, map->size), free_map(copy, map->size), false);
+				free_map(copy, map->size);
 				free_map(map->rmap, map->size);
-				map->rmap = copy;
-				return(true);
+				map->rmap = padded;
+				return (true);
 			}
 			si++;
 		}
 		bi++;
 	}
-	error_exit(2);
-	return(false);
+	free_map(padded, map->size);
+	free_map(copy, map->size);
+	return (false);
 }
 
 int	get_max_width(char **map)

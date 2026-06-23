@@ -47,12 +47,17 @@ char **deep_copy_map(t_map *map)
 	return(copy);
 }
 
-void free_map(char **map, int size)
+void	free_map(char **map, int size)
 {
-	while (size > 0)
+	int	i;
+
+	if (!map)
+		return ;
+	i = size - 1;
+	while (i >= 0)
 	{
-		free(map[size]);
-		size--;
+		free(map[i]);
+		i--;
 	}
 	free(map);
 }
