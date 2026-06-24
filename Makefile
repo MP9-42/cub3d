@@ -15,6 +15,7 @@ BIG_DIR = objs
 SRCFILES = srcs/main.c srcs/parsing/colors.c srcs/parsing/map_parse.c srcs/utils/utils1.c \
 			srcs/errors/errors1.c srcs/parsing/parser_utils.c \
 			srcs/player/player_init.c srcs/raycaster/dda.c srcs/window/init.c \
+			srcs/raycaster/render.c srcs/player/player_move.c \
 
 
 OBJS = $(SRCFILES:srcs/%.c=$(BIG_DIR)/%.o)

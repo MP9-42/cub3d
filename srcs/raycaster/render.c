@@ -26,24 +26,26 @@ static uint32_t	wall_color(t_ray *ray)
 static void	draw_column(t_game *game, t_colors *colors, t_ray *ray, int x)
 {
 	int			y;
+	int			h;
 	uint32_t	color;
 
+	h = HEIGHT;
 	if (ray->perp_wall_dist < 0.01)
 		ray->perp_wall_dist = 0.01;
-	ray->line_height = (int)(HEIGHT / ray->perp_wall_dist);
-	ray->draw_start = HEIGHT / 2 - ray->line_height / 2;
+	ray->line_height = (int)(h / ray->perp_wall_dist);
+	ray->draw_start = h / 2 - ray->line_height / 2;
 	if (ray->draw_start < 0)
 		ray->draw_start = 0;
-	ray->draw_end = HEIGHT / 2 + ray->line_height / 2;
-	if (ray->draw_end >= HEIGHT)
-		ray->draw_end = HEIGHT - 1;
+	ray->draw_end = h / 2 + ray->line_height / 2;
+	if (ray->draw_end >= h)
+		ray->draw_end = h - 1;
 	color = wall_color(ray);
 	y = 0;
 	while (y < ray->draw_start)
 		mlx_put_pixel(game->img, x, y++, colors->ceiling);
 	while (y <= ray->draw_end)
 		mlx_put_pixel(game->img, x, y++, color);
-	while (y < HEIGHT)
+	while (y < h)
 		mlx_put_pixel(game->img, x, y++, colors->floor);
 }
 
@@ -53,14 +55,17 @@ void	render_frame(void *param)
 	t_ray	ray;
 	double	camera_x;
 	int		x;
+	int		w;
 
 	cub = (t_cub *)param;
+	w = WIDTH;
 	x = 0;
-	while (x < WIDTH)
+	while (x < w)
 	{
-		camera_x = 2.0 * x / WIDTH - 1.0;
+		camera_x = 2.0 * x / w - 1.0;
 		cast_ray(cub->player, cub->map, &ray, camera_x);
 		draw_column(cub->game, cub->colors, &ray, x);
 		x++;
 	}
+	render_map(cub->game->img, cub);
 }
