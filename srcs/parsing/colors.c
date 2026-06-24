@@ -3,29 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
+/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/11 13:40:43 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/15 19:06:13 by MP9              ###   ########.fr       */
+/*   Updated: 2026/06/24 14:06:57 by alegeber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-int get_rgb(char **part)
+uint32_t	get_rgb(char **part)
 {
-	int color;
 	int r;
 	int g;
 	int b;
-	
+
 	r = ft_atoi(part[0]);
 	g = ft_atoi(part[1]);
 	b = ft_atoi(part[2]);
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
-		return(error_exit(1));
-	color = (r << 16 | g << 8 | b);
-	return(color);
+		return (error_exit(1));
+	return ((uint32_t)r << 24 | (uint32_t)g << 16 | (uint32_t)b << 8 | 0xFF);
 }
 
 t_colors *assign_colors(char *floor, char *ceiling)

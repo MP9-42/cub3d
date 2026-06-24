@@ -6,13 +6,13 @@
 /*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 18:11:15 by alegeber          #+#    #+#             */
-/*   Updated: 2026/06/24 14:03:00 by alegeber         ###   ########.fr       */
+/*   Updated: 2026/06/24 14:07:16 by alegeber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-static int	is_wall(t_map *map, int x, int y)
+int	is_wall(t_map *map, int x, int y)
 {
 	int	len;
 

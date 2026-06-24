@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
+/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:16 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/23 15:01:32 by MP9              ###   ########.fr       */
+/*   Updated: 2026/06/24 14:05:45 by alegeber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,6 @@ typedef struct s_parsing t_parsing;
 typedef struct s_game t_game;
 typedef struct s_player t_player;
 typedef struct s_ray t_ray;
-typedef struct s_window t_window;
-
-
-typedef struct s_window
-{
-	void	*win;
-	int32_t height;
-	int32_t width;
-	int32_t tilesize;
-}				t_window;
 
 typedef struct s_textures
 {
@@ -50,10 +40,11 @@ typedef struct s_rowcols
 typedef struct s_game
 {
 	mlx_t		*mlx;
-	t_window	*window;
 	mlx_image_t	*img;
 	t_player	*player;
 	t_cub		*cub;
+	int32_t		width;
+	int32_t		height;
 }				t_game;
 
 typedef struct s_parsing
@@ -68,8 +59,8 @@ typedef struct s_parsing
 
 typedef struct s_colors
 {
-	int floor;
-	int ceiling;
+	uint32_t	floor;
+	uint32_t	ceiling;
 }				t_colors;
 
 typedef struct s_map

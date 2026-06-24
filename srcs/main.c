@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
+/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:35 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/23 13:54:03 by MP9              ###   ########.fr       */
+/*   Updated: 2026/06/24 14:04:36 by alegeber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static char *find_config_value(char **file, char *id)
 	while (file[i])
 	{
 		si = space_skip(file[i]);
-		if (ft_strncmp(file[i], id, ft_strlen(id)) == 0)
+		if (ft_strncmp(file[i] + si, id, ft_strlen(id)) == 0)
 		{
 			parts = ft_split(file[i], ' ');
 			if (!parts || !parts[1])
@@ -200,15 +200,13 @@ int main(int argc, char **argv)
 		parsing->file_len++;
 	cub->parsing = parsing;
 	cub->map = get_map(cub, parsing);
-	close(parsing->fd);
-	free(parsing);
 	if (!validate_map(cub->map))
 		error_exit(2);
 
 	cub->game = ft_calloc(sizeof(t_game), 1);
 	cub->player = init_player(cub->map);
 	cub->game->mlx = init_window(cub);
-	if (cub->game->mlx)
-		mlx_terminate(cub->game->mlx);
+	close(parsing->fd);
+	mlx_terminate(cub->game->mlx);
 	exit(0);
 }

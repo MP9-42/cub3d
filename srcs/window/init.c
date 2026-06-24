@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
+/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/21 15:37:17 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/23 17:44:20 by MP9              ###   ########.fr       */
+/*   Updated: 2026/06/24 14:49:44 by alegeber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,15 @@ static void	clear_image(mlx_image_t *img, uint32_t color)
 	}
 }
 
-static int	get_tile_size(t_window *window, t_map *map)
+static int	get_tile_size(t_game *game, t_map *map)
 {
 	int	available_w;
 	int	available_h;
 	int	tile_w;
 	int	tile_h;
 
-	available_w = window->width - (MINIMAP_PADDING * 2);
-	available_h = window->height - (MINIMAP_PADDING * 2);
+	available_w = game->width - (MINIMAP_PADDING * 2);
+	available_h = game->height - (MINIMAP_PADDING * 2);
 	if (available_w < map->max_width)
 		available_w = map->max_width;
 	if (available_h < map->size)
@@ -86,16 +86,12 @@ static void	draw_player(mlx_image_t *img, t_cub *cub,
 mlx_t	*init_window(t_cub *cub)
 {
 	mlx_t		*mlx;
-	t_window	*window;
 	int32_t		monitor_w;
 	int32_t		monitor_h;
 
-	window = ft_calloc(sizeof(t_window), 1);
-	if (!window)
-		return (NULL);
-	window->width = WIDTH;
-	window->height = HEIGHT;
-	mlx = mlx_init(window->width, window->height, "cub3d", true);
+	cub->game->width = WIDTH;
+	cub->game->height = HEIGHT;
+	mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
 	if (!mlx)
 		return (NULL);
 	monitor_w = 0;
@@ -103,16 +99,15 @@ mlx_t	*init_window(t_cub *cub)
 	mlx_get_monitor_size(0, &monitor_w, &monitor_h);
 	if (monitor_w > 0 && monitor_h > 0)
 	{
-		window->width = monitor_w;
-		window->height = monitor_h;
+		cub->game->width = monitor_w;
+		cub->game->height = monitor_h;
 		mlx_set_window_size(mlx, monitor_w, monitor_h);
 	}
 	else
 	{
-		window->width = mlx->width;
-		window->height = mlx->height;
+		cub->game->width = mlx->width;
+		cub->game->height = mlx->height;
 	}
-	cub->game->window = window;
 	cub->game->mlx = mlx;
 	cub->game->player = cub->player;
 	cub->game->cub = cub;
@@ -123,10 +118,7 @@ mlx_t	*init_window(t_cub *cub)
 
 void	get_image(t_game *game, t_cub *cub)
 {
-	t_window	*window;
-
-	window = game->window;
-	game->img = mlx_new_image(game->mlx, window->width, window->height);
+	game->img = mlx_new_image(game->mlx, game->width, game->height);
 	if (!game->img)
 		return ;
 	render_map(game->img, cub);
@@ -139,8 +131,8 @@ void	resize_hook(int32_t width, int32_t height, void *param)
 	t_game	*game;
 
 	game = param;
-	game->window->width = width;
-	game->window->height = height;
+	game->width = width;
+	game->height = height;
 	redraw(game);
 }
 
@@ -148,8 +140,7 @@ void	redraw(t_game *game)
 {
 	if (game->img)
 		mlx_delete_image(game->mlx, game->img);
-	game->img = mlx_new_image(game->mlx, game->window->width,
-			game->window->height);
+	game->img = mlx_new_image(game->mlx, game->width, game->height);
 	if (!game->img)
 		return ;
 	render_map(game->img, game->cub);
@@ -198,9 +189,9 @@ void	render_map(mlx_image_t *img, t_cub *cub)
 
 	map = cub->map;
 	clear_image(img, MINIMAP_BG);
-	tile = get_tile_size(cub->game->window, map);
-	origin_x = (cub->game->window->width - (map->max_width * tile)) / 2;
-	origin_y = (cub->game->window->height - (map->size * tile)) / 2;
+	tile = get_tile_size(cub->game, map);
+	origin_x = (cub->game->width - (map->max_width * tile)) / 2;
+	origin_y = (cub->game->height - (map->size * tile)) / 2;
 	y = 0;
 	while (y < map->size)
 	{
