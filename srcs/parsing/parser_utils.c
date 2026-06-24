@@ -6,7 +6,7 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/17 12:29:56 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/19 14:58:21 by MP9              ###   ########.fr       */
+/*   Updated: 2026/06/24 20:14:16 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool valid_chars(char **map)
 		si = 0;
 		while(map[bi][si])
 		{
-			if (!ft_strchr("01NSEW \t", map[bi][si]))
+			if (!ft_strchr("01789NSEW \t", map[bi][si]))
 				return(false);
 			si++;
 		}

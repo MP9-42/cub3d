@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/21 15:37:17 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/24 15:32:54 by alegeber         ###   ########.fr       */
+/*   Updated: 2026/06/24 18:20:21 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-#define MINIMAP_PADDING 16
-#define MINIMAP_TILE 8
-#define MINIMAP_RADIUS 10
-#define MINIMAP_WALL 0xE0E0E0CC
-#define MINIMAP_FLOOR 0x202020CC
-#define MINIMAP_VOID 0x111111CC
 
 static void	draw_player(mlx_image_t *img, t_cub *cub, int origin_x, int origin_y)
 {
@@ -57,7 +51,7 @@ mlx_t	*init_window(t_cub *cub)
 	cub->game->player = cub->player;
 	cub->game->cub = cub;
 	get_image(cub->game, cub);
-	mlx_loop_hook(mlx, update_player, cub);
+	// mlx_loop_hook(mlx, update_player, cub);
 	mlx_loop_hook(mlx, render_frame, cub);
 	mlx_loop(mlx);
 	return (mlx);

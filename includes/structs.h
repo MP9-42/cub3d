@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:16 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/24 14:05:45 by alegeber         ###   ########.fr       */
+/*   Updated: 2026/06/24 20:16:06 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct s_parsing t_parsing;
 typedef struct s_game t_game;
 typedef struct s_player t_player;
 typedef struct s_ray t_ray;
+typedef enum e_tiletype t_tyletype;
 
 typedef struct s_textures
 {
@@ -46,6 +47,14 @@ typedef struct s_game
 	int32_t		width;
 	int32_t		height;
 }				t_game;
+
+typedef enum e_tiletype
+{
+	POLICE = 6,
+	CAN = 7,
+	ELEVATOR = 8,
+	FINISH = 9,
+}			t_tyletype;
 
 typedef struct s_parsing
 {

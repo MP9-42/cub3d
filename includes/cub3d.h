@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:07 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/24 14:05:34 by alegeber         ###   ########.fr       */
+/*   Updated: 2026/06/24 19:40:48 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,15 @@
 
 # define WIDTH 800
 # define HEIGHT 600
+
 # define TILE 32
+# define MINIMAP_PADDING 24
+# define MINIMAP_BG 0x202020FF
+# define MINIMAP_WALL 0xE0E0E0FF
+# define MINIMAP_FLOOR 0x101010FF
+# define MINIMAP_VOID 0x050505FF
+# define MINIMAP_TILE 8
+# define MINIMAP_RADIUS 10
 
 # define WHITE 0xFFFFFFFF
 # define BLACK 0x000000FF
