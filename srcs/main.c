@@ -205,8 +205,18 @@ int main(int argc, char **argv)
 
 	cub->game = ft_calloc(sizeof(t_game), 1);
 	cub->player = init_player(cub->map);
-	cub->game->mlx = init_window(cub);
+	cub->game->width = WIDTH;
+	cub->game->height = HEIGHT;
+	cub->game->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
+	if (!cub->game->mlx)
+		exit(1);
+	cub->game->player = cub->player;
+	cub->game->cub = cub;
+	get_image(cub->game, cub);
+	mlx_loop_hook(cub->game->mlx, update_player, cub);
+	mlx_loop_hook(cub->game->mlx, render_frame, cub);
 	close(parsing->fd);
+	mlx_loop(cub->game->mlx);
 	mlx_terminate(cub->game->mlx);
 	exit(0);
 }

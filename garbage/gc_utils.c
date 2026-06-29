@@ -21,13 +21,16 @@ t_garbage	**get_gc_start(void)
 
 void	ft_putstr_err(char *s)
 {
+	size_t	len;
+	ssize_t	ret;
+
 	if (!s)
 		return ;
-	while (*s)
-	{
-		write(STDERR_FILENO, s, 1);
-		s++;
-	}
+	len = 0;
+	while (s[len])
+		len++;
+	ret = write(STDERR_FILENO, s, len);
+	(void)ret;
 }
 
 void	__wrap_exit(int status)
