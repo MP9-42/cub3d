@@ -14,8 +14,14 @@
 
 void add_wall_textures(t_textures *textures)
 {
-	mlx_load_png(textures->north);
-	mlx_load_png(textures->south);
-	mlx_load_png(textures->east);
-	mlx_load_png(textures->west);
+	textures->north_tex = mlx_load_png(textures->north);
+	textures->south_tex = mlx_load_png(textures->south);
+	textures->east_tex = mlx_load_png(textures->east);
+	textures->west_tex = mlx_load_png(textures->west);
+	if (!textures->north_tex || !textures->south_tex
+		|| !textures->east_tex || !textures->west_tex)
+	{
+		printf("Error\nFailed to load wall textures\n");
+		exit(1);
+	}
 }

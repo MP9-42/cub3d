@@ -139,6 +139,15 @@ t_map *get_map(t_cub *cub, t_parsing *parsing)
 	cub->textures->south = find_config_value(parsing->file, "SO");
 	cub->textures->north = find_config_value(parsing->file, "NO");
 	cub->textures->west = find_config_value(parsing->file, "WE");
+	if (cub->textures->east)
+		kill_n(cub->textures->east);
+	if (cub->textures->south)
+		kill_n(cub->textures->south);
+	if (cub->textures->north)
+		kill_n(cub->textures->north);
+	if (cub->textures->west)
+		kill_n(cub->textures->west);
+	add_wall_textures(cub->textures);
 	if (!floor || !ceiling)
 		return (error_exit(2), NULL);
 	cub->colors = assign_colors(floor, ceiling);

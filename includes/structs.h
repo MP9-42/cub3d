@@ -30,6 +30,10 @@ typedef struct s_textures
 	char *south;
 	char *west;
 	char *east;
+	mlx_texture_t *north_tex;
+	mlx_texture_t *south_tex;
+	mlx_texture_t *west_tex;
+	mlx_texture_t *east_tex;
 }				t_textures;
 
 typedef struct s_rowcols

@@ -66,6 +66,7 @@ int error_exit(int num);
 void readfile(t_parsing *parsing);
 void rf_helper(t_parsing *parsing, int *capacity, int i);
 int space_skip(char *str);
+void add_wall_textures(t_textures *textures);
 t_player	*init_player(t_map *map);
 int	is_wall(t_map *map, int x, int y);
 void	cast_ray(t_player *player, t_map *map, t_ray *ray, double camera_x);
