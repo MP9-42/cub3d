@@ -12,6 +12,7 @@
 
 #include "cub3d.h"
 
+# define MAX_PATH 1024
 
 typedef struct s_colors t_colors;
 typedef struct s_map t_map;
@@ -21,6 +22,7 @@ typedef struct s_rowcols t_rowcols;
 typedef struct s_parsing t_parsing;
 typedef struct s_game t_game;
 typedef struct s_player t_player;
+typedef struct s_npc t_npc;
 typedef struct s_ray t_ray;
 typedef enum e_tiletype t_tyletype;
 
@@ -112,6 +114,19 @@ typedef struct s_ray
 	int			draw_end;
 }				t_ray;
 
+typedef struct s_npc
+{
+	double		pos_x;
+	double		pos_y;
+	int			path_x[MAX_PATH];
+	int			path_y[MAX_PATH];
+	int			path_length;
+	int			current_target;
+	double		speed;
+	double		last_path_time;
+	bool		active;
+}				t_npc;
+
 typedef struct s_cub
 {
 	t_game		*game;
@@ -120,7 +135,8 @@ typedef struct s_cub
 	t_colors	*colors;
 	t_map		*map;
 	t_player	*player;
-	int			*fd;								//bro vertrau wir machen eif multiple maps mit den fds damit man mehrere lvl hat, die man ohne exiten starten kann;
+	t_npc		*npc;
+	int			*fd;
 }				t_cub;
 
 typedef struct s_point

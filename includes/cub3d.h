@@ -32,6 +32,11 @@
 # define BLACK 0x000000FF
 # define RED   0xFF0000FF
 # define GREEN 0x00FF00FF
+# define BLUE  0x0000FFFF
+
+# define NPC_SPEED 0.04
+# define NPC_RECOMPUTE 0.2
+# define NPC_CATCH_DIST 0.4
 
 # include <stdbool.h>
 # include <stdlib.h>
@@ -72,5 +77,8 @@ int	is_wall(t_map *map, int x, int y);
 void	cast_ray(t_player *player, t_map *map, t_ray *ray, double camera_x);
 void	render_frame(void *param);
 void	update_player(void *param);
+t_npc	*init_npc(t_map *map);
+void	update_npc(void *param);
+void	draw_npc(mlx_image_t *img, t_cub *cub);
 
 #endif

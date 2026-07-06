@@ -23,7 +23,7 @@ bool valid_chars(char **map)
 		si = 0;
 		while(map[bi][si])
 		{
-			if (!ft_strchr("01789NSEW \t", map[bi][si]))
+			if (!ft_strchr("016789NSEW \t", map[bi][si]))
 				return(false);
 			si++;
 		}

@@ -159,4 +159,5 @@ void	render_map(mlx_image_t *img, t_cub *cub)
 		dy++;
 	}
 	draw_player(img, cub, origin_x, origin_y);
+	draw_npc(img, cub);
 }
