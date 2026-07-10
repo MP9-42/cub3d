@@ -1,18 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   cubd3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/10 14:54:07 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/24 19:40:48 by MP9              ###   ########.fr       */
+/*   Created: 2026/07/10 16:02:34 by MP9               #+#    #+#             */
+/*   Updated: 2026/07/10 16:03:13 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 
 # define _GNU_SOURCE
 
@@ -80,6 +79,5 @@ void	update_player(void *param);
 t_npc	*init_npc(t_map *map);
 void	update_npc(void *param);
 void	draw_npc(mlx_image_t *img, t_cub *cub);
-void	draw_sprite(t_cub *cub, double *raycaster_buffer);
 
 #endif

@@ -84,6 +84,7 @@ void	render_frame(void *param)
 	t_cub	*cub;
 	t_ray	ray;
 	double	camera_x;
+	double	raycaster_buffer[WIDTH];
 	int		x;
 	int		w;
 
@@ -95,7 +96,9 @@ void	render_frame(void *param)
 		camera_x = 2.0 * x / w - 1.0;
 		cast_ray(cub->player, cub->map, &ray, camera_x);
 		draw_column(cub->game, cub->textures, cub->player, cub->colors, &ray, x);
+		raycaster_buffer[x] = ray.perp_wall_dist;
 		x++;
 	}
+	draw_sprite(cub, raycaster_buffer);
 	render_map(cub->game->img, cub);
 }

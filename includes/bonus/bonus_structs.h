@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structs.h                                          :+:      :+:    :+:   */
+/*   bonus_structs.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/10 14:54:16 by MP9               #+#    #+#             */
-/*   Updated: 2026/07/10 16:08:06 by MP9              ###   ########.fr       */
+/*   Created: 2026/07/10 16:00:40 by MP9               #+#    #+#             */
+/*   Updated: 2026/07/10 16:04:34 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ typedef struct s_textures
 	char *east;
 	char *police;
 	char *can;
-	mlx_texture_t *police_tex;
-	mlx_texture_t *can_tex;
 	mlx_texture_t *north_tex;
 	mlx_texture_t *south_tex;
 	mlx_texture_t *west_tex;
 	mlx_texture_t *east_tex;
+	mlx_texture_t *police_tex;
+	mlx_texture_t *can_tex;
 }				t_textures;
 
 typedef struct s_rowcols

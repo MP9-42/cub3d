@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:35 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/24 14:04:36 by alegeber         ###   ########.fr       */
+/*   Updated: 2026/07/10 16:13:27 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,10 @@ t_map *get_map(t_cub *cub, t_parsing *parsing)
 		kill_n(cub->textures->north);
 	if (cub->textures->west)
 		kill_n(cub->textures->west);
+	if (cub->textures->police)
+		kill_n(cub->textures->police);
+	if (cub->textures->can)
+		kill_n(cub->textures->can);
 	add_wall_textures(cub->textures);
 	if (!floor || !ceiling)
 		return (error_exit(2), NULL);

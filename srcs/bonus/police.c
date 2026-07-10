@@ -263,3 +263,89 @@ void	draw_npc(mlx_image_t *img, t_cub *cub)
 		ps = 3;
 	draw_tile(img, cx - ps / 2, cy - ps / 2, ps, BLUE);
 }
+
+void	draw_sprite(t_cub *cub, double *raycaster_buffer)
+{
+	t_npc			*npc;
+	double			sprite_x;
+	double			sprite_y;
+	double			inv_det;
+	double			transform_x;
+	double			transform_y;
+	int				sprite_screen_x;
+	int				sprite_height;
+	int				draw_start_y;
+	int				draw_end_y;
+	int				sprite_width;
+	int				draw_start_x;
+	int				draw_end_x;
+	int				stripe;
+	int				tex_x;
+	int				tex_y;
+	int				d;
+	int				y;
+	uint8_t			*pixel;
+	uint32_t		color;
+	mlx_texture_t	*tex;
+
+	npc = cub->npc;
+	if (!npc || !npc->active)
+		return ;
+	tex = cub->textures->police_tex;
+	if (!tex)
+		return ;
+	sprite_x = npc->pos_x - cub->player->pos_x;
+	sprite_y = npc->pos_y - cub->player->pos_y;
+	inv_det = 1.0 / (cub->player->plane_x * cub->player->dir_y
+			- cub->player->dir_x * cub->player->plane_y);
+	transform_x = inv_det * (cub->player->dir_y * sprite_x
+			- cub->player->dir_x * sprite_y);
+	transform_y = inv_det * (-cub->player->plane_y * sprite_x
+			+ cub->player->plane_x * sprite_y);
+	if (transform_y <= 0)
+		return ;
+	sprite_screen_x = (int)((WIDTH / 2) * (1 + transform_x / transform_y));
+	sprite_height = abs((int)(HEIGHT / transform_y));
+	draw_start_y = -sprite_height / 2 + HEIGHT / 2;
+	if (draw_start_y < 0)
+		draw_start_y = 0;
+	draw_end_y = sprite_height / 2 + HEIGHT / 2;
+	if (draw_end_y >= HEIGHT)
+		draw_end_y = HEIGHT - 1;
+	sprite_width = abs((int)(HEIGHT / transform_y));
+	draw_start_x = -sprite_width / 2 + sprite_screen_x;
+	if (draw_start_x < 0)
+		draw_start_x = 0;
+	draw_end_x = sprite_width / 2 + sprite_screen_x;
+	if (draw_end_x >= WIDTH)
+		draw_end_x = WIDTH - 1;
+	stripe = draw_start_x;
+	while (stripe < draw_end_x)
+	{
+		tex_x = (int)(256 * (stripe - (-sprite_width / 2 + sprite_screen_x))
+				* tex->width / sprite_width) / 256;
+		if (stripe > 0 && stripe < WIDTH
+			&& transform_y < raycaster_buffer[stripe])
+		{
+			y = draw_start_y;
+			while (y < draw_end_y)
+			{
+				d = y * 256 - HEIGHT * 128 + sprite_height * 128;
+				tex_y = ((d * tex->height) / sprite_height) / 256;
+				if (tex_y < 0)
+					tex_y = 0;
+				if (tex_y >= (int)tex->height)
+					tex_y = tex->height - 1;
+				pixel = &tex->pixels[(tex_y * tex->width + tex_x) * 4];
+				if (pixel[3] != 0)
+				{
+					color = (pixel[0] << 24) | (pixel[1] << 16)
+						| (pixel[2] << 8) | pixel[3];
+					mlx_put_pixel(cub->game->img, stripe, y, color);
+				}
+				y++;
+			}
+		}
+		stripe++;
+	}
+}

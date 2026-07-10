@@ -6,7 +6,7 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 18:49:44 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/19 21:07:40 by MP9              ###   ########.fr       */
+/*   Updated: 2026/07/10 16:14:49 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,11 @@ void add_wall_textures(t_textures *textures)
 	textures->south_tex = mlx_load_png(textures->south);
 	textures->east_tex = mlx_load_png(textures->east);
 	textures->west_tex = mlx_load_png(textures->west);
+	textures->police_tex = mlx_load_png("textures/sprites/POLICE.png");
+	textures->can_tex = mlx_load_png("textures/sprites/BLUE.png");
 	if (!textures->north_tex || !textures->south_tex
-		|| !textures->east_tex || !textures->west_tex)
+		|| !textures->east_tex || !textures->west_tex
+		|| !textures->police_tex || !textures->can_tex)
 	{
 		printf("Error\nFailed to load wall textures\n");
 		exit(1);
