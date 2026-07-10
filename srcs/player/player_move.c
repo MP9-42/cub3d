@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_move.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/24 10:11:03 by alegeber          #+#    #+#             */
-/*   Updated: 2026/06/24 15:41:59 by alegeber         ###   ########.fr       */
+/*   Updated: 2026/07/10 16:41:04 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,11 @@ void	update_player(void *param)
 	rot_speed = 0.03;
 	move_x = 0;
 	move_y = 0;
+	if (mlx_is_key_down(cub->game->mlx, MLX_KEY_ESCAPE))
+	{
+		mlx_terminate(cub->game->mlx);
+		exit(0);
+	}
 	if (mlx_is_key_down(cub->game->mlx, MLX_KEY_W))
 	{
 		move_x += cub->player->dir_x * move_speed;

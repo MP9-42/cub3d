@@ -26,6 +26,21 @@ uint32_t	get_rgb(char **part)
 	return ((uint32_t)r << 24 | (uint32_t)g << 16 | (uint32_t)b << 8 | 0xFF);
 }
 
+static void	free_split(char **split)
+{
+	int	i;
+
+	if (!split)
+		return ;
+	i = 0;
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
+}
+
 t_colors *assign_colors(char *floor, char *ceiling)
 {
 	char **chao;
@@ -37,5 +52,7 @@ t_colors *assign_colors(char *floor, char *ceiling)
 	teto = ft_split(ceiling, ',');
 	colors->ceiling = get_rgb(teto);
 	colors->floor = get_rgb(chao);
+	free_split(chao);
+	free_split(teto);
 	return(colors);
 }
