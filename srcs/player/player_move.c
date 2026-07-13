@@ -51,17 +51,17 @@ void	update_player(void *param)
 	double	move_y;
 
 	cub = (t_cub *)param;
+	if (mlx_is_key_down(cub->game->mlx, MLX_KEY_ESCAPE))
+	{
+		mlx_terminate(cub->game->mlx);
+		exit(0);
+	}
 	if (cub->game_over || cub->you_win)
 		return ;
 	move_speed = 0.05;
 	rot_speed = 0.03;
 	move_x = 0;
 	move_y = 0;
-	if (mlx_is_key_down(cub->game->mlx, MLX_KEY_ESCAPE))
-	{
-		mlx_terminate(cub->game->mlx);
-		exit(0);
-	}
 	if (mlx_is_key_down(cub->game->mlx, MLX_KEY_W))
 	{
 		move_x += cub->player->dir_x * move_speed;

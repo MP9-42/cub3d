@@ -146,6 +146,9 @@ static int	bfs(t_map *map, int sx, int sy, int ex, int ey,
 		cx = nx;
 		cy = ny;
 	}
+	if (cx != sx || cy != sy)
+		return (free(visited), free(par_x), free(par_y),
+			free(qx), free(qy), 0);
 	path_x[len] = cx;
 	path_y[len] = cy;
 	len++;
@@ -194,7 +197,7 @@ void	update_npc(void *param)
 	int		py;
 
 	cub = (t_cub *)param;
-	if (!cub->npc || !cub->npc->active || cub->game_over)
+	if (!cub->npc || !cub->npc->active || cub->game_over || cub->you_win)
 		return ;
 	now = get_time();
 	if (now - cub->npc->last_path_time > NPC_RECOMPUTE)
@@ -338,8 +341,9 @@ void	draw_sprite(t_cub *cub, double *raycaster_buffer)
 				pixel = &tex->pixels[(tex_y * tex->width + tex_x) * 4];
 				if (pixel[3] != 0)
 				{
-					color = (pixel[0] << 24) | (pixel[1] << 16)
-						| (pixel[2] << 8) | pixel[3];
+					color = ((uint32_t)pixel[0] << 24)
+						| ((uint32_t)pixel[1] << 16)
+						| ((uint32_t)pixel[2] << 8) | pixel[3];
 					mlx_put_pixel(cub->game->img, stripe, y, color);
 				}
 				y++;
