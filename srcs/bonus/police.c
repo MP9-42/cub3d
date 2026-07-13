@@ -135,6 +135,8 @@ static int	bfs(t_map *map, int sx, int sy, int ex, int ey,
 	cy = ey;
 	while (cx != sx || cy != sy)
 	{
+		if (len >= MAX_PATH - 1)
+			break ;
 		path_x[len] = cx;
 		path_y[len] = cy;
 		len++;
