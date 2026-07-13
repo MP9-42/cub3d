@@ -229,6 +229,7 @@ int main(int argc, char **argv)
 	get_image(cub->game, cub);
 	mlx_loop_hook(cub->game->mlx, update_player, cub);
 	mlx_loop_hook(cub->game->mlx, update_npc, cub);
+	mlx_loop_hook(cub->game->mlx, update_items, cub);
 	mlx_loop_hook(cub->game->mlx, render_frame, cub);
 	close(parsing->fd);
 	mlx_loop(cub->game->mlx);

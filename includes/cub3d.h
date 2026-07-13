@@ -81,5 +81,6 @@ t_npc	*init_npc(t_map *map);
 void	update_npc(void *param);
 void	draw_npc(mlx_image_t *img, t_cub *cub);
 void	draw_sprite(t_cub *cub, double *raycaster_buffer);
+void	update_items(void *param);
 
 #endif
