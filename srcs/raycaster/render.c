@@ -80,6 +80,21 @@ static void	draw_column(t_game *game, t_textures *textures, t_player *player,
 		mlx_put_pixel(game->img, x, y++, colors->floor);
 }
 
+static void	draw_overlay(mlx_image_t *img, uint32_t color)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+			mlx_put_pixel(img, x++, y, color);
+		y++;
+	}
+}
+
 void	render_frame(void *param)
 {
 	t_cub	*cub;
@@ -90,6 +105,18 @@ void	render_frame(void *param)
 	int		w;
 
 	cub = (t_cub *)param;
+	if (cub->game_over || cub->you_win)
+	{
+		if (!cub->overlay_drawn)
+		{
+			if (cub->game_over)
+				draw_overlay(cub->game->img, 0xAA0000FF);
+			else
+				draw_overlay(cub->game->img, 0x00AA00FF);
+			cub->overlay_drawn = true;
+		}
+		return ;
+	}
 	w = WIDTH;
 	x = 0;
 	while (x < w)

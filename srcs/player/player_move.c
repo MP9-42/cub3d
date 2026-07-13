@@ -51,6 +51,8 @@ void	update_player(void *param)
 	double	move_y;
 
 	cub = (t_cub *)param;
+	if (cub->game_over || cub->you_win)
+		return ;
 	move_speed = 0.05;
 	rot_speed = 0.03;
 	move_x = 0;

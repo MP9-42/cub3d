@@ -194,7 +194,7 @@ void	update_npc(void *param)
 	int		py;
 
 	cub = (t_cub *)param;
-	if (!cub->npc || !cub->npc->active)
+	if (!cub->npc || !cub->npc->active || cub->game_over)
 		return ;
 	now = get_time();
 	if (now - cub->npc->last_path_time > NPC_RECOMPUTE)
@@ -229,10 +229,7 @@ void	update_npc(void *param)
 	dy = cub->player->pos_y - cub->npc->pos_y;
 	dist = sqrt(dx * dx + dy * dy);
 	if (dist < NPC_CATCH_DIST)
-	{
-		printf("Game Over\n");
-		exit(0);
-	}
+		cub->game_over = true;
 }
 
 void	draw_npc(mlx_image_t *img, t_cub *cub)

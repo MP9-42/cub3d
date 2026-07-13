@@ -141,6 +141,9 @@ typedef struct s_cub
 	t_player	*player;
 	t_npc		*npc;
 	int			*fd;
+	bool		game_over;
+	bool		you_win;
+	bool		overlay_drawn;
 }				t_cub;
 
 typedef struct s_point
