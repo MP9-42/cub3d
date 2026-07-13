@@ -72,7 +72,8 @@ static void	draw_column(t_game *game, t_textures *textures, t_player *player,
 			tex_y = tex->height - 1;
 		tex_pos += step;
 		pixel = &tex->pixels[(tex_y * tex->width + tex_x) * 4];
-		color = (pixel[0] << 24) | (pixel[1] << 16) | (pixel[2] << 8) | pixel[3];
+		color = ((uint32_t)pixel[0] << 24) | ((uint32_t)pixel[1] << 16)
+			| ((uint32_t)pixel[2] << 8) | pixel[3];
 		mlx_put_pixel(game->img, x, y++, color);
 	}
 	while (y < h)
