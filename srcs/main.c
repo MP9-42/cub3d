@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
+/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:35 by MP9               #+#    #+#             */
-/*   Updated: 2026/07/10 16:13:27 by MP9              ###   ########.fr       */
+/*   Updated: 2026/07/15 12:54:41 by alegeber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,6 +215,7 @@ int main(int argc, char **argv)
 	cub->map = get_map(cub, parsing);
 	if (!validate_map(cub->map))
 		error_exit(2);
+	cub->total_cans = count_total_cans(cub->map);
 
 	cub->game = ft_calloc(sizeof(t_game), 1);
 	cub->player = init_player(cub->map);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
+/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:07 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/24 19:40:48 by MP9              ###   ########.fr       */
+/*   Updated: 2026/07/15 12:54:23 by alegeber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@
 # define NPC_SPEED 0.04
 # define NPC_RECOMPUTE 0.2
 # define NPC_CATCH_DIST 0.4
+
+# define HUD_ICON_SIZE 28
+# define HUD_ICON_GAP 6
+# define HUD_MARGIN 16
+# define HUD_DOT_COLOR 0x808080FF
 
 # include <stdbool.h>
 # include <stdlib.h>
@@ -81,6 +86,11 @@ t_npc	*init_npc(t_map *map);
 void	update_npc(void *param);
 void	draw_npc(mlx_image_t *img, t_cub *cub);
 void	draw_sprite(t_cub *cub, double *raycaster_buffer);
+void	draw_billboard_sprite(t_cub *cub, double wx, double wy,
+			mlx_texture_t *tex, double *raycaster_buffer);
 void	update_items(void *param);
+int		count_total_cans(t_map *map);
+void	draw_cans(t_cub *cub, double *raycaster_buffer);
+void	draw_can_hud(t_cub *cub);
 
 #endif

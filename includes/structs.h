@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
+/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:16 by MP9               #+#    #+#             */
-/*   Updated: 2026/07/10 16:08:06 by MP9              ###   ########.fr       */
+/*   Updated: 2026/07/15 12:54:28 by alegeber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ typedef struct s_cub
 	t_npc		*npc;
 	int			*fd;
 	int			can_count;
+	int			total_cans;
 	bool		game_over;
 	bool		you_win;
 	bool		overlay_drawn;
