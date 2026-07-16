@@ -3,15 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   police.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/02 18:59:12 by MP9               #+#    #+#             */
-/*   Updated: 2026/07/15 12:55:04 by alegeber         ###   ########.fr       */
+/*   Updated: 2026/07/16 19:02:07 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include <sys/time.h>
+
+void assign_npc_stats(t_map *map, t_npc *npc, int y, int x)
+{
+	npc->pos_x = x + 0.5;
+	npc->pos_y = y + 0.5;
+	npc->speed = NPC_SPEED;
+	npc->active = true;
+	npc->path_length = 0;
+	npc->current_target = 0;
+	npc->last_path_time = 0;
+	map->rmap[y][x] = '0';
+}
 
 t_npc	*init_npc(t_map *map)
 {
@@ -30,14 +42,7 @@ t_npc	*init_npc(t_map *map)
 				npc = ft_calloc(sizeof(t_npc), 1);
 				if (!npc)
 					return (NULL);
-				npc->pos_x = x + 0.5;
-				npc->pos_y = y + 0.5;
-				npc->speed = NPC_SPEED;
-				npc->active = true;
-				npc->path_length = 0;
-				npc->current_target = 0;
-				npc->last_path_time = 0;
-				map->rmap[y][x] = '0';
+				assign_npc_stats(map, npc, y, x);
 				return (npc);
 			}
 			x++;
@@ -55,119 +60,137 @@ static double	get_time(void)
 	return (tv.tv_sec + tv.tv_usec * 0.000001);
 }
 
-static int	bfs(t_map *map, int sx, int sy, int ex, int ey,
-		int *path_x, int *path_y)
+static void bfs_init(int start_x, int start_y, t_bfs *bfs)
 {
-	int		*visited;
-	int		*par_x;
-	int		*par_y;
-	int		*qx;
-	int		*qy;
-	int		front;
-	int		rear;
-	int		dx[4];
-	int		dy[4];
-	int		i;
-	int		nx;
-	int		ny;
-	int		cx;
-	int		cy;
-	int		len;
-	int		idx;
-	int		w;
-	int		total;
+	bfs->front = 0;
+	bfs->rear = 0;
+	bfs->queue_x[bfs->rear] = start_x;
+	bfs->queue_y[bfs->rear] = start_y;
+	bfs->rear++;
+	bfs->visited[start_y * bfs->width + start_x] = 1;
+	bfs->dx[0] = 1;
+	bfs->dy[0] = 0;
+	bfs->dx[1] = -1;
+	bfs->dy[1] = 0;
+	bfs->dx[2] = 0;
+	bfs->dy[2] = 1;
+	bfs->dx[3] = 0;
+	bfs->dy[3] = -1;
+}
 
-	w = map->max_width;
-	total = map->size * w;
-	visited = ft_calloc(total, sizeof(int));
-	par_x = ft_calloc(total, sizeof(int));
-	par_y = ft_calloc(total, sizeof(int));
-	qx = ft_calloc(total, sizeof(int));
-	qy = ft_calloc(total, sizeof(int));
-	if (!visited || !par_x || !par_y || !qx || !qy)
-		return (free(visited), free(par_x), free(par_y),
-			free(qx), free(qy), 0);
-	front = 0;
-	rear = 0;
-	qx[rear] = sx;
-	qy[rear] = sy;
-	rear++;
-	visited[sy * w + sx] = 1;
-	dx[0] = 1;
-	dy[0] = 0;
-	dx[1] = -1;
-	dy[1] = 0;
-	dx[2] = 0;
-	dy[2] = 1;
-	dx[3] = 0;
-	dy[3] = -1;
-	while (front < rear)
+static void bfs_alloc(t_bfs *bfs)
+{
+	bfs->visited = ft_calloc(bfs->total, sizeof(int));
+	bfs->par_x = ft_calloc(bfs->total, sizeof(int));
+	bfs->par_y = ft_calloc(bfs->total, sizeof(int));
+	bfs->queue_x = ft_calloc(bfs->total, sizeof(int));
+	bfs->queue_y = ft_calloc(bfs->total, sizeof(int));
+}
+
+static void algo_helper(t_map *map, t_bfs *bfs)
+{
+	while (bfs->i < 4)
 	{
-		cx = qx[front];
-		cy = qy[front];
-		front++;
-		if (cx == ex && cy == ey)
-			break ;
-		i = 0;
-		while (i < 4)
+		bfs->nx = bfs->current_x + bfs->dx[bfs->i];
+		bfs->ny = bfs->current_y + bfs->dy[bfs->i];
+		if (bfs->ny >= 0 && bfs->ny < map->size && bfs->nx >= 0 && bfs->nx < bfs->width
+		    && map->rmap[bfs->ny][bfs->nx] != '1'
+		    && !bfs->visited[bfs->ny * bfs->width + bfs->nx])
 		{
-			nx = cx + dx[i];
-			ny = cy + dy[i];
-			if (ny >= 0 && ny < map->size && nx >= 0 && nx < w
-				&& map->rmap[ny][nx] != '1'
-				&& !visited[ny * w + nx])
-			{
-				visited[ny * w + nx] = 1;
-				par_x[ny * w + nx] = cx;
-				par_y[ny * w + nx] = cy;
-				qx[rear] = nx;
-				qy[rear] = ny;
-				rear++;
-			}
-			i++;
+			bfs->visited[bfs->ny * bfs->width + bfs->nx] = 1;
+			bfs->par_x[bfs->ny * bfs->width + bfs->nx] = bfs->current_x;
+			bfs->par_y[bfs->ny * bfs->width + bfs->nx] = bfs->current_y;
+			bfs->queue_x[bfs->rear] = bfs->nx;
+			bfs->queue_y[bfs->rear] = bfs->ny;
+			bfs->rear++;
 		}
+		bfs->i++;
 	}
-	if (!visited[ey * w + ex])
-		return (free(visited), free(par_x), free(par_y),
-			free(qx), free(qy), 0);
-	len = 0;
-	cx = ex;
-	cy = ey;
-	while (cx != sx || cy != sy)
+}
+
+static void path_reconstructor(t_bfs *bfs)
+{
+	bfs->len = 0;
+	bfs->current_x = bfs->end_x;
+	bfs->current_y = bfs->end_y;
+	while (bfs->current_x != bfs->start_x || bfs->current_y != bfs->start_y)
 	{
-		if (len >= MAX_PATH - 1)
+		if (bfs->len >= MAX_PATH - 1)
 			break ;
-		path_x[len] = cx;
-		path_y[len] = cy;
-		len++;
-		idx = cy * w + cx;
-		nx = par_x[idx];
-		ny = par_y[idx];
-		cx = nx;
-		cy = ny;
+		bfs->path_x[bfs->len] = bfs->current_x;
+		bfs->path_y[bfs->len] = bfs->current_y;
+		bfs->len++;
+		bfs->idx = bfs->current_y * bfs->width + bfs->current_x;
+		bfs->nx = bfs->par_x[bfs->idx];
+		bfs->ny = bfs->par_y[bfs->idx];
+		bfs->current_x = bfs->nx;
+		bfs->current_y = bfs->ny;
 	}
-	if (cx != sx || cy != sy)
-		return (free(visited), free(par_x), free(par_y),
-			free(qx), free(qy), 0);
-	path_x[len] = cx;
-	path_y[len] = cy;
-	len++;
-	i = 0;
-	while (i < len / 2)
+}
+
+static void path_swapper(t_bfs *bfs)
+{
+	bfs->path_x[bfs->len] = bfs->current_x;
+	bfs->path_y[bfs->len] = bfs->current_y;
+	bfs->len++;
+	bfs->i = 0;
+	while (bfs->i < bfs->len / 2)
 	{
-		nx = path_x[i];
-		ny = path_y[i];
-		path_x[i] = path_x[len - 1 - i];
-		path_y[i] = path_y[len - 1 - i];
-		path_x[len - 1 - i] = nx;
-		path_y[len - 1 - i] = ny;
-		i++;
+		bfs->nx = bfs->path_x[bfs->i];
+		bfs->ny = bfs->path_y[bfs->i];
+		bfs->path_x[bfs->i] = bfs->path_x[bfs->len - 1 - bfs->i];
+		bfs->path_y[bfs->i] = bfs->path_y[bfs->len - 1 - bfs->i];
+		bfs->path_x[bfs->len - 1 - bfs->i] = bfs->nx;
+		bfs->path_y[bfs->len - 1 - bfs->i] = bfs->ny;
+		bfs->i++;
 	}
-	free(visited);
-	free(par_x);
-	free(par_y);
-	free(qx);
-	free(qy);
+}
+
+static void breadth_first_search(t_map *map, t_bfs *bfs)
+{
+	while (bfs->front < bfs->rear)
+	{
+		bfs->current_x = bfs->queue_x[bfs->front];
+		bfs->current_y = bfs->queue_y[bfs->front];
+		bfs->front++;
+		if (bfs->current_x == bfs->end_x && bfs->current_y == bfs->end_y)
+			break ;
+		bfs->i = 0;
+		algo_helper(map, bfs);
+	}
+}
+
+static void free_bfs(t_bfs *bfs)
+{
+	free(bfs->visited);
+	free(bfs->par_x);
+	free(bfs->par_y);
+	free(bfs->queue_x);
+	free(bfs->queue_y);
+}
+
+static int	bifis(t_map *map, t_bfs *bfs)
+{
+	int len;
+
+	bfs->width = map->max_width;
+	bfs->total = map->size * bfs->width;
+	bfs_alloc(bfs);
+	if (!bfs->visited || !bfs->par_x || !bfs->par_y || !bfs->queue_x || !bfs->queue_y)
+		return (free(bfs->visited), free(bfs->par_x), free(bfs->par_y),
+			free(bfs->queue_x), free(bfs->queue_y), 0);
+	bfs_init(bfs->start_x, bfs->start_y, bfs);
+	breadth_first_search(map, bfs);
+	if (!bfs->visited[bfs->end_y * bfs->width + bfs->end_x])
+		return (free(bfs->visited), free(bfs->par_x), free(bfs->par_y),
+			free(bfs->queue_x), free(bfs->queue_y), 0);
+	path_reconstructor(bfs);
+	if (bfs->current_x != bfs->start_x || bfs->current_y != bfs->start_y)
+		return (free(bfs->visited), free(bfs->par_x), free(bfs->par_y),
+			free(bfs->queue_x), free(bfs->queue_y), 0);
+	path_swapper(bfs);
+	len = bfs->len;
+	free_bfs(bfs);
 	return (len);
 }
 
@@ -184,86 +207,89 @@ static void	move_npc(t_cub *cub, double mx, double my)
 		cub->npc->pos_y = ny;
 }
 
+void get_length(t_cub *cub, t_npc *npc, t_bfs *bfs, double now)
+{
+	if (now - cub->npc->last_path_time > NPC_RECOMPUTE)
+	{
+		npc->last_path_time = now;
+		bfs->path_x = npc->path_x;
+		bfs->path_y = npc->path_y;
+		bfs->start_x = (int)npc->pos_x;
+		bfs->start_y = (int)npc->pos_y;
+		bfs->end_x = (int)cub->player->pos_x;
+		bfs->end_y = (int)cub->player->pos_y;
+		cub->npc->path_length = bifis(cub->map, &*bfs);
+		cub->npc->current_target = 1;
+	}
+}
+
+void get_distance(t_cub *cub, t_npc *npc, t_bfs *bfs)
+{
+	bfs->target_x = cub->npc->path_x[cub->npc->current_target] + 0.5;
+	bfs->target_y = cub->npc->path_y[cub->npc->current_target] + 0.5;
+	npc->dx = bfs->target_x - cub->npc->pos_x;
+	npc->dy = bfs->target_y - cub->npc->pos_y;
+	bfs->dist = sqrt(npc->dx * npc->dx + npc->dy * npc->dy);
+}
+
+void move_n_get_distance(t_cub *cub, t_npc *npc, t_bfs *bfs)
+{
+	npc->dx /= bfs->dist;
+	npc->dy /= bfs->dist;
+	move_npc(cub, npc->dx * cub->npc->speed, npc->dy * cub->npc->speed);
+	npc->dx = cub->player->pos_x - cub->npc->pos_x;
+	npc->dy = cub->player->pos_y - cub->npc->pos_y;
+	bfs->dist = sqrt(npc->dx * npc->dx + npc->dy * npc->dy);
+}
+
 void	update_npc(void *param)
 {
 	t_cub	*cub;
-	double	now;
-	double	target_x;
-	double	target_y;
-	double	dx;
-	double	dy;
-	double	dist;
-	int		px;
-	int		py;
+	t_npc	*npc;
+	t_bfs	bfs;
 
 	cub = (t_cub *)param;
-	if (!cub->npc || !cub->npc->active || cub->game_over || cub->you_win)
+	npc = cub->npc;
+	if (!npc || !npc->active || cub->game_over || cub->you_win)
 		return ;
-	now = get_time();
-	if (now - cub->npc->last_path_time > NPC_RECOMPUTE)
-	{
-		cub->npc->last_path_time = now;
-		px = (int)cub->player->pos_x;
-		py = (int)cub->player->pos_y;
-		cub->npc->path_length = bfs(cub->map,
-				(int)cub->npc->pos_x, (int)cub->npc->pos_y,
-				px, py,
-				cub->npc->path_x, cub->npc->path_y);
-		cub->npc->current_target = 1;
-	}
+	ft_memset(&bfs, 0, sizeof(t_bfs));
+	bfs.now = get_time();
+	get_length(cub, npc, &bfs, bfs.now);
 	if (cub->npc->path_length < 2)
 		return ;
 	if (cub->npc->current_target >= cub->npc->path_length)
 		return ;
-	target_x = cub->npc->path_x[cub->npc->current_target] + 0.5;
-	target_y = cub->npc->path_y[cub->npc->current_target] + 0.5;
-	dx = target_x - cub->npc->pos_x;
-	dy = target_y - cub->npc->pos_y;
-	dist = sqrt(dx * dx + dy * dy);
-	if (dist < 0.05)
+	get_distance(cub, npc, &bfs);
+	if (bfs.dist < 0.05)
 	{
 		cub->npc->current_target++;
 		return ;
 	}
-	dx /= dist;
-	dy /= dist;
-	move_npc(cub, dx * cub->npc->speed, dy * cub->npc->speed);
-	dx = cub->player->pos_x - cub->npc->pos_x;
-	dy = cub->player->pos_y - cub->npc->pos_y;
-	dist = sqrt(dx * dx + dy * dy);
-	if (dist < NPC_CATCH_DIST)
+	move_n_get_distance(cub, npc, &bfs);
+	if (bfs.dist < NPC_CATCH_DIST)
 		cub->game_over = true;
 }
 
 void	draw_npc(mlx_image_t *img, t_cub *cub)
-{
-	int		view;
-	int		ox;
-	int		oy;
-	int		cdx;
-	int		cdy;
-	int		cx;
-	int		cy;
-	int		ps;
-
+{	
 	if (!cub->npc || !cub->npc->active)
+	return ;
+	cub->npc->offset_x = (int)((cub->npc->pos_x - cub->player->pos_x) * MINIMAP_TILE);
+	cub->npc->offset_y = (int)((cub->npc->pos_y - cub->player->pos_y) * MINIMAP_TILE);
+	if (cub->npc->offset_x < -MINIMAP_RADIUS * MINIMAP_TILE
+		|| cub->npc->offset_x > MINIMAP_RADIUS * MINIMAP_TILE
+		|| cub->npc->offset_y < -MINIMAP_RADIUS * MINIMAP_TILE
+		|| cub->npc->offset_y > MINIMAP_RADIUS * MINIMAP_TILE)
 		return ;
-	cdx = (int)((cub->npc->pos_x - cub->player->pos_x) * MINIMAP_TILE);
-	cdy = (int)((cub->npc->pos_y - cub->player->pos_y) * MINIMAP_TILE);
-	if (cdx < -MINIMAP_RADIUS * MINIMAP_TILE
-		|| cdx > MINIMAP_RADIUS * MINIMAP_TILE
-		|| cdy < -MINIMAP_RADIUS * MINIMAP_TILE
-		|| cdy > MINIMAP_RADIUS * MINIMAP_TILE)
-		return ;
-	view = (2 * MINIMAP_RADIUS + 1) * MINIMAP_TILE;
-	ox = WIDTH - MINIMAP_PADDING - view;
-	oy = MINIMAP_PADDING;
-	cx = ox + MINIMAP_RADIUS * MINIMAP_TILE + MINIMAP_TILE / 2 + cdx;
-	cy = oy + MINIMAP_RADIUS * MINIMAP_TILE + MINIMAP_TILE / 2 + cdy;
-	ps = MINIMAP_TILE / 3;
-	if (ps < 3)
-		ps = 3;
-	draw_tile(img, cx - ps / 2, cy - ps / 2, ps, BLUE);
+	cub->npc->view = (2 * MINIMAP_RADIUS + 1) * MINIMAP_TILE;
+	cub->npc->minimap_x = WIDTH - MINIMAP_PADDING - cub->npc->view;
+	cub->npc->minimap_y = MINIMAP_PADDING;
+	cub->npc->screen_x = cub->npc->minimap_x + MINIMAP_RADIUS * MINIMAP_TILE + MINIMAP_TILE / 2 + cub->npc->offset_x;
+	cub->npc->screen_y = cub->npc->minimap_y + MINIMAP_RADIUS * MINIMAP_TILE + MINIMAP_TILE / 2 + cub->npc->offset_y;
+	cub->npc->ps = MINIMAP_TILE / 3;
+	if (cub->npc->ps < 3)
+		cub->npc->ps = 3;
+	draw_tile(img, cub->npc->screen_x - cub->npc->ps / 2, cub->npc->screen_y - cub->npc->ps / 2, cub->npc->ps, BLUE);
 }
 
 void	draw_sprite(t_cub *cub, double *raycaster_buffer)

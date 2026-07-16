@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:16 by MP9               #+#    #+#             */
-/*   Updated: 2026/07/15 12:54:28 by alegeber         ###   ########.fr       */
+/*   Updated: 2026/07/16 18:58:22 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,40 @@ typedef struct s_player t_player;
 typedef struct s_npc t_npc;
 typedef struct s_ray t_ray;
 typedef enum e_tiletype t_tyletype;
+
+typedef struct s_bfs
+{
+	double	now;
+	double	target_x;
+	double	target_y;
+	double	dist;
+	int		*visited;
+	int		*par_x;
+	int		*par_y;
+	int 	*path_x;
+	int 	*path_y;
+	int		*queue_x;
+	int		*queue_y;
+	int		front;
+	int		start_x;
+	int		start_y;
+	int		rear;
+	int		dx[4];
+	int		dy[4];
+	int		i;
+	int		end_x;
+	int		end_y;
+	int		player_tile_x;
+	int 	player_tile_y;
+	int		nx;
+	int		ny;
+	int		current_x;
+	int		current_y;
+	int		len;
+	int		idx;
+	int		width;
+	int		total;
+}				t_bfs;
 
 typedef struct s_textures
 {
@@ -120,14 +154,24 @@ typedef struct s_ray
 
 typedef struct s_npc
 {
+	double		dx;
+	double		dy;
 	double		pos_x;
 	double		pos_y;
+	double		speed;
+	double		last_path_time;
 	int			path_x[MAX_PATH];
 	int			path_y[MAX_PATH];
 	int			path_length;
 	int			current_target;
-	double		speed;
-	double		last_path_time;
+	int 		offset_x;
+	int 		offset_y;
+	int 		screen_x;
+	int 		screen_y;
+	int			view;
+	int			minimap_x;
+	int			minimap_y;
+	int			ps;
 	bool		active;
 }				t_npc;
 
