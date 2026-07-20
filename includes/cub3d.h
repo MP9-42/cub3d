@@ -6,7 +6,7 @@
 /*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:07 by MP9               #+#    #+#             */
-/*   Updated: 2026/07/15 12:54:23 by alegeber         ###   ########.fr       */
+/*   Updated: 2026/07/20 23:29:15 by alegeber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@
 # include <stdio.h>
 # include <limits.h>
 # include <math.h>
+# include <sys/time.h>
 # include "get_next_line.h"
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "libft.h"
@@ -86,6 +87,14 @@ t_npc	*init_npc(t_map *map);
 void	update_npc(void *param);
 void	draw_npc(mlx_image_t *img, t_cub *cub);
 void	draw_sprite(t_cub *cub, double *raycaster_buffer);
+void	bfs_alloc(t_bfs *bfs);
+void	bfs_init(int start_x, int start_y, t_bfs *bfs);
+void	breadth_first_search(t_map *map, t_bfs *bfs);
+int		bifis(t_map *map, t_bfs *bfs);
+double	get_time(void);
+void	get_length(t_cub *cub, t_npc *npc, t_bfs *bfs, double now);
+void	get_distance(t_cub *cub, t_npc *npc, t_bfs *bfs);
+void	move_n_get_distance(t_cub *cub, t_npc *npc, t_bfs *bfs);
 void	draw_column(t_cub *cub, t_ray *ray, int x);
 uint32_t	tex_pixel_color(mlx_texture_t *tex, int tex_x, int tex_y);
 void	draw_billboard_sprite(t_cub *cub, t_dpoint pos,
