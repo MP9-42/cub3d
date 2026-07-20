@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_move.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
+/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/24 10:11:03 by alegeber          #+#    #+#             */
-/*   Updated: 2026/07/10 16:41:04 by MP9              ###   ########.fr       */
+/*   Updated: 2026/07/20 22:16:35 by alegeber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,46 @@ static void	move_player(t_cub *cub, double move_x, double move_y)
 		cub->player->pos_y = new_y;
 }
 
+static void	get_move_input(t_cub *cub, double *move_x, double *move_y)
+{
+	double	move_speed;
+
+	move_speed = 0.05;
+	*move_x = 0;
+	*move_y = 0;
+	if (mlx_is_key_down(cub->game->mlx, MLX_KEY_W))
+	{
+		*move_x += cub->player->dir_x * move_speed;
+		*move_y += cub->player->dir_y * move_speed;
+	}
+	if (mlx_is_key_down(cub->game->mlx, MLX_KEY_S))
+	{
+		*move_x -= cub->player->dir_x * move_speed;
+		*move_y -= cub->player->dir_y * move_speed;
+	}
+	if (mlx_is_key_down(cub->game->mlx, MLX_KEY_A))
+	{
+		*move_x += cub->player->dir_y * move_speed;
+		*move_y -= cub->player->dir_x * move_speed;
+	}
+	if (mlx_is_key_down(cub->game->mlx, MLX_KEY_D))
+	{
+		*move_x -= cub->player->dir_y * move_speed;
+		*move_y += cub->player->dir_x * move_speed;
+	}
+}
+
+static void	handle_rotation(t_cub *cub, double rot_speed)
+{
+	if (mlx_is_key_down(cub->game->mlx, MLX_KEY_LEFT))
+		rotate_player(cub->player, -rot_speed);
+	if (mlx_is_key_down(cub->game->mlx, MLX_KEY_RIGHT))
+		rotate_player(cub->player, rot_speed);
+}
+
 void	update_player(void *param)
 {
 	t_cub	*cub;
-	double	move_speed;
-	double	rot_speed;
 	double	move_x;
 	double	move_y;
 
@@ -58,35 +93,8 @@ void	update_player(void *param)
 	}
 	if (cub->game_over || cub->you_win)
 		return ;
-	move_speed = 0.05;
-	rot_speed = 0.03;
-	move_x = 0;
-	move_y = 0;
-	if (mlx_is_key_down(cub->game->mlx, MLX_KEY_W))
-	{
-		move_x += cub->player->dir_x * move_speed;
-		move_y += cub->player->dir_y * move_speed;
-	}
-	if (mlx_is_key_down(cub->game->mlx, MLX_KEY_S))
-	{
-		move_x -= cub->player->dir_x * move_speed;
-		move_y -= cub->player->dir_y * move_speed;
-	}
-	if (mlx_is_key_down(cub->game->mlx, MLX_KEY_A))
-	{
-		move_x += cub->player->dir_y * move_speed;
-		move_y -= cub->player->dir_x * move_speed;
-	}
-	if (mlx_is_key_down(cub->game->mlx, MLX_KEY_D))
-	{
-		move_x -= cub->player->dir_y * move_speed;
-		move_y += cub->player->dir_x * move_speed;
-	}
+	get_move_input(cub, &move_x, &move_y);
 	if (move_x != 0 || move_y != 0)
 		move_player(cub, move_x, move_y);
-	if (mlx_is_key_down(cub->game->mlx, MLX_KEY_LEFT))
-		rotate_player(cub->player, -rot_speed);
-	if (mlx_is_key_down(cub->game->mlx, MLX_KEY_RIGHT))
-		rotate_player(cub->player, rot_speed);
+	handle_rotation(cub, 0.03);
 }
-
