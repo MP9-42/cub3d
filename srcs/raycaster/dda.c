@@ -12,6 +12,9 @@
 
 #include "../../includes/cub3d.h"
 
+// Returns 1 if the map cell (x, y) is a wall. Coordinates outside the
+// map (or past the end of a short row) are treated as solid walls so
+// rays can never escape the grid.
 int	is_wall(t_map *map, int x, int y)
 {
 	int	len;
@@ -24,6 +27,9 @@ int	is_wall(t_map *map, int x, int y)
 	return (map->rmap[y][x] == '1');
 }
 
+// Sets the ray's starting grid cell to the player's cell and computes
+// delta_dist: the distance the ray travels between two gridlines on
+// each axis (1e30 stands in for infinity on axis-parallel rays).
 static void	init_dda(t_player *player, t_ray *ray)
 {
 	ray->map_x = (int)player->pos_x;
@@ -38,6 +44,9 @@ static void	init_dda(t_player *player, t_ray *ray)
 		ray->delta_dist_y = fabs(1 / ray->dir_y);
 }
 
+// Picks the grid step direction (+1/-1) per axis from the ray's sign
+// and computes side_dist: the distance from the player to the first
+// x- and y-gridline crossing.
 static void	init_step_side(t_player *player, t_ray *ray)
 {
 	if (ray->dir_x < 0)
@@ -48,7 +57,8 @@ static void	init_step_side(t_player *player, t_ray *ray)
 	else
 	{
 		ray->step_x = 1;
-		ray->side_dist_x = (ray->map_x + 1.0 - player->pos_x) * ray->delta_dist_x;
+		ray->side_dist_x = (ray->map_x + 1.0 - player->pos_x)
+			* ray->delta_dist_x;
 	}
 	if (ray->dir_y < 0)
 	{
@@ -58,10 +68,14 @@ static void	init_step_side(t_player *player, t_ray *ray)
 	else
 	{
 		ray->step_y = 1;
-		ray->side_dist_y = (ray->map_y + 1.0 - player->pos_y) * ray->delta_dist_y;
+		ray->side_dist_y = (ray->map_y + 1.0 - player->pos_y)
+			* ray->delta_dist_y;
 	}
 }
 
+// Runs the DDA loop: repeatedly jumps to the nearest gridline crossing
+// (whichever side_dist is smaller) until a wall cell is hit, recording
+// whether that wall was hit on an x-side (0) or y-side (1).
 static void	perform_dda(t_map *map, t_ray *ray)
 {
 	while (!is_wall(map, ray->map_x, ray->map_y))
@@ -81,6 +95,9 @@ static void	perform_dda(t_map *map, t_ray *ray)
 	}
 }
 
+// Casts one ray for screen column camera_x (-1..1 across the camera
+// plane) and fills the ray struct, ending with perp_wall_dist: the
+// wall distance projected onto the view direction (no fisheye).
 void	cast_ray(t_player *player, t_map *map, t_ray *ray, double camera_x)
 {
 	ray->dir_x = player->dir_x + player->plane_x * camera_x;

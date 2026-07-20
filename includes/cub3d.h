@@ -86,7 +86,9 @@ t_npc	*init_npc(t_map *map);
 void	update_npc(void *param);
 void	draw_npc(mlx_image_t *img, t_cub *cub);
 void	draw_sprite(t_cub *cub, double *raycaster_buffer);
-void	draw_billboard_sprite(t_cub *cub, double wx, double wy,
+void	draw_column(t_cub *cub, t_ray *ray, int x);
+uint32_t	tex_pixel_color(mlx_texture_t *tex, int tex_x, int tex_y);
+void	draw_billboard_sprite(t_cub *cub, t_dpoint pos,
 			mlx_texture_t *tex, double *raycaster_buffer);
 void	update_items(void *param);
 int		count_total_cans(t_map *map);
