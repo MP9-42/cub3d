@@ -6,7 +6,7 @@
 /*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/10 01:05:12 by alegeber          #+#    #+#             */
-/*   Updated: 2026/07/15 12:54:54 by alegeber         ###   ########.fr       */
+/*   Updated: 2026/07/20 22:48:16 by alegeber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,9 @@ int	count_total_cans(t_map *map)
 
 void	draw_cans(t_cub *cub, double *raycaster_buffer)
 {
-	int	y;
-	int	x;
+	int			y;
+	int			x;
+	t_dpoint	pos;
 
 	y = 0;
 	while (y < cub->map->size)
@@ -71,8 +72,12 @@ void	draw_cans(t_cub *cub, double *raycaster_buffer)
 		while (x < cub->map->max_width)
 		{
 			if (cub->map->rmap[y][x] == '7')
-				draw_billboard_sprite(cub, x + 0.5, y + 0.5,
+			{
+				pos.x = x + 0.5;
+				pos.y = y + 0.5;
+				draw_billboard_sprite(cub, pos,
 					cub->textures->can_tex, raycaster_buffer);
+			}
 			x++;
 		}
 		y++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
+/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:16 by MP9               #+#    #+#             */
-/*   Updated: 2026/07/16 18:58:22 by MP9              ###   ########.fr       */
+/*   Updated: 2026/07/20 22:48:17 by alegeber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,3 +203,17 @@ typedef struct s_dpoint
 	double	x;
 	double	y;
 }				t_dpoint;
+
+typedef struct s_sprite
+{
+	mlx_texture_t	*tex;
+	double			transform_x;
+	double			transform_y;
+	int				screen_x;
+	int				height;
+	int				width;
+	int				start_x;
+	int				end_x;
+	int				start_y;
+	int				end_y;
+}				t_sprite;

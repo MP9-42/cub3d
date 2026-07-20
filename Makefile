@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+         #
+#    By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/10 17:13:59 by MP9               #+#    #+#              #
-#    Updated: 2026/06/21 19:12:33 by MP9              ###   ########.fr        #
+#    Updated: 2026/07/20 22:48:20 by alegeber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRCFILES = srcs/main.c srcs/parsing/colors.c srcs/parsing/map_parse.c srcs/utils
 			srcs/raycaster/render.c srcs/raycaster/render_wall.c \
 			srcs/raycaster/render_sprite.c srcs/player/player_move.c \
 			srcs/parsing/textures.c srcs/bonus/police.c \
+			srcs/bonus/police_init.c \
 			srcs/bonus/items.c \
 
 OBJS = $(SRCFILES:srcs/%.c=$(BIG_DIR)/%.o)

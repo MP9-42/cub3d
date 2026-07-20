@@ -3,54 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   police.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
+/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/02 18:59:12 by MP9               #+#    #+#             */
-/*   Updated: 2026/07/16 19:02:07 by MP9              ###   ########.fr       */
+/*   Updated: 2026/07/20 22:48:15 by alegeber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include <sys/time.h>
-
-void assign_npc_stats(t_map *map, t_npc *npc, int y, int x)
-{
-	npc->pos_x = x + 0.5;
-	npc->pos_y = y + 0.5;
-	npc->speed = NPC_SPEED;
-	npc->active = true;
-	npc->path_length = 0;
-	npc->current_target = 0;
-	npc->last_path_time = 0;
-	map->rmap[y][x] = '0';
-}
-
-t_npc	*init_npc(t_map *map)
-{
-	t_npc	*npc;
-	int		y;
-	int		x;
-
-	y = 0;
-	while (y < map->size)
-	{
-		x = 0;
-		while (map->rmap[y][x])
-		{
-			if (map->rmap[y][x] == '6')
-			{
-				npc = ft_calloc(sizeof(t_npc), 1);
-				if (!npc)
-					return (NULL);
-				assign_npc_stats(map, npc, y, x);
-				return (npc);
-			}
-			x++;
-		}
-		y++;
-	}
-	return (NULL);
-}
 
 static double	get_time(void)
 {
@@ -271,7 +232,7 @@ void	update_npc(void *param)
 }
 
 void	draw_npc(mlx_image_t *img, t_cub *cub)
-{	
+{
 	if (!cub->npc || !cub->npc->active)
 	return ;
 	cub->npc->offset_x = (int)((cub->npc->pos_x - cub->player->pos_x) * MINIMAP_TILE);
@@ -294,8 +255,12 @@ void	draw_npc(mlx_image_t *img, t_cub *cub)
 
 void	draw_sprite(t_cub *cub, double *raycaster_buffer)
 {
+	t_dpoint	pos;
+
 	if (!cub->npc || !cub->npc->active)
 		return ;
-	draw_billboard_sprite(cub, cub->npc->pos_x, cub->npc->pos_y,
-		cub->textures->police_tex, raycaster_buffer);
+	pos.x = cub->npc->pos_x;
+	pos.y = cub->npc->pos_y;
+	draw_billboard_sprite(cub, pos, cub->textures->police_tex,
+		raycaster_buffer);
 }
