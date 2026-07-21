@@ -6,12 +6,11 @@
 /*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/20 23:01:02 by alegeber          #+#    #+#             */
-/*   Updated: 2026/07/20 23:29:24 by alegeber         ###   ########.fr       */
+/*   Updated: 2026/07/20 23:33:15 by alegeber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-
 
 double	get_time(void)
 {
