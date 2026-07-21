@@ -6,7 +6,7 @@
 /*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/11 13:40:43 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/24 14:06:57 by alegeber         ###   ########.fr       */
+/*   Updated: 2026/07/21 17:04:47 by alegeber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 uint32_t	get_rgb(char **part)
 {
-	int r;
-	int g;
-	int b;
+	int	r;
+	int	g;
+	int	b;
 
 	r = ft_atoi(part[0]);
 	g = ft_atoi(part[1]);
@@ -41,11 +41,11 @@ static void	free_split(char **split)
 	free(split);
 }
 
-t_colors *assign_colors(char *floor, char *ceiling)
+t_colors	*assign_colors(char *floor, char *ceiling)
 {
-	char **chao;
-	char **teto;
-	t_colors *colors;
+	char		**chao;
+	char		**teto;
+	t_colors	*colors;
 
 	colors = ft_calloc(sizeof(t_colors), 1);
 	chao = ft_split(floor, ',');
@@ -54,5 +54,5 @@ t_colors *assign_colors(char *floor, char *ceiling)
 	colors->floor = get_rgb(chao);
 	free_split(chao);
 	free_split(teto);
-	return(colors);
+	return (colors);
 }

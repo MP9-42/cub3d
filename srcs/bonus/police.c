@@ -6,7 +6,7 @@
 /*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/02 18:59:12 by MP9               #+#    #+#             */
-/*   Updated: 2026/07/20 23:29:36 by alegeber         ###   ########.fr       */
+/*   Updated: 2026/07/21 17:04:49 by alegeber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ void	draw_npc(mlx_image_t *img, t_cub *cub)
 	cub->npc->ps = MINIMAP_TILE / 3;
 	if (cub->npc->ps < 3)
 		cub->npc->ps = 3;
-	draw_tile(img, cub->npc->screen_x - cub->npc->ps / 2,
-		cub->npc->screen_y - cub->npc->ps / 2, cub->npc->ps, BLUE);
+	draw_tile(img, (t_point){cub->npc->screen_x - cub->npc->ps / 2,
+		cub->npc->screen_y - cub->npc->ps / 2}, cub->npc->ps, BLUE);
 }
 
 void	draw_sprite(t_cub *cub, double *raycaster_buffer)

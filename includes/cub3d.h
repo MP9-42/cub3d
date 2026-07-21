@@ -6,10 +6,9 @@
 /*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:07 by MP9               #+#    #+#             */
-/*   Updated: 2026/07/20 23:29:15 by alegeber         ###   ########.fr       */
+/*   Updated: 2026/07/21 17:04:58 by alegeber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef CUB3D_H
 # define CUB3D_H
@@ -68,7 +67,8 @@ bool valid_chars(char **map);
 bool	validate_map(t_map *map);
 void	get_image(t_game *game, t_cub *cub);
 mlx_t *init_window(t_cub *cub);
-void draw_tile(mlx_image_t *img, int start_x, int start_y, int size, uint32_t color);
+void draw_tile(mlx_image_t *img, t_point start, int size, uint32_t color);
+void draw_player(mlx_image_t *img, t_cub *cub, int origin_x, int origin_y);
 char **deep_copy_map(t_map *map);
 void render_map(mlx_image_t *img, t_cub *cub);
 void	redraw(t_game *game);

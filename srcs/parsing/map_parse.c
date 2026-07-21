@@ -3,39 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
+/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:27 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/23 13:49:01 by MP9              ###   ########.fr       */
+/*   Updated: 2026/07/21 17:04:45 by alegeber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-bool flood_fill(char **map, int row, int col, t_rowcols rowcols)
+bool	flood_fill(char **map, int row, int col, t_rowcols rowcols)
 {
 	if (row < 0 || col < 0 || row >= rowcols.rows || col >= rowcols.cols)
-		return(false);
+		return (false);
 	if (map[row][col] == ' ' || map[row][col] == '\t')
-		return(false);
+		return (false);
 	if (map[row][col] == '1' || map[row][col] == 'V')
-		return(true);
+		return (true);
 	map[row][col] = 'V';
 	if (!flood_fill(map, row + 1, col, rowcols))
-		return(false);
+		return (false);
 	if (!flood_fill(map, row - 1, col, rowcols))
-		return(false);
+		return (false);
 	if (!flood_fill(map, row, col + 1, rowcols))
-		return(false);
+		return (false);
 	if (!flood_fill(map, row, col - 1, rowcols))
-		return(false);
-	return(true);
+		return (false);
+	return (true);
 }
 
 bool	validate_map(t_map *map)
 {
-	int		bi;
-	int		si;
+	int			bi;
+	int			si;
 	t_rowcols	rowcols;
 	char		**padded;
 	char		**copy;
@@ -58,7 +58,8 @@ bool	validate_map(t_map *map)
 			if (ft_strchr("NSEW", copy[bi][si]))
 			{
 				if (!flood_fill(copy, bi, si, rowcols))
-					return (free_map(padded, map->size), free_map(copy, map->size), false);
+					return (free_map(padded, map->size),
+						free_map(copy, map->size), false);
 				free_map(copy, map->size);
 				free_map(map->rmap, map->size);
 				map->rmap = padded;
@@ -118,5 +119,3 @@ char	**pad_map(char **map, int rows, int max_width)
 	padded[rows] = NULL;
 	return (padded);
 }
-
-
