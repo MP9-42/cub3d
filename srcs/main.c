@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:35 by MP9               #+#    #+#             */
-/*   Updated: 2026/07/15 12:54:41 by alegeber         ###   ########.fr       */
+/*   Updated: 2026/07/21 19:34:40 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,24 @@ static int line_starts_map(char *line)
 	return (is_valid(line[i]) && line[i] != ' ');
 }
 
+char *get_value(char **file, char **parts, int i, int j)
+{
+	char *value;
+
+	parts = ft_split(file[i], ' ');
+	if (!parts || !parts[1])
+		return (error_exit(2), NULL);
+	value = ft_strdup(parts[1]);
+	j = 0;
+	while (parts[j])
+	{
+		free(parts[j]);
+		j++;
+	}
+	free(parts);
+	return value;
+}
+
 static char *find_config_value(char **file, char *id)
 {
 	char **parts;
@@ -38,17 +56,9 @@ static char *find_config_value(char **file, char *id)
 		si = space_skip(file[i]);
 		if (ft_strncmp(file[i] + si, id, ft_strlen(id)) == 0)
 		{
-			parts = ft_split(file[i], ' ');
-			if (!parts || !parts[1])
-				return (NULL);
-			value = ft_strdup(parts[1]);
-			j = 0;
-			while (parts[j])
-			{
-				free(parts[j]);
-				j++;
-			}
-			free(parts);
+			value = get_value(file, parts, i, j);
+			if (!value)
+				return (error_exit(2), NULL);
 			return (value);
 		}
 		i++;
@@ -70,115 +80,37 @@ static int find_map_start(char **file)
 	return (-1);
 }
 
-void rf_helper(t_parsing *parsing, int *capacity, int i)
-{
-	char **new_file;
-	int j;
-
-	if (i < *capacity)
-		return;
-	if (*capacity > INT_MAX / 2)
-		return;
-	*capacity *= 2;
-	new_file = malloc(sizeof(char *) * (*capacity + 1));
-	if (!new_file)
-		return;
-	j = 0;
-	while (j < i)
-	{
-		new_file[j] = parsing->file[j];
-		j++;
-	}
-	new_file[i] = NULL;
-	free(parsing->file);
-	parsing->file = new_file;
-}
-
-void readfile(t_parsing *parsing)
-{
-	int capacity;
-	int i;
-
-	capacity = 16;
-	i = 0;
-	parsing->file = malloc(sizeof(char *) * (capacity + 1));
-	if (!parsing->file)
-		return;
-	while (1)
-	{
-		rf_helper(parsing, &capacity, i);
-		if (i >= capacity)
-		{
-			parsing->file[i] = NULL;
-			return ;
-		}
-		parsing->file[i] = get_next_line(parsing->fd);
-		if (!parsing->file[i])
-			break;
-		i++;
-	}
-	parsing->file[i] = NULL;
-}
-
 t_map *get_map(t_cub *cub, t_parsing *parsing)
 {
 	t_map *map;
 	char *floor;
 	char *ceiling;
 	int count;
-	int mi;
-	int start;
-	int i;
 
 	if (!cub || !parsing || !parsing->file)
 		return (error_exit(2), NULL);
+	add_n_assign_textures(cub, parsing);
 	floor = find_config_value(parsing->file, "F");
 	ceiling = find_config_value(parsing->file, "C");
-	cub->textures = ft_calloc(sizeof(t_textures), 1);
-	cub->textures->east = find_config_value(parsing->file, "EA");
-	cub->textures->south = find_config_value(parsing->file, "SO");
-	cub->textures->north = find_config_value(parsing->file, "NO");
-	cub->textures->west = find_config_value(parsing->file, "WE");
-	if (cub->textures->east)
-		kill_n(cub->textures->east);
-	if (cub->textures->south)
-		kill_n(cub->textures->south);
-	if (cub->textures->north)
-		kill_n(cub->textures->north);
-	if (cub->textures->west)
-		kill_n(cub->textures->west);
-	if (cub->textures->police)
-		kill_n(cub->textures->police);
-	if (cub->textures->can)
-		kill_n(cub->textures->can);
-	add_wall_textures(cub->textures);
 	if (!floor || !ceiling)
-		return (error_exit(2), NULL);
+			return (error_exit(2), NULL);
 	cub->colors = assign_colors(floor, ceiling);
-	free(floor);
+	free(floor); 
 	free(ceiling);
-	start = find_map_start(parsing->file);
-	if (start < 0)
-		return (error_exit(2), NULL);
-	count = 0;
-	i = start;
-	while (parsing->file[i] && line_starts_map(parsing->file[i]))
-	{
-		count++;
-		i++;
-	}
-	if (count <= 0)
-		return (error_exit(2), NULL);
-	map = ft_calloc(sizeof(t_map), 1);
-	if (!map)
-		return (error_exit(2), NULL);
-	map->rmap = malloc(sizeof(char *) * (count + 1));
-	if (!map->rmap)
-		return (error_exit(2), NULL);
-	map->size = count;
+	map_allocator(map, parsing);
+	map_maker(map, parsing);
+	return (map);
+}
+
+int map_maker(t_map *map, t_parsing *parsing)
+{
+	int i;
+	int mi;
+
+	map->size = map->count;
 	mi = 0;
-	i = start;
-	while (mi < count)
+	i = map->start;
+	while (mi < map->count)
 	{
 		map->rmap[mi] = ft_linedup(parsing->file[i]);
 		if (!map->rmap[mi])
@@ -187,21 +119,36 @@ t_map *get_map(t_cub *cub, t_parsing *parsing)
 		mi++;
 		i++;
 	}
-	map->rmap[count] = NULL;
-	return (map);
+	map->rmap[map->count] = NULL;
+}
+int map_allocator(t_map *map, t_parsing *parsing)
+{
+	int i;
+	int count;
+
+	map = ft_calloc(sizeof(t_map), 1);
+	if (!map)
+		return (error_exit(2), 0);
+	map->start = find_map_start(parsing->file);
+	if (map->start < 0)
+		return (error_exit(2), 0);
+	count = 0;
+	i = map->start;
+	while (parsing->file[i] && line_starts_map(parsing->file[i]))
+	{
+		count++;
+		i++;
+	}
+	if (count <= 0)
+		return (error_exit(2), 0);
+	map->rmap = malloc(sizeof(char *) * (count + 1));
+	if (!map->rmap)
+		return (error_exit(2), 0);
+	map->count = count;
 }
 
-int main(int argc, char **argv)
+bool init_cub(char **argv, t_cub *cub, t_parsing *parsing, int *value)
 {
-	t_cub *cub;
-	t_parsing *parsing;
-
-	if (argc != 2)
-		exit(1);
-	cub = ft_calloc(sizeof(t_cub), 1);
-	parsing = ft_calloc(1, sizeof(t_parsing));
-	if (!cub || !parsing)
-		exit(1);
 	parsing->fd = open(argv[1], O_RDONLY);
 	if (parsing->fd < 0)
 		exit(1);
@@ -216,22 +163,43 @@ int main(int argc, char **argv)
 	if (!validate_map(cub->map))
 		error_exit(2);
 	cub->total_cans = count_total_cans(cub->map);
-
 	cub->game = ft_calloc(sizeof(t_game), 1);
 	cub->player = init_player(cub->map);
 	cub->npc = init_npc(cub->map);
 	cub->game->width = WIDTH;
 	cub->game->height = HEIGHT;
 	cub->game->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
-	if (!cub->game->mlx)
-		exit(1);
-	cub->game->player = cub->player;
-	cub->game->cub = cub;
+	return false;
+}
+
+void mlx_loops(t_cub *cub)
+{
 	get_image(cub->game, cub);
 	mlx_loop_hook(cub->game->mlx, update_player, cub);
 	mlx_loop_hook(cub->game->mlx, update_npc, cub);
 	mlx_loop_hook(cub->game->mlx, update_items, cub);
 	mlx_loop_hook(cub->game->mlx, render_frame, cub);
+}
+
+int main(int argc, char **argv)
+{
+	t_cub *cub;
+	t_parsing *parsing;
+
+	if (argc != 2)
+		exit(1);
+	cub = ft_calloc(sizeof(t_cub), 1);
+	parsing = ft_calloc(1, sizeof(t_parsing));
+	if (!cub || !parsing)
+		exit(1);
+	int value;
+	if (init_cub(argv, cub, parsing, &value))
+		exit(value);
+	if (!cub->game->mlx)
+		exit(1);
+	cub->game->player = cub->player;
+	cub->game->cub = cub;
+	mlx_loops(cub);
 	close(parsing->fd);
 	mlx_loop(cub->game->mlx);
 	mlx_terminate(cub->game->mlx);

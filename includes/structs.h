@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:16 by MP9               #+#    #+#             */
-/*   Updated: 2026/07/20 22:48:17 by alegeber         ###   ########.fr       */
+/*   Updated: 2026/07/21 19:21:54 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_bfs
 	int		current_x;
 	int		current_y;
 	int		len;
+	int i;
 	int		idx;
 	int		width;
 	int		total;
@@ -120,6 +121,8 @@ typedef struct s_map
 {
 	char 	**rmap;
 	int		size;
+	int		count;
+	int		start;
 	int		max_width;
 }				t_map;
 
