@@ -6,7 +6,7 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:16 by MP9               #+#    #+#             */
-/*   Updated: 2026/07/22 14:34:36 by MP9              ###   ########.fr       */
+/*   Updated: 2026/07/22 16:03:18 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ typedef struct s_rowcols
 {
 	int rows;
 	int cols;
+	bool value;
 	char **padded;
 	char **copy;
 }				t_rowcols;

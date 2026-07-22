@@ -6,7 +6,7 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/21 19:25:05 by MP9               #+#    #+#             */
-/*   Updated: 2026/07/22 15:36:35 by MP9              ###   ########.fr       */
+/*   Updated: 2026/07/22 15:51:29 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,10 @@ t_map	*map_allocator(t_parsing *parsing)
 		return (error_exit(2), NULL);
 	count = 0;
 	i = map->start;
-	while (parsing->file[i] && line_starts_map(parsing->file[i]))
+	while (parsing->file[i])
 	{
-		count++;
+		if (line_starts_map(parsing->file[i]))
+			count++;
 		i++;
 	}
 	if (count <= 0)

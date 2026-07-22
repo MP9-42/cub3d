@@ -6,7 +6,7 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:35 by MP9               #+#    #+#             */
-/*   Updated: 2026/07/22 14:39:25 by MP9              ###   ########.fr       */
+/*   Updated: 2026/07/22 15:59:46 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	map_maker(t_map *map, t_parsing *parsing)
 		i++;
 	}
 	map->rmap[map->count] = NULL;
-	return(1);
+	return (1);
 }
 
 bool	init_cub(char **argv, t_cub *cub, t_parsing *parsing, int *value)

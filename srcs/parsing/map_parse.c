@@ -6,7 +6,7 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:27 by MP9               #+#    #+#             */
-/*   Updated: 2026/07/22 14:11:57 by MP9              ###   ########.fr       */
+/*   Updated: 2026/07/22 16:03:09 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	help_for_help(t_map *map, t_rowcols rowcols)
 	map->rmap = rowcols.padded;
 }
 
-bool	validate_helper(t_map *map, t_rowcols rowcols, bool *value)
+bool	validate_helper(t_map *map, t_rowcols rowcols)
 {
 	int	bi;
 	int	si;
@@ -34,10 +34,10 @@ bool	validate_helper(t_map *map, t_rowcols rowcols, bool *value)
 			{
 				if (!flood_fill(rowcols.copy, bi, si, rowcols))
 				{
-					*value = (free_map(rowcols.padded, map->size),
-							free_map(rowcols.copy, map->size), false);
+					line_cruncher(map, &rowcols);
 					return (true);
 				}
+				rowcols.value = true;
 				help_for_help(map, rowcols);
 				return (true);
 			}
@@ -50,7 +50,6 @@ bool	validate_helper(t_map *map, t_rowcols rowcols, bool *value)
 
 bool	validate_map(t_map *map)
 {
-	bool		value;
 	t_rowcols	rowcols;
 
 	if (!valid_chars(map->rmap))
@@ -63,8 +62,8 @@ bool	validate_map(t_map *map)
 			free_map(rowcols.copy, map->size), false);
 	rowcols.cols = map->max_width;
 	rowcols.rows = map->size;
-	if (validate_helper(map, rowcols, &value))
-		return (value);
+	if (validate_helper(map, rowcols))
+		return (rowcols.value);
 	free_map(rowcols.padded, map->size);
 	free_map(rowcols.copy, map->size);
 	return (false);

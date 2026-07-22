@@ -6,7 +6,7 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/22 14:14:07 by MP9               #+#    #+#             */
-/*   Updated: 2026/07/22 14:15:27 by MP9              ###   ########.fr       */
+/*   Updated: 2026/07/22 16:01:53 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,10 @@ void	tab_converter(const char *s1, char *s2, size_t *i, size_t *j)
 			s2[(*j)++] = s1[(*i)];
 		(*i)++;
 	}
+}
+
+void	line_cruncher(t_map *map, t_rowcols *rowcols)
+{
+	rowcols->value = (free_map(rowcols->padded, map->size),
+			free_map(rowcols->copy, map->size), false);
 }

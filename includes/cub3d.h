@@ -6,7 +6,7 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:07 by MP9               #+#    #+#             */
-/*   Updated: 2026/07/22 15:36:36 by MP9              ###   ########.fr       */
+/*   Updated: 2026/07/22 16:00:39 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void	update_npc(void *param);
 void	draw_npc(mlx_image_t *img, t_cub *cub);
 void	draw_sprite(t_cub *cub, double *raycaster_buffer);
 void	bfs_alloc(t_bfs *bfs);
+void	line_cruncher(t_map *map, t_rowcols *rowcols);
 void	bfs_init(int start_x, int start_y, t_bfs *bfs);
 void	breadth_first_search(t_map *map, t_bfs *bfs);
 int		bifis(t_map *map, t_bfs *bfs);
