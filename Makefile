@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+         #
+#    By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/06/10 17:13:59 by MP9               #+#    #+#              #
-#    Updated: 2026/07/20 23:29:07 by alegeber         ###   ########.fr        #
+#    Updated: 2026/07/22 14:43:19 by MP9              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ SRCFILES = srcs/main.c srcs/parsing/colors.c srcs/parsing/map_parse.c srcs/utils
 			srcs/parsing/textures.c srcs/bonus/police.c \
 			srcs/bonus/police_init.c srcs/bonus/police_bfs.c \
 			srcs/bonus/police_path.c srcs/bonus/police_chase.c \
-			srcs/bonus/items.c srcs/bonus/items_hud.c \
+			srcs/bonus/items.c srcs/bonus/items_hud.c srcs/utils/utils2.c \
+			srcs/map/map_assign.c srcs/map/map_init.c \
 
 OBJS = $(SRCFILES:srcs/%.c=$(BIG_DIR)/%.o)
 CC = cc

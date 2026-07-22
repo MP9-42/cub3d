@@ -3,74 +3,70 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:27 by MP9               #+#    #+#             */
-/*   Updated: 2026/07/21 17:04:45 by alegeber         ###   ########.fr       */
+/*   Updated: 2026/07/22 14:11:57 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-bool	flood_fill(char **map, int row, int col, t_rowcols rowcols)
+void	help_for_help(t_map *map, t_rowcols rowcols)
 {
-	if (row < 0 || col < 0 || row >= rowcols.rows || col >= rowcols.cols)
-		return (false);
-	if (map[row][col] == ' ' || map[row][col] == '\t')
-		return (false);
-	if (map[row][col] == '1' || map[row][col] == 'V')
-		return (true);
-	map[row][col] = 'V';
-	if (!flood_fill(map, row + 1, col, rowcols))
-		return (false);
-	if (!flood_fill(map, row - 1, col, rowcols))
-		return (false);
-	if (!flood_fill(map, row, col + 1, rowcols))
-		return (false);
-	if (!flood_fill(map, row, col - 1, rowcols))
-		return (false);
-	return (true);
+	free_map(rowcols.copy, map->size);
+	free_map(map->rmap, map->size);
+	map->rmap = rowcols.padded;
 }
 
-bool	validate_map(t_map *map)
+bool	validate_helper(t_map *map, t_rowcols rowcols, bool *value)
 {
-	int			bi;
-	int			si;
-	t_rowcols	rowcols;
-	char		**padded;
-	char		**copy;
+	int	bi;
+	int	si;
 
-	if (!valid_chars(map->rmap))
-		return (false);
-	map->max_width = get_max_width(map->rmap);
-	padded = pad_map(map->rmap, map->size, map->max_width);
-	copy = pad_map(map->rmap, map->size, map->max_width);
-	if (!padded || !copy)
-		return (free_map(padded, map->size), free_map(copy, map->size), false);
-	rowcols.cols = map->max_width;
-	rowcols.rows = map->size;
 	bi = 0;
-	while (copy[bi])
+	while (rowcols.copy[bi])
 	{
 		si = 0;
-		while (copy[bi][si])
+		while (rowcols.copy[bi][si])
 		{
-			if (ft_strchr("NSEW", copy[bi][si]))
+			if (ft_strchr("NSEW", rowcols.copy[bi][si]))
 			{
-				if (!flood_fill(copy, bi, si, rowcols))
-					return (free_map(padded, map->size),
-						free_map(copy, map->size), false);
-				free_map(copy, map->size);
-				free_map(map->rmap, map->size);
-				map->rmap = padded;
+				if (!flood_fill(rowcols.copy, bi, si, rowcols))
+				{
+					*value = (free_map(rowcols.padded, map->size),
+							free_map(rowcols.copy, map->size), false);
+					return (true);
+				}
+				help_for_help(map, rowcols);
 				return (true);
 			}
 			si++;
 		}
 		bi++;
 	}
-	free_map(padded, map->size);
-	free_map(copy, map->size);
+	return (false);
+}
+
+bool	validate_map(t_map *map)
+{
+	bool		value;
+	t_rowcols	rowcols;
+
+	if (!valid_chars(map->rmap))
+		return (false);
+	map->max_width = get_max_width(map->rmap);
+	rowcols.padded = pad_map(map->rmap, map->size, map->max_width);
+	rowcols.copy = pad_map(map->rmap, map->size, map->max_width);
+	if (!rowcols.padded || !rowcols.copy)
+		return (free_map(rowcols.padded, map->size),
+			free_map(rowcols.copy, map->size), false);
+	rowcols.cols = map->max_width;
+	rowcols.rows = map->size;
+	if (validate_helper(map, rowcols, &value))
+		return (value);
+	free_map(rowcols.padded, map->size);
+	free_map(rowcols.copy, map->size);
 	return (false);
 }
 

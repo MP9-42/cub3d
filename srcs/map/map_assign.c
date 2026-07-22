@@ -6,9 +6,101 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/21 19:28:08 by MP9               #+#    #+#             */
-/*   Updated: 2026/07/21 19:28:15 by MP9              ###   ########.fr       */
+/*   Updated: 2026/07/22 14:47:34 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
+static char	*find_config_value(char **file, char *id)
+{
+	char	**parts;
+	char	*value;
+	int		i;
+	int		j;
+	int		si;
+
+	i = 0;
+	j = 0;
+	parts = NULL;
+	value = NULL;
+	while (file[i])
+	{
+		si = space_skip(file[i]);
+		if (ft_strncmp(file[i] + si, id, ft_strlen(id)) == 0)
+		{
+			value = get_value(file, parts, i, j);
+			if (!value)
+				return (error_exit(2), NULL);
+			return (value);
+		}
+		i++;
+	}
+	return (NULL);
+}
+
+void	add_n_assign_textures(t_cub *cub, t_parsing *parsing)
+{
+	cub->textures = ft_calloc(sizeof(t_textures), 1);
+	cub->textures->east = find_config_value(parsing->file, "EA");
+	cub->textures->south = find_config_value(parsing->file, "SO");
+	cub->textures->north = find_config_value(parsing->file, "NO");
+	cub->textures->west = find_config_value(parsing->file, "WE");
+	if (cub->textures->east)
+		kill_n(cub->textures->east);
+	if (cub->textures->south)
+		kill_n(cub->textures->south);
+	if (cub->textures->north)
+		kill_n(cub->textures->north);
+	if (cub->textures->west)
+		kill_n(cub->textures->west);
+	if (cub->textures->police)
+		kill_n(cub->textures->police);
+	if (cub->textures->can)
+		kill_n(cub->textures->can);
+	add_wall_textures(cub->textures);
+}
+
+t_map	*get_map(t_cub *cub, t_parsing *parsing)
+{
+	t_map	*map;
+	char	*floor;
+	char	*ceiling;
+
+	map = NULL;
+	if (!cub || !parsing || !parsing->file)
+		return (error_exit(2), NULL);
+	add_n_assign_textures(cub, parsing);
+	floor = find_config_value(parsing->file, "F");
+	ceiling = find_config_value(parsing->file, "C");
+	if (!floor || !ceiling)
+		return (error_exit(2), NULL);
+	cub->colors = assign_colors(floor, ceiling);
+	free(floor);
+	free(ceiling);
+	if (map_allocator(map, parsing) == 0)
+		return (error_exit(2), NULL);
+	if (map_maker(map, parsing) == 0)
+		return (error_exit(2), NULL);
+	return (map);
+}
+
+bool	flood_fill(char **map, int row, int col, t_rowcols rowcols)
+{
+	if (row < 0 || col < 0 || row >= rowcols.rows || col >= rowcols.cols)
+		return (false);
+	if (map[row][col] == ' ' || map[row][col] == '\t')
+		return (false);
+	if (map[row][col] == '1' || map[row][col] == 'V')
+		return (true);
+	map[row][col] = 'V';
+	if (!flood_fill(map, row + 1, col, rowcols))
+		return (false);
+	if (!flood_fill(map, row - 1, col, rowcols))
+		return (false);
+	if (!flood_fill(map, row, col + 1, rowcols))
+		return (false);
+	if (!flood_fill(map, row, col - 1, rowcols))
+		return (false);
+	return (true);
+}

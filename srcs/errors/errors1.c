@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.c                                           :+:      :+:    :+:   */
+/*   errors1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/11 13:44:51 by MP9               #+#    #+#             */
-/*   Updated: 2026/06/11 13:45:31 by MP9              ###   ########.fr       */
+/*   Updated: 2026/07/22 13:45:40 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-int error_exit(int num)
+int	error_exit(int num)
 {
 	if (num == 1)
 		printf("hey, wrong RGB values mannn\n");
@@ -20,4 +20,3 @@ int error_exit(int num)
 		printf("hey, wrong map mannn\n");
 	exit(0);
 }
-

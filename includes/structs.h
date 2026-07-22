@@ -6,7 +6,7 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:16 by MP9               #+#    #+#             */
-/*   Updated: 2026/07/21 19:21:54 by MP9              ###   ########.fr       */
+/*   Updated: 2026/07/22 14:34:36 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ typedef struct s_bfs
 	int		current_x;
 	int		current_y;
 	int		len;
-	int i;
 	int		idx;
 	int		width;
 	int		total;
@@ -81,6 +80,8 @@ typedef struct s_rowcols
 {
 	int rows;
 	int cols;
+	char **padded;
+	char **copy;
 }				t_rowcols;
 
 typedef struct s_game

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:07 by MP9               #+#    #+#             */
-/*   Updated: 2026/07/21 17:04:58 by alegeber         ###   ########.fr       */
+/*   Updated: 2026/07/22 14:46:03 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,13 @@ void rf_helper(t_parsing *parsing, int *capacity, int i);
 int space_skip(char *str);
 void add_wall_textures(t_textures *textures);
 t_player	*init_player(t_map *map);
+t_map	*get_map(t_cub *cub, t_parsing *parsing);
 int	is_wall(t_map *map, int x, int y);
 void	cast_ray(t_player *player, t_map *map, t_ray *ray, double camera_x);
 void	render_frame(void *param);
 void	update_player(void *param);
+int	map_allocator(t_map *map, t_parsing *parsing);
+int	map_maker(t_map *map, t_parsing *parsing);
 t_npc	*init_npc(t_map *map);
 void	update_npc(void *param);
 void	draw_npc(mlx_image_t *img, t_cub *cub);
@@ -102,6 +105,8 @@ void	draw_billboard_sprite(t_cub *cub, t_dpoint pos,
 void	update_items(void *param);
 int		count_total_cans(t_map *map);
 void	draw_cans(t_cub *cub, double *raycaster_buffer);
+char	*get_value(char **file, char **parts, int i, int j);
 void	draw_can_hud(t_cub *cub);
+void	tab_converter(const char *s1, char *s2, size_t *i, size_t *j);
 
 #endif
