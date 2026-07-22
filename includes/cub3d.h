@@ -6,7 +6,7 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:07 by MP9               #+#    #+#             */
-/*   Updated: 2026/07/22 14:46:03 by MP9              ###   ########.fr       */
+/*   Updated: 2026/07/22 15:36:36 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	is_wall(t_map *map, int x, int y);
 void	cast_ray(t_player *player, t_map *map, t_ray *ray, double camera_x);
 void	render_frame(void *param);
 void	update_player(void *param);
-int	map_allocator(t_map *map, t_parsing *parsing);
+t_map	*map_allocator(t_parsing *parsing);
 int	map_maker(t_map *map, t_parsing *parsing);
 t_npc	*init_npc(t_map *map);
 void	update_npc(void *param);

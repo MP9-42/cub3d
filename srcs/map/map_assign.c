@@ -6,7 +6,7 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/21 19:28:08 by MP9               #+#    #+#             */
-/*   Updated: 2026/07/22 14:47:34 by MP9              ###   ########.fr       */
+/*   Updated: 2026/07/22 15:36:36 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ t_map	*get_map(t_cub *cub, t_parsing *parsing)
 	cub->colors = assign_colors(floor, ceiling);
 	free(floor);
 	free(ceiling);
-	if (map_allocator(map, parsing) == 0)
+	map = map_allocator(parsing);
+	if (!map)
 		return (error_exit(2), NULL);
 	if (map_maker(map, parsing) == 0)
 		return (error_exit(2), NULL);

@@ -6,7 +6,7 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/21 19:25:05 by MP9               #+#    #+#             */
-/*   Updated: 2026/07/22 14:46:53 by MP9              ###   ########.fr       */
+/*   Updated: 2026/07/22 15:36:35 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,18 @@ static int	find_map_start(char **file)
 	return (-1);
 }
 
-int	map_allocator(t_map *map, t_parsing *parsing)
+t_map	*map_allocator(t_parsing *parsing)
 {
 	int		i;
 	int		count;
+	t_map	*map;
 
 	map = ft_calloc(sizeof(t_map), 1);
 	if (!map)
-		return (error_exit(2), 0);
+		return (error_exit(2), NULL);
 	map->start = find_map_start(parsing->file);
 	if (map->start < 0)
-		return (error_exit(2), 0);
+		return (error_exit(2), NULL);
 	count = 0;
 	i = map->start;
 	while (parsing->file[i] && line_starts_map(parsing->file[i]))
@@ -83,10 +84,10 @@ int	map_allocator(t_map *map, t_parsing *parsing)
 		i++;
 	}
 	if (count <= 0)
-		return (error_exit(2), 0);
+		return (error_exit(2), NULL);
 	map->rmap = malloc(sizeof(char *) * (count + 1));
 	if (!map->rmap)
-		return (error_exit(2), 0);
+		return (error_exit(2), NULL);
 	map->count = count;
-	return (1);
+	return (map);
 }
