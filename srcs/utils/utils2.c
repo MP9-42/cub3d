@@ -3,29 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
+/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/22 14:14:07 by MP9               #+#    #+#             */
-/*   Updated: 2026/07/22 16:01:53 by MP9              ###   ########.fr       */
+/*   Updated: 2026/08/07 15:21:00 by alegeber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-char	**deep_copy_map(t_map *map)
-{
-	char	**copy;
-	int		bi;
-
-	bi = 0;
-	copy = ft_calloc(sizeof(char *), map->size);
-	while (map->rmap[bi])
-	{
-		copy[bi] = ft_strdup(map->rmap[bi]);
-		bi++;
-	}
-	return (copy);
-}
 
 void	free_map(char **map, int size)
 {

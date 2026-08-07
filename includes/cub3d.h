@@ -54,60 +54,112 @@
 # include "libft.h"
 # include "structs.h"
 
-t_colors *assign_colors(char *floor, char *ceiling);
+/* main.c */
+void		init_cub(char **argv, t_cub *cub, t_parsing *parsing);
+
+/* errors/errors1.c */
+int			error_exit(int num);
+
+/* parsing/parser_utils.c */
+int			count_spawns(char **map);
+bool		valid_chars(char **map);
+char		*ft_linedup(const char *s1);
+
+/* parsing/colors.c */
 uint32_t	get_rgb(char **part);
-void free_map(char **map, int size);
-char	*ft_linedup(const char *s1);
-void kill_n(char *str);
-int	get_max_width(char **map);
-char	**pad_map(char **map, int rows, int max_width);
-bool flood_fill(char **map, int row, int col, t_rowcols rowcols);
-bool is_valid(char a);
-bool valid_chars(char **map);
-bool	validate_map(t_map *map);
-void	get_image(t_game *game, t_cub *cub);
-mlx_t *init_window(t_cub *cub);
-void draw_tile(mlx_image_t *img, t_point start, int size, uint32_t color);
-void draw_player(mlx_image_t *img, t_cub *cub, int origin_x, int origin_y);
-char **deep_copy_map(t_map *map);
-void render_map(mlx_image_t *img, t_cub *cub);
-void	redraw(t_game *game);
-void	resize_hook(int32_t width, int32_t height, void *param);
-int error_exit(int num);
-void readfile(t_parsing *parsing);
-void rf_helper(t_parsing *parsing, int *capacity, int i);
-int space_skip(char *str);
-void add_wall_textures(t_textures *textures);
+t_colors	*assign_colors(char *floor, char *ceiling);
+
+/* parsing/textures.c */
+void		add_wall_textures(t_textures *textures);
+
+/* parsing/map_parse.c */
+bool		validate_map(t_map *map);
+int			get_max_width(char **map);
+char		**pad_map(char **map, int rows, int max_width);
+
+/* map/map_init.c */
+void		readfile(t_parsing *parsing);
+t_map		*map_allocator(t_parsing *parsing, int *start);
+int			map_maker(t_map *map, t_parsing *parsing, int start);
+
+/* map/map_assign.c */
+t_map		*get_map(t_cub *cub, t_parsing *parsing);
+bool		flood_fill(char **map, int row, int col, t_rowcols rowcols);
+
+/* utils/utils1.c */
+bool		is_valid(char a);
+int			space_skip(char *str);
+void		kill_n(char *str);
+void		rf_helper(t_parsing *parsing, int *capacity, int i);
+
+/* utils/utils2.c */
+char		**deep_copy_map(t_map *map);
+void		free_map(char **map, int size);
+void		tab_converter(const char *s1, char *s2, size_t *i, size_t *j);
+void		line_cruncher(t_map *map, t_rowcols *rowcols);
+
+/* player/player_init.c */
 t_player	*init_player(t_map *map);
-t_map	*get_map(t_cub *cub, t_parsing *parsing);
-int	is_wall(t_map *map, int x, int y);
-void	cast_ray(t_player *player, t_map *map, t_ray *ray, double camera_x);
-void	render_frame(void *param);
-void	update_player(void *param);
-t_map	*map_allocator(t_parsing *parsing);
-int	map_maker(t_map *map, t_parsing *parsing);
-t_npc	*init_npc(t_map *map);
-void	update_npc(void *param);
-void	draw_npc(mlx_image_t *img, t_cub *cub);
-void	draw_sprite(t_cub *cub, double *raycaster_buffer);
-void	bfs_alloc(t_bfs *bfs);
-void	line_cruncher(t_map *map, t_rowcols *rowcols);
-void	bfs_init(int start_x, int start_y, t_bfs *bfs);
-void	breadth_first_search(t_map *map, t_bfs *bfs);
-int		bifis(t_map *map, t_bfs *bfs);
-double	get_time(void);
-void	get_length(t_cub *cub, t_npc *npc, t_bfs *bfs, double now);
-void	get_distance(t_cub *cub, t_npc *npc, t_bfs *bfs);
-void	move_n_get_distance(t_cub *cub, t_npc *npc, t_bfs *bfs);
-void	draw_column(t_cub *cub, t_ray *ray, int x);
+
+/* player/player_move.c */
+void		update_player(void *param);
+
+/* raycaster/dda.c */
+int			is_wall(t_map *map, int x, int y);
+void		cast_ray(t_player *player, t_map *map, t_ray *ray, double camera_x);
+
+/* raycaster/render.c */
+void		render_frame(void *param);
+
+/* raycaster/render_wall.c */
+void		draw_column(t_cub *cub, t_ray *ray, int x);
+
+/* raycaster/render_sprite.c */
 uint32_t	tex_pixel_color(mlx_texture_t *tex, int tex_x, int tex_y);
-void	draw_billboard_sprite(t_cub *cub, t_dpoint pos,
-			mlx_texture_t *tex, double *raycaster_buffer);
-void	update_items(void *param);
-int		count_total_cans(t_map *map);
-void	draw_cans(t_cub *cub, double *raycaster_buffer);
-char	*get_value(char **file, char **parts, int i, int j);
-void	draw_can_hud(t_cub *cub);
-void	tab_converter(const char *s1, char *s2, size_t *i, size_t *j);
+void		draw_billboard_sprite(t_cub *cub, t_dpoint pos,
+				mlx_texture_t *tex, double *raycaster_buffer);
+
+/* window/init.c */
+mlx_t		*init_window(t_cub *cub);
+void		get_image(t_game *game, t_cub *cub);
+void		resize_hook(int32_t width, int32_t height, void *param);
+void		redraw(t_game *game);
+
+/* window/minimap.c */
+void		draw_tile(mlx_image_t *img, t_point start, int size, uint32_t c);
+void		draw_player(mlx_image_t *img, t_cub *cub, int ox, int oy);
+
+/* window/minimap_grid.c */
+void		render_map(mlx_image_t *img, t_cub *cub);
+
+/* bonus/police.c */
+void		update_npc(void *param);
+void		draw_npc(mlx_image_t *img, t_cub *cub);
+void		draw_sprite(t_cub *cub, double *raycaster_buffer);
+
+/* bonus/police_init.c */
+t_npc		*init_npc(t_map *map);
+
+/* bonus/police_bfs.c */
+void		bfs_alloc(t_bfs *bfs);
+void		bfs_init(int start_x, int start_y, t_bfs *bfs);
+void		breadth_first_search(t_map *map, t_bfs *bfs);
+
+/* bonus/police_path.c */
+int			bifis(t_map *map, t_bfs *bfs);
+
+/* bonus/police_chase.c */
+double		get_time(void);
+void		get_length(t_cub *cub, t_npc *npc, t_bfs *bfs, double now);
+void		get_distance(t_cub *cub, t_npc *npc, t_bfs *bfs);
+void		move_n_get_distance(t_cub *cub, t_npc *npc, t_bfs *bfs);
+
+/* bonus/items.c */
+void		update_items(void *param);
+int			count_total_cans(t_map *map);
+void		draw_cans(t_cub *cub, double *raycaster_buffer);
+
+/* bonus/items_hud.c */
+void		draw_can_hud(t_cub *cub);
 
 #endif
