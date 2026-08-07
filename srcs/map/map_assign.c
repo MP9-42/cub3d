@@ -109,7 +109,8 @@ bool	flood_fill(char **map, int row, int col, t_rowcols rowcols)
 		return (false);
 	if (map[row][col] == ' ' || map[row][col] == '\t')
 		return (false);
-	if (map[row][col] == '1' || map[row][col] == 'V')
+	if (map[row][col] == '1' || map[row][col] == 'V'
+		|| map[row][col] == FINISH_TILE)
 		return (true);
 	map[row][col] = 'V';
 	if (!flood_fill(map, row + 1, col, rowcols))

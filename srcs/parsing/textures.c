@@ -20,9 +20,11 @@ void	add_wall_textures(t_textures *textures)
 	textures->west_tex = mlx_load_png(textures->west);
 	textures->police_tex = mlx_load_png("textures/sprites/POLICE.png");
 	textures->can_tex = mlx_load_png("textures/sprites/BLUE.png");
+	textures->finish_tex = mlx_load_png("textures/FINISH_TEX.png");
 	if (!textures->north_tex || !textures->south_tex
 		|| !textures->east_tex || !textures->west_tex
-		|| !textures->police_tex || !textures->can_tex)
+		|| !textures->police_tex || !textures->can_tex
+		|| !textures->finish_tex)
 	{
 		ft_putstr_fd("Error\nFailed to load textures\n", 2);
 		exit(1);

@@ -12,15 +12,21 @@
 
 #include "../../includes/cub3d.h"
 
-static uint32_t	tile_color(t_map *map, int map_x, int map_y)
+static uint32_t	tile_color(t_cub *cub, int map_x, int map_y)
 {
-	if (map_y < 0 || map_y >= map->size
-		|| map_x < 0 || map_x >= map->max_width)
+	char	tile;
+
+	tile = map_tile(cub->map, map_x, map_y);
+	if (tile == '\0' || tile == ' ')
 		return (MINIMAP_VOID);
-	if (map->rmap[map_y][map_x] == '1')
+	if (tile == FINISH_TILE)
+	{
+		if (finish_unlocked(cub))
+			return (MINIMAP_FINISH);
+		return (MINIMAP_FINISH_LOCKED);
+	}
+	if (tile == '1')
 		return (MINIMAP_WALL);
-	if (map->rmap[map_y][map_x] == ' ')
-		return (MINIMAP_VOID);
 	return (MINIMAP_FLOOR);
 }
 
@@ -39,7 +45,7 @@ static void	draw_minimap_tiles(mlx_image_t *img, t_cub *cub, t_point origin)
 			pos.x = origin.x + (dx + MINIMAP_RADIUS) * MINIMAP_TILE;
 			pos.y = origin.y + (dy + MINIMAP_RADIUS) * MINIMAP_TILE;
 			draw_tile(img, pos, MINIMAP_TILE,
-				tile_color(cub->map, (int)cub->player->pos_x + dx,
+				tile_color(cub, (int)cub->player->pos_x + dx,
 					(int)cub->player->pos_y + dy));
 			dx++;
 		}

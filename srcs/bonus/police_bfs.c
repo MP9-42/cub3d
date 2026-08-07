@@ -46,7 +46,7 @@ static void	algo_helper(t_map *map, t_bfs *bfs)
 		bfs->nx = bfs->current_x + bfs->dx[bfs->i];
 		bfs->ny = bfs->current_y + bfs->dy[bfs->i];
 		if (bfs->ny >= 0 && bfs->ny < map->size && bfs->nx >= 0
-			&& bfs->nx < bfs->width && map->rmap[bfs->ny][bfs->nx] != '1'
+			&& bfs->nx < bfs->width && !is_wall(map, bfs->nx, bfs->ny)
 			&& !bfs->visited[bfs->ny * bfs->width + bfs->nx])
 		{
 			bfs->visited[bfs->ny * bfs->width + bfs->nx] = 1;

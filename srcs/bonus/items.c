@@ -33,8 +33,7 @@ void	update_items(void *param)
 		cub->map->rmap[py][px] = '0';
 		cub->can_count++;
 	}
-	else if ((tile == '9' || tile == '8') && cub->can_count > 0)
-		cub->you_win = true;
+	check_finish(cub);
 }
 
 int	count_total_cans(t_map *map)

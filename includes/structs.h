@@ -73,6 +73,7 @@ typedef struct s_textures
 	char			*can;
 	mlx_texture_t	*police_tex;
 	mlx_texture_t	*can_tex;
+	mlx_texture_t	*finish_tex;
 	mlx_texture_t	*north_tex;
 	mlx_texture_t	*south_tex;
 	mlx_texture_t	*west_tex;

@@ -14,17 +14,16 @@
 
 // Returns 1 if the map cell (x, y) is a wall. Coordinates outside the
 // map (or past the end of a short row) are treated as solid walls so
-// rays can never escape the grid.
+// rays can never escape the grid. The finish tile is solid too: it is
+// a wall the player has to walk up to, not a floor to step on.
 int	is_wall(t_map *map, int x, int y)
 {
-	int	len;
+	char	tile;
 
-	if (y < 0 || y >= map->size || x < 0)
+	tile = map_tile(map, x, y);
+	if (tile == '\0')
 		return (1);
-	len = (int)ft_strlen(map->rmap[y]);
-	if (x >= len)
-		return (1);
-	return (map->rmap[y][x] == '1');
+	return (tile == '1' || tile == FINISH_TILE);
 }
 
 // Sets the ray's starting grid cell to the player's cell and computes

@@ -26,6 +26,14 @@
 # define MINIMAP_VOID 0x050505FF
 # define MINIMAP_TILE 8
 # define MINIMAP_RADIUS 10
+# define MINIMAP_FINISH 0x00D050FF
+# define MINIMAP_FINISH_LOCKED 0x2E5638FF
+
+/* The finish is a solid wall tile: it only opens once every can has
+   been picked up, and the player has to walk up and touch its face. */
+# define FINISH_TILE '9'
+# define FINISH_TOUCH 0.4
+# define FINISH_LOCK_SHADE 3
 
 # define WHITE 0xFFFFFFFF
 # define BLACK 0x000000FF
@@ -93,10 +101,10 @@ void		kill_n(char *str);
 void		rf_helper(t_parsing *parsing, int *capacity, int i);
 
 /* utils/utils2.c */
-char		**deep_copy_map(t_map *map);
 void		free_map(char **map, int size);
 void		tab_converter(const char *s1, char *s2, size_t *i, size_t *j);
 void		line_cruncher(t_map *map, t_rowcols *rowcols);
+char		map_tile(t_map *map, int x, int y);
 
 /* player/player_init.c */
 t_player	*init_player(t_map *map);
@@ -161,5 +169,12 @@ void		draw_cans(t_cub *cub, double *raycaster_buffer);
 
 /* bonus/items_hud.c */
 void		draw_can_hud(t_cub *cub);
+
+/* bonus/finish.c */
+bool		finish_unlocked(t_cub *cub);
+bool		is_finish_hit(t_cub *cub, t_ray *ray);
+bool		touching_finish(t_cub *cub);
+void		check_finish(t_cub *cub);
+uint32_t	wall_pixel(t_cub *cub, mlx_texture_t *tex, int tx, int ty);
 
 #endif

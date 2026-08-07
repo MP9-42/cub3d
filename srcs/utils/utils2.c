@@ -49,3 +49,14 @@ void	line_cruncher(t_map *map, t_rowcols *rowcols)
 	rowcols->value = (free_map(rowcols->padded, map->size),
 			free_map(rowcols->copy, map->size), false);
 }
+
+// Returns the map character at (x, y), or '\0' for coordinates that
+// fall outside the grid (or past the end of a short row).
+char	map_tile(t_map *map, int x, int y)
+{
+	if (y < 0 || y >= map->size || x < 0)
+		return ('\0');
+	if (x >= (int)ft_strlen(map->rmap[y]))
+		return ('\0');
+	return (map->rmap[y][x]);
+}
