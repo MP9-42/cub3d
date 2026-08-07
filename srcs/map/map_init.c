@@ -50,40 +50,39 @@ static int	line_starts_map(char *line)
 	return (is_valid(line[i]) && line[i] != ' ');
 }
 
-static int	find_map_start(char **file)
+static int	scan_map(char **file, int *start)
 {
-	int		i;
+	int	i;
+	int	count;
 
 	i = 0;
+	while (file[i] && !line_starts_map(file[i]))
+		i++;
+	*start = i;
+	count = 0;
+	while (file[i] && line_starts_map(file[i]))
+	{
+		count++;
+		i++;
+	}
 	while (file[i])
 	{
 		if (line_starts_map(file[i]))
-			return (i);
+			error_exit(2);
 		i++;
 	}
-	return (-1);
+	return (count);
 }
 
 t_map	*map_allocator(t_parsing *parsing, int *start)
 {
-	int		i;
 	int		count;
 	t_map	*map;
 
 	map = ft_calloc(sizeof(t_map), 1);
 	if (!map)
 		return (error_exit(2), NULL);
-	*start = find_map_start(parsing->file);
-	if (*start < 0)
-		return (error_exit(2), NULL);
-	count = 0;
-	i = *start;
-	while (parsing->file[i])
-	{
-		if (line_starts_map(parsing->file[i]))
-			count++;
-		i++;
-	}
+	count = scan_map(parsing->file, start);
 	if (count <= 0)
 		return (error_exit(2), NULL);
 	map->rmap = malloc(sizeof(char *) * (count + 1));

@@ -6,12 +6,11 @@
 /*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/22 14:14:07 by MP9               #+#    #+#             */
-/*   Updated: 2026/08/07 15:21:00 by alegeber         ###   ########.fr       */
+/*   Updated: 2026/08/07 15:26:24 by alegeber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-
 
 void	free_map(char **map, int size)
 {

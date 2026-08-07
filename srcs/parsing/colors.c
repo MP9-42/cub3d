@@ -25,6 +25,8 @@ static bool	is_num(char *s)
 			return (false);
 		i++;
 	}
+	if (i > 3)
+		return (false);
 	return (true);
 }
 

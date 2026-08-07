@@ -39,21 +39,26 @@ static char	*find_config_value(char **file, char *id)
 	char	*value;
 	int		i;
 	int		si;
+	int		len;
 
+	value = NULL;
 	i = 0;
+	len = ft_strlen(id);
 	while (file[i])
 	{
 		si = space_skip(file[i]);
-		if (ft_strncmp(file[i] + si, id, ft_strlen(id)) == 0)
+		if (ft_strncmp(file[i] + si, id, len) == 0
+			&& (file[i][si + len] == ' ' || file[i][si + len] == '\t'))
 		{
+			if (value)
+				return (error_exit(2), NULL);
 			value = get_value(file, i);
 			if (!value)
 				return (error_exit(2), NULL);
-			return (value);
 		}
 		i++;
 	}
-	return (NULL);
+	return (value);
 }
 
 void	add_n_assign_textures(t_cub *cub, t_parsing *parsing)
