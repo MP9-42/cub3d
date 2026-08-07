@@ -12,46 +12,7 @@
 
 #include "../includes/cub3d.h"
 
-char	*get_value(char **file, char **parts, int i, int j)
-{
-	char	*value;
-
-	parts = ft_split(file[i], ' ');
-	if (!parts || !parts[1])
-		return (error_exit(2), NULL);
-	value = ft_strdup(parts[1]);
-	j = 0;
-	while (parts[j])
-	{
-		free(parts[j]);
-		j++;
-	}
-	free(parts);
-	return (value);
-}
-
-int	map_maker(t_map *map, t_parsing *parsing)
-{
-	int	i;
-	int	mi;
-
-	map->size = map->count;
-	mi = 0;
-	i = map->start;
-	while (mi < map->count)
-	{
-		map->rmap[mi] = ft_linedup(parsing->file[i]);
-		if (!map->rmap[mi])
-			return (error_exit(2), 0);
-		kill_n(map->rmap[mi]);
-		mi++;
-		i++;
-	}
-	map->rmap[map->count] = NULL;
-	return (1);
-}
-
-bool	init_cub(char **argv, t_cub *cub, t_parsing *parsing, int *value)
+void	init_cub(char **argv, t_cub *cub, t_parsing *parsing)
 {
 	parsing->fd = open(argv[1], O_RDONLY);
 	if (parsing->fd < 0)
@@ -73,8 +34,6 @@ bool	init_cub(char **argv, t_cub *cub, t_parsing *parsing, int *value)
 	cub->game->width = WIDTH;
 	cub->game->height = HEIGHT;
 	cub->game->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
-	*value = 0;
-	return (false);
 }
 
 void	mlx_loops(t_cub *cub)
@@ -86,20 +45,28 @@ void	mlx_loops(t_cub *cub)
 	mlx_loop_hook(cub->game->mlx, render_frame, cub);
 }
 
+static bool	has_cub_ext(char *path)
+{
+	int	len;
+
+	len = ft_strlen(path);
+	if (len < 5)
+		return (false);
+	return (ft_strncmp(path + len - 4, ".cub", 4) == 0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_cub		*cub;
 	t_parsing	*parsing;
-	int			value;
 
-	if (argc != 2)
-		exit(1);
+	if (argc != 2 || !has_cub_ext(argv[1]))
+		error_exit(3);
 	cub = ft_calloc(sizeof(t_cub), 1);
 	parsing = ft_calloc(1, sizeof(t_parsing));
 	if (!cub || !parsing)
 		exit(1);
-	if (init_cub(argv, cub, parsing, &value))
-		exit(value);
+	init_cub(argv, cub, parsing);
 	if (!cub->game->mlx)
 		exit(1);
 	cub->game->player = cub->player;

@@ -15,8 +15,10 @@
 int	error_exit(int num)
 {
 	if (num == 1)
-		printf("hey, wrong RGB values mannn\n");
-	if (num == 2)
-		printf("hey, wrong map mannn\n");
-	exit(0);
+		ft_putstr_fd("Error\nInvalid color (need R,G,B in 0-255)\n", 2);
+	else if (num == 2)
+		ft_putstr_fd("Error\nInvalid map\n", 2);
+	else
+		ft_putstr_fd("Error\nUsage: ./cub3D <scene.cub>\n", 2);
+	exit(1);
 }

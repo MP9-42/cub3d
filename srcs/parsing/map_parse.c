@@ -19,28 +19,19 @@ void	help_for_help(t_map *map, t_rowcols rowcols)
 	map->rmap = rowcols.padded;
 }
 
-bool	validate_helper(t_map *map, t_rowcols rowcols)
+bool	validate_helper(t_rowcols *rowcols)
 {
 	int	bi;
 	int	si;
 
 	bi = 0;
-	while (rowcols.copy[bi])
+	while (rowcols->copy[bi])
 	{
 		si = 0;
-		while (rowcols.copy[bi][si])
+		while (rowcols->copy[bi][si])
 		{
-			if (ft_strchr("NSEW", rowcols.copy[bi][si]))
-			{
-				if (!flood_fill(rowcols.copy, bi, si, rowcols))
-				{
-					line_cruncher(map, &rowcols);
-					return (true);
-				}
-				rowcols.value = true;
-				help_for_help(map, rowcols);
-				return (true);
-			}
+			if (ft_strchr("NSEW", rowcols->copy[bi][si]))
+				return (flood_fill(rowcols->copy, bi, si, *rowcols));
 			si++;
 		}
 		bi++;
@@ -54,6 +45,8 @@ bool	validate_map(t_map *map)
 
 	if (!valid_chars(map->rmap))
 		return (false);
+	if (count_spawns(map->rmap) != 1)
+		return (false);
 	map->max_width = get_max_width(map->rmap);
 	rowcols.padded = pad_map(map->rmap, map->size, map->max_width);
 	rowcols.copy = pad_map(map->rmap, map->size, map->max_width);
@@ -62,11 +55,10 @@ bool	validate_map(t_map *map)
 			free_map(rowcols.copy, map->size), false);
 	rowcols.cols = map->max_width;
 	rowcols.rows = map->size;
-	if (validate_helper(map, rowcols))
-		return (rowcols.value);
-	free_map(rowcols.padded, map->size);
-	free_map(rowcols.copy, map->size);
-	return (false);
+	if (!validate_helper(&rowcols))
+		return (line_cruncher(map, &rowcols), false);
+	help_for_help(map, rowcols);
+	return (true);
 }
 
 int	get_max_width(char **map)

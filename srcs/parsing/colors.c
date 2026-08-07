@@ -12,12 +12,42 @@
 
 #include "../../includes/cub3d.h"
 
+static bool	is_num(char *s)
+{
+	int	i;
+
+	i = 0;
+	if (!s || !s[i])
+		return (false);
+	while (s[i])
+	{
+		if (s[i] < '0' || s[i] > '9')
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
+static bool	valid_rgb_split(char **part)
+{
+	int	i;
+
+	i = 0;
+	while (part && part[i])
+		i++;
+	if (i != 3)
+		return (false);
+	return (is_num(part[0]) && is_num(part[1]) && is_num(part[2]));
+}
+
 uint32_t	get_rgb(char **part)
 {
 	int	r;
 	int	g;
 	int	b;
 
+	if (!valid_rgb_split(part))
+		return (error_exit(1));
 	r = ft_atoi(part[0]);
 	g = ft_atoi(part[1]);
 	b = ft_atoi(part[2]);

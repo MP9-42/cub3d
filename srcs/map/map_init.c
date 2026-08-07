@@ -64,7 +64,7 @@ static int	find_map_start(char **file)
 	return (-1);
 }
 
-t_map	*map_allocator(t_parsing *parsing)
+t_map	*map_allocator(t_parsing *parsing, int *start)
 {
 	int		i;
 	int		count;
@@ -73,11 +73,11 @@ t_map	*map_allocator(t_parsing *parsing)
 	map = ft_calloc(sizeof(t_map), 1);
 	if (!map)
 		return (error_exit(2), NULL);
-	map->start = find_map_start(parsing->file);
-	if (map->start < 0)
+	*start = find_map_start(parsing->file);
+	if (*start < 0)
 		return (error_exit(2), NULL);
 	count = 0;
-	i = map->start;
+	i = *start;
 	while (parsing->file[i])
 	{
 		if (line_starts_map(parsing->file[i]))
@@ -89,6 +89,26 @@ t_map	*map_allocator(t_parsing *parsing)
 	map->rmap = malloc(sizeof(char *) * (count + 1));
 	if (!map->rmap)
 		return (error_exit(2), NULL);
-	map->count = count;
+	map->size = count;
 	return (map);
+}
+
+int	map_maker(t_map *map, t_parsing *parsing, int start)
+{
+	int	i;
+	int	mi;
+
+	mi = 0;
+	i = start;
+	while (mi < map->size)
+	{
+		map->rmap[mi] = ft_linedup(parsing->file[i]);
+		if (!map->rmap[mi])
+			return (error_exit(2), 0);
+		kill_n(map->rmap[mi]);
+		mi++;
+		i++;
+	}
+	map->rmap[map->size] = NULL;
+	return (1);
 }

@@ -53,14 +53,14 @@ static void	set_sprite_bounds(t_sprite *sp)
 {
 	sp->screen_x = (int)((WIDTH / 2)
 			* (1 + sp->transform_x / sp->transform_y));
-	sp->height = abs((int)(HEIGHT / sp->transform_y));
+	sp->height = (int)fabs(HEIGHT / sp->transform_y);
 	sp->start_y = -sp->height / 2 + HEIGHT / 2;
 	if (sp->start_y < 0)
 		sp->start_y = 0;
 	sp->end_y = sp->height / 2 + HEIGHT / 2;
 	if (sp->end_y >= HEIGHT)
 		sp->end_y = HEIGHT - 1;
-	sp->width = abs((int)(HEIGHT / sp->transform_y));
+	sp->width = (int)fabs(HEIGHT / sp->transform_y);
 	sp->start_x = -sp->width / 2 + sp->screen_x;
 	if (sp->start_x < 0)
 		sp->start_x = 0;

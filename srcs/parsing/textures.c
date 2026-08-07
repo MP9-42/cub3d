@@ -24,7 +24,7 @@ void	add_wall_textures(t_textures *textures)
 		|| !textures->east_tex || !textures->west_tex
 		|| !textures->police_tex || !textures->can_tex)
 	{
-		printf("Error\nFailed to load wall textures\n");
+		ft_putstr_fd("Error\nFailed to load textures\n", 2);
 		exit(1);
 	}
 }

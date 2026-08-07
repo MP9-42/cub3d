@@ -12,6 +12,28 @@
 
 #include "../../includes/cub3d.h"
 
+int	count_spawns(char **map)
+{
+	int	i;
+	int	j;
+	int	n;
+
+	i = 0;
+	n = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (ft_strchr("NSEW", map[i][j]))
+				n++;
+			j++;
+		}
+		i++;
+	}
+	return (n);
+}
+
 bool	valid_chars(char **map)
 {
 	int	bi;

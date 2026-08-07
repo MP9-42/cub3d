@@ -12,24 +12,41 @@
 
 #include "../../includes/cub3d.h"
 
-static char	*find_config_value(char **file, char *id)
+static char	*get_value(char **file, int i)
 {
 	char	**parts;
 	char	*value;
-	int		i;
 	int		j;
+
+	parts = ft_split(file[i], ' ');
+	if (!parts || !parts[1])
+		return (error_exit(2), NULL);
+	value = ft_strdup(parts[1]);
+	j = 0;
+	while (parts[j])
+	{
+		free(parts[j]);
+		j++;
+	}
+	free(parts);
+	if (value)
+		kill_n(value);
+	return (value);
+}
+
+static char	*find_config_value(char **file, char *id)
+{
+	char	*value;
+	int		i;
 	int		si;
 
 	i = 0;
-	j = 0;
-	parts = NULL;
-	value = NULL;
 	while (file[i])
 	{
 		si = space_skip(file[i]);
 		if (ft_strncmp(file[i] + si, id, ft_strlen(id)) == 0)
 		{
-			value = get_value(file, parts, i, j);
+			value = get_value(file, i);
 			if (!value)
 				return (error_exit(2), NULL);
 			return (value);
@@ -46,18 +63,13 @@ void	add_n_assign_textures(t_cub *cub, t_parsing *parsing)
 	cub->textures->south = find_config_value(parsing->file, "SO");
 	cub->textures->north = find_config_value(parsing->file, "NO");
 	cub->textures->west = find_config_value(parsing->file, "WE");
-	if (cub->textures->east)
-		kill_n(cub->textures->east);
-	if (cub->textures->south)
-		kill_n(cub->textures->south);
-	if (cub->textures->north)
-		kill_n(cub->textures->north);
-	if (cub->textures->west)
-		kill_n(cub->textures->west);
-	if (cub->textures->police)
-		kill_n(cub->textures->police);
-	if (cub->textures->can)
-		kill_n(cub->textures->can);
+	if (!cub->textures->east || !cub->textures->south
+		|| !cub->textures->north || !cub->textures->west)
+		error_exit(2);
+	kill_n(cub->textures->east);
+	kill_n(cub->textures->south);
+	kill_n(cub->textures->north);
+	kill_n(cub->textures->west);
 	add_wall_textures(cub->textures);
 }
 
@@ -66,8 +78,8 @@ t_map	*get_map(t_cub *cub, t_parsing *parsing)
 	t_map	*map;
 	char	*floor;
 	char	*ceiling;
+	int		start;
 
-	map = NULL;
 	if (!cub || !parsing || !parsing->file)
 		return (error_exit(2), NULL);
 	add_n_assign_textures(cub, parsing);
@@ -78,10 +90,10 @@ t_map	*get_map(t_cub *cub, t_parsing *parsing)
 	cub->colors = assign_colors(floor, ceiling);
 	free(floor);
 	free(ceiling);
-	map = map_allocator(parsing);
+	map = map_allocator(parsing, &start);
 	if (!map)
 		return (error_exit(2), NULL);
-	if (map_maker(map, parsing) == 0)
+	if (map_maker(map, parsing, start) == 0)
 		return (error_exit(2), NULL);
 	return (map);
 }
