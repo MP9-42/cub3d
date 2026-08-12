@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   police_path.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/20 22:49:00 by alegeber          #+#    #+#             */
-/*   Updated: 2026/07/20 23:29:31 by alegeber         ###   ########.fr       */
+/*   Updated: 2026/08/12 16:31:52 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ static void	path_swapper(t_bfs *bfs)
 	}
 }
 
+// Performs a breadth first search starting from the initial
+// position until the destination is found or no more tiles
+// are left to explore.
 int	bifis(t_map *map, t_bfs *bfs)
 {
 	int	len;

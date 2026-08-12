@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   police.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/02 18:59:12 by MP9               #+#    #+#             */
-/*   Updated: 2026/07/21 17:04:49 by alegeber         ###   ########.fr       */
+/*   Updated: 2026/08/12 16:28:39 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
+// Move our npc towards the next target in its path,
+// checking if it's reached the target.
 void	update_npc(void *param)
 {
 	t_cub	*cub;
@@ -40,6 +42,8 @@ void	update_npc(void *param)
 		cub->game_over = true;
 }
 
+// draws our npc on the minimap, calculating its position relative to
+// the player and ensuring it is within the minimap's bounds.
 void	draw_npc(mlx_image_t *img, t_cub *cub)
 {
 	if (!cub->npc || !cub->npc->active)
@@ -67,6 +71,8 @@ void	draw_npc(mlx_image_t *img, t_cub *cub)
 		cub->npc->screen_y - cub->npc->ps / 2}, cub->npc->ps, BLUE);
 }
 
+// draw the npc as a police sprite in the 3D world, using its position 
+// and the raycaster buffer to ensure correct rendering order and occlusion.
 void	draw_sprite(t_cub *cub, double *raycaster_buffer)
 {
 	t_dpoint	pos;

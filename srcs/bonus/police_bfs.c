@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   police_bfs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/20 22:51:13 by alegeber          #+#    #+#             */
-/*   Updated: 2026/07/20 23:29:20 by alegeber         ###   ########.fr       */
+/*   Updated: 2026/08/12 16:29:34 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,9 @@ static void	algo_helper(t_map *map, t_bfs *bfs)
 	}
 }
 
+// Explores the map using bradth first search, each valid,
+// unvisited tile is added to the queue, and the parent of each tile is stored for path reconstruction.
+// The search continues until the destination is found or no more tiles are left to explore.
 void	breadth_first_search(t_map *map, t_bfs *bfs)
 {
 	while (bfs->front < bfs->rear)
