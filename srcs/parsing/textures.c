@@ -6,12 +6,13 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 18:49:44 by MP9               #+#    #+#             */
-/*   Updated: 2026/07/22 14:12:40 by MP9              ###   ########.fr       */
+/*   Updated: 2026/08/12 16:04:49 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
+// adds textures from our .cub file and exits if any of them fail to load
 void	add_wall_textures(t_textures *textures)
 {
 	textures->north_tex = mlx_load_png(textures->north);

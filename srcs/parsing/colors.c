@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/11 13:40:43 by MP9               #+#    #+#             */
-/*   Updated: 2026/07/21 17:04:47 by alegeber         ###   ########.fr       */
+/*   Updated: 2026/08/12 16:08:05 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ static void	free_split(char **split)
 	free(split);
 }
 
+// assigns colors according to the floor and ceiling values in our .cub
+// file and returns a t_colors struct
 t_colors	*assign_colors(char *floor, char *ceiling)
 {
 	char		**chao;

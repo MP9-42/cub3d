@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   player_move.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/24 10:11:03 by alegeber          #+#    #+#             */
-/*   Updated: 2026/07/20 22:16:35 by alegeber         ###   ########.fr       */
+/*   Updated: 2026/08/12 16:00:36 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
+// allows player to move with camera movement
 static void	rotate_player(t_player *player, double rot_speed)
 {
 	double	old_dir_x;
@@ -29,6 +30,8 @@ static void	rotate_player(t_player *player, double rot_speed)
 		+ player->plane_y * cos(rot_speed);
 }
 
+// checks if there is a wall in the direction the player 
+// is moving and updates the player's position accordingly
 static void	move_player(t_cub *cub, double move_x, double move_y)
 {
 	double	new_x;
@@ -42,6 +45,7 @@ static void	move_player(t_cub *cub, double move_x, double move_y)
 		cub->player->pos_y = new_y;
 }
 
+// moves the player accordingly to the input received from the user.
 static void	get_move_input(t_cub *cub, double *move_x, double *move_y)
 {
 	double	move_speed;
@@ -71,6 +75,7 @@ static void	get_move_input(t_cub *cub, double *move_x, double *move_y)
 	}
 }
 
+// handles camera movement based on the user input
 static void	handle_rotation(t_cub *cub, double rot_speed)
 {
 	if (mlx_is_key_down(cub->game->mlx, MLX_KEY_LEFT))
@@ -79,6 +84,8 @@ static void	handle_rotation(t_cub *cub, double rot_speed)
 		rotate_player(cub->player, rot_speed);
 }
 
+// accept movement input from the user and update the player's
+// position and camera direction accordingly
 void	update_player(void *param)
 {
 	t_cub	*cub;

@@ -6,12 +6,13 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:35 by MP9               #+#    #+#             */
-/*   Updated: 2026/07/22 15:59:46 by MP9              ###   ########.fr       */
+/*   Updated: 2026/08/12 14:56:22 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+// initialise the cub struct and start parsing of the .cub file
 void	init_cub(char **argv, t_cub *cub, t_parsing *parsing)
 {
 	parsing->fd = open(argv[1], O_RDONLY);
@@ -28,7 +29,7 @@ void	init_cub(char **argv, t_cub *cub, t_parsing *parsing)
 	if (!validate_map(cub->map))
 		error_exit(2);
 	cub->total_cans = count_total_cans(cub->map);
-	cub->game = ft_calloc(sizeof(t_game), 1);
+	cub->game = ft_calloc(1, sizeof(t_game));
 	cub->player = init_player(cub->map);
 	cub->npc = init_npc(cub->map);
 	cub->game->width = WIDTH;
@@ -62,7 +63,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 2 || !has_cub_ext(argv[1]))
 		error_exit(3);
-	cub = ft_calloc(sizeof(t_cub), 1);
+	cub = ft_calloc(1, sizeof(t_cub));
 	parsing = ft_calloc(1, sizeof(t_parsing));
 	if (!cub || !parsing)
 		exit(1);

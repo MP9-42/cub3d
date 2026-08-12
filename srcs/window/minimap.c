@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/21 16:50:12 by alegeber          #+#    #+#             */
-/*   Updated: 2026/07/21 17:04:35 by alegeber         ###   ########.fr       */
+/*   Updated: 2026/08/12 16:11:22 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
+// draws our player as a red point with a green line
+// indicating the direction the player is facing
 void	draw_player(mlx_image_t *img, t_cub *cub,
 		int origin_x, int origin_y)
 {
@@ -53,6 +55,7 @@ static void	clamp_tile(t_point *start, t_point *end, mlx_image_t *img)
 		end->y = img->height;
 }
 
+// draws our minimap tile by tile, clamping the start and end points to the image boundaries
 void	draw_tile(mlx_image_t *img, t_point start, int size, uint32_t color)
 {
 	t_point	end;

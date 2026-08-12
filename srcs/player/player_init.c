@@ -6,7 +6,7 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/19 12:00:00 by alegeber          #+#    #+#             */
-/*   Updated: 2026/06/21 19:14:57 by MP9              ###   ########.fr       */
+/*   Updated: 2026/08/12 16:03:44 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static void	set_dir_plane_ns(t_player *p, char facing)
 	}
 }
 
+// sets the player's direction and plane based on the facing direction
 static void	set_dir_plane(t_player *p, char facing)
 {
 	if (facing == 'N' || facing == 'S')
@@ -50,6 +51,8 @@ static void	set_dir_plane(t_player *p, char facing)
 	}
 }
 
+// searches for our spawnpoint and sets the player's position 
+// and direction accordingly. returns 1 if a spawnpoint was found, 0 if not
 static int	find_spawn(t_player *player, char **rmap)
 {
 	int		y;
@@ -77,6 +80,9 @@ static int	find_spawn(t_player *player, char **rmap)
 	return (0);
 }
 
+// initializes our player struct with the spawn position
+// and direction based on the map checks if the spawn
+// position is valid and returns NULL if not
 t_player	*init_player(t_map *map)
 {
 	t_player	*player;

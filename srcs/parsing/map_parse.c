@@ -6,7 +6,7 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:27 by MP9               #+#    #+#             */
-/*   Updated: 2026/07/22 16:03:09 by MP9              ###   ########.fr       */
+/*   Updated: 2026/08/12 16:07:04 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ bool	validate_helper(t_rowcols *rowcols)
 	return (false);
 }
 
+// validates the padded map, checks for multiple spawnpoints, and frees the padded map 
+// if the map is invalid. returns true if the map is valid, false if not
 bool	validate_map(t_map *map)
 {
 	t_rowcols	rowcols;
@@ -79,6 +81,8 @@ int	get_max_width(char **map)
 	return (max);
 }
 
+// pads the map with the width of the 
+// longest row and returns a new 2D array with spaces
 char	**pad_map(char **map, int rows, int max_width)
 {
 	char	**padded;
