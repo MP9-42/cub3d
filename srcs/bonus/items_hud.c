@@ -6,12 +6,17 @@
 /*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/21 14:12:53 by alegeber          #+#    #+#             */
-/*   Updated: 2026/07/21 16:42:30 by alegeber         ###   ########.fr       */
+/*   Updated: 2026/08/12 19:14:08 by alegeber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
+// Copies one pixel of the can icon into the frame: maps the HUD pixel
+// back to a texel (nearest neighbour, since the icon is scaled down to
+// HUD_ICON_SIZE), drops fully transparent texels and anything that would
+// land outside the window, then packs the RGBA bytes the way MLX42
+// expects them.
 static void	put_can_pixel(mlx_image_t *img, mlx_texture_t *tex,
 		t_point px, t_point origin)
 {
@@ -32,6 +37,8 @@ static void	put_can_pixel(mlx_image_t *img, mlx_texture_t *tex,
 	mlx_put_pixel(img, origin.x + px.x, origin.y + px.y, color);
 }
 
+// Blits the can texture as one HUD_ICON_SIZE square with its top-left
+// corner at x0/y0.
 static void	draw_can_icon(mlx_image_t *img, mlx_texture_t *tex, int x0, int y0)
 {
 	t_point	origin;
@@ -54,6 +61,8 @@ static void	draw_can_icon(mlx_image_t *img, mlx_texture_t *tex, int x0, int y0)
 	}
 }
 
+// Draws the placeholder for a can not collected yet: a filled circle
+// inscribed in the same square an icon would occupy.
 static void	draw_can_dot(mlx_image_t *img, int x0, int y0)
 {
 	int	x;
@@ -80,6 +89,9 @@ static void	draw_can_dot(mlx_image_t *img, int x0, int y0)
 	}
 }
 
+// Draws the top-left counter, one slot per can on the map laid out left
+// to right: an icon for each can already collected, a dot for each one
+// still out there.
 void	draw_can_hud(t_cub *cub)
 {
 	int	i;

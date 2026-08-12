@@ -6,12 +6,15 @@
 /*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/10 01:05:12 by alegeber          #+#    #+#             */
-/*   Updated: 2026/07/21 16:42:37 by alegeber         ###   ########.fr       */
+/*   Updated: 2026/08/12 19:14:22 by alegeber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
+// Per-frame hook: if the player is standing on a can tile ('7'), clears
+// the tile and banks the can, then re-checks the finish since that may
+// have been the last one. Frozen once the game is won or lost.
 void	update_items(void *param)
 {
 	t_cub	*cub;
@@ -36,6 +39,8 @@ void	update_items(void *param)
 	check_finish(cub);
 }
 
+// Counts the '7' tiles once at startup: the HUD draws one slot per can
+// and the finish stays locked until can_count reaches this total.
 int	count_total_cans(t_map *map)
 {
 	int	y;
@@ -58,6 +63,9 @@ int	count_total_cans(t_map *map)
 	return (count);
 }
 
+// Draws every can still on the map as a billboard sprite centred on its
+// tile. The raycaster buffer carries the per-column wall distances, so
+// cans standing behind a wall stay hidden.
 void	draw_cans(t_cub *cub, double *raycaster_buffer)
 {
 	int			y;
