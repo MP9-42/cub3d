@@ -6,7 +6,7 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/21 19:28:08 by MP9               #+#    #+#             */
-/*   Updated: 2026/07/22 15:36:36 by MP9              ###   ########.fr       */
+/*   Updated: 2026/08/12 19:12:43 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static char	*get_value(char **file, int i)
 
 	parts = ft_split(file[i], ' ');
 	if (!parts || !parts[1])
+		return (error_exit(2), NULL);
+	if (ft_matrixlen(parts) > 2)
 		return (error_exit(2), NULL);
 	value = ft_strdup(parts[1]);
 	j = 0;

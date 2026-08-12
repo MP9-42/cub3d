@@ -50,6 +50,41 @@ static int	line_starts_map(char *line)
 	return (is_valid(line[i]) && line[i] != ' ');
 }
 
+static int	is_blank_line(char *line)
+{
+	int	i;
+
+	if (!line)
+		return (1);
+	i = space_skip(line);
+	if (line[i] == '\0' || line[i] == '\n')
+		return (1);
+	return (0);
+}
+
+static int	is_config_line(char *line)
+{
+	int	i;
+
+	if (!line)
+		return (0);
+	i = space_skip(line);
+	if ((ft_strncmp(line + i, "NO", 2) == 0
+			&& (line[i + 2] == ' ' || line[i + 2] == '\t'))
+		|| (ft_strncmp(line + i, "SO", 2) == 0
+			&& (line[i + 2] == ' ' || line[i + 2] == '\t'))
+		|| (ft_strncmp(line + i, "WE", 2) == 0
+			&& (line[i + 2] == ' ' || line[i + 2] == '\t'))
+		|| (ft_strncmp(line + i, "EA", 2) == 0
+			&& (line[i + 2] == ' ' || line[i + 2] == '\t'))
+		|| (ft_strncmp(line + i, "F", 1) == 0
+			&& (line[i + 1] == ' ' || line[i + 1] == '\t'))
+		|| (ft_strncmp(line + i, "C", 1) == 0
+			&& (line[i + 1] == ' ' || line[i + 1] == '\t')))
+		return (1);
+	return (0);
+}
+
 static int	scan_map(char **file, int *start)
 {
 	int	i;
@@ -57,7 +92,11 @@ static int	scan_map(char **file, int *start)
 
 	i = 0;
 	while (file[i] && !line_starts_map(file[i]))
+	{
+		if (!is_blank_line(file[i]) && !is_config_line(file[i]))
+			error_exit(2);
 		i++;
+	}
 	*start = i;
 	count = 0;
 	while (file[i] && line_starts_map(file[i]))
@@ -67,7 +106,7 @@ static int	scan_map(char **file, int *start)
 	}
 	while (file[i])
 	{
-		if (line_starts_map(file[i]))
+		if (!is_blank_line(file[i]))
 			error_exit(2);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/11 13:40:43 by MP9               #+#    #+#             */
-/*   Updated: 2026/08/12 16:08:05 by MP9              ###   ########.fr       */
+/*   Updated: 2026/08/12 18:55:09 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ t_colors	*assign_colors(char *floor, char *ceiling)
 	colors = ft_calloc(sizeof(t_colors), 1);
 	chao = ft_split(floor, ',');
 	teto = ft_split(ceiling, ',');
+	if (ft_matrixlen(chao) != 3 || ft_matrixlen(teto) != 3)
+		return (free_split(chao), free_split(teto), error_exit(1), NULL);
 	colors->ceiling = get_rgb(teto);
 	colors->floor = get_rgb(chao);
 	free_split(chao);
