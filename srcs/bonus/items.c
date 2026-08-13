@@ -6,7 +6,7 @@
 /*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/10 01:05:12 by alegeber          #+#    #+#             */
-/*   Updated: 2026/08/12 19:14:22 by alegeber         ###   ########.fr       */
+/*   Updated: 2026/08/13 14:56:42 by alegeber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	update_items(void *param)
 	char	tile;
 
 	cub = (t_cub *)param;
-	if (cub->game_over || cub->you_win)
+	if (cub->game_over || cub->you_win || cub->paused)
 		return ;
 	px = (int)cub->player->pos_x;
 	py = (int)cub->player->pos_y;

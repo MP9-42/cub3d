@@ -6,7 +6,7 @@
 /*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 12:45:11 by alegeber          #+#    #+#             */
-/*   Updated: 2026/07/15 14:00:00 by alegeber         ###   ########.fr       */
+/*   Updated: 2026/08/13 14:56:55 by alegeber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,11 @@ void	render_frame(void *param)
 	cub = (t_cub *)param;
 	if (check_game_end(cub))
 		return ;
+	if (cub->paused)
+	{
+		draw_pause_overlay(cub);
+		return ;
+	}
 	x = 0;
 	while (x < WIDTH)
 	{

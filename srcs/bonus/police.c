@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   police.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
+/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/02 18:59:12 by MP9               #+#    #+#             */
-/*   Updated: 2026/08/12 16:28:39 by MP9              ###   ########.fr       */
+/*   Updated: 2026/08/13 14:56:46 by alegeber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	update_npc(void *param)
 
 	cub = (t_cub *)param;
 	npc = cub->npc;
-	if (!npc || !npc->active || cub->game_over || cub->you_win)
+	if (!npc || !npc->active || cub->game_over || cub->you_win || cub->paused)
 		return ;
 	ft_memset(&bfs, 0, sizeof(t_bfs));
 	bfs.now = get_time();
@@ -71,7 +71,7 @@ void	draw_npc(mlx_image_t *img, t_cub *cub)
 		cub->npc->screen_y - cub->npc->ps / 2}, cub->npc->ps, BLUE);
 }
 
-// draw the npc as a police sprite in the 3D world, using its position 
+// draw the npc as a police sprite in the 3D world, using its position
 // and the raycaster buffer to ensure correct rendering order and occlusion.
 void	draw_sprite(t_cub *cub, double *raycaster_buffer)
 {

@@ -16,6 +16,7 @@ SRCFILES = srcs/main.c srcs/parsing/colors.c srcs/parsing/map_parse.c srcs/utils
 			srcs/errors/errors1.c srcs/parsing/parser_utils.c \
 			srcs/player/player_init.c srcs/raycaster/dda.c srcs/window/init.c \
 			srcs/window/minimap.c srcs/window/minimap_grid.c \
+			srcs/window/pause.c \
 			srcs/raycaster/render.c srcs/raycaster/render_wall.c \
 			srcs/raycaster/render_sprite.c srcs/player/player_move.c \
 			srcs/parsing/textures.c srcs/bonus/police.c \

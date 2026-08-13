@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_move.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
+/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/24 10:11:03 by alegeber          #+#    #+#             */
-/*   Updated: 2026/08/13 13:19:22 by MP9              ###   ########.fr       */
+/*   Updated: 2026/08/13 14:56:50 by alegeber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,11 @@ void	update_player(void *param)
 		exit(0);
 	}
 	if (cub->game_over || cub->you_win)
+	{
+		mlx_set_cursor_mode(cub->game->mlx, MLX_MOUSE_NORMAL);
+		return ;
+	}
+	if (cub->paused)
 		return ;
 	get_move_input(cub, &move_x, &move_y);
 	if (move_x != 0 || move_y != 0)

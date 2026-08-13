@@ -198,6 +198,8 @@ typedef struct s_cub
 	bool			game_over;
 	bool			you_win;
 	bool			overlay_drawn;
+	bool			paused;
+	bool			pause_drawn;
 }					t_cub;
 
 typedef struct s_point

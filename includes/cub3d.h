@@ -37,6 +37,13 @@
 
 # define MOUSE_SENS 0.0015
 
+/* TAB freezes the game and hands the cursor back to the window manager
+   so the mouse can reach the X button; TAB again re-locks it. */
+# define PAUSE_BAR_W 16
+# define PAUSE_BAR_H 56
+# define PAUSE_BAR_GAP 14
+# define PAUSE_DIM 3
+
 # define WHITE 0xFFFFFFFF
 # define BLACK 0x000000FF
 # define RED   0xFF0000FF
@@ -134,6 +141,11 @@ mlx_t		*init_window(t_cub *cub);
 void		get_image(t_game *game, t_cub *cub);
 void		resize_hook(int32_t width, int32_t height, void *param);
 void		redraw(t_game *game);
+
+/* window/pause.c */
+void		draw_pause_overlay(t_cub *cub);
+void		toggle_pause(t_cub *cub);
+void		key_hook(mlx_key_data_t keydata, void *param);
 
 /* window/minimap.c */
 void		draw_tile(mlx_image_t *img, t_point start, int size, uint32_t c);
