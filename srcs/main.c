@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
+/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:35 by MP9               #+#    #+#             */
-/*   Updated: 2026/08/12 14:56:22 by MP9              ###   ########.fr       */
+/*   Updated: 2026/08/13 12:56:06 by alegeber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,11 @@ void	init_cub(char **argv, t_cub *cub, t_parsing *parsing)
 
 void	mlx_loops(t_cub *cub)
 {
+	int32_t temp;
+
 	get_image(cub->game, cub);
+	mlx_set_cursor_mode(cub->game->mlx, MLX_MOUSE_DISABLED);
+	mlx_get_mouse_pos(cub->game->mlx, &cub->game->last_mouse_x, &temp);
 	mlx_loop_hook(cub->game->mlx, update_player, cub);
 	mlx_loop_hook(cub->game->mlx, update_npc, cub);
 	mlx_loop_hook(cub->game->mlx, update_items, cub);

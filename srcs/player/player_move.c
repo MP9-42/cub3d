@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_move.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
+/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/24 10:11:03 by alegeber          #+#    #+#             */
-/*   Updated: 2026/08/12 16:00:36 by MP9              ###   ########.fr       */
+/*   Updated: 2026/08/13 12:53:42 by alegeber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	rotate_player(t_player *player, double rot_speed)
 		+ player->plane_y * cos(rot_speed);
 }
 
-// checks if there is a wall in the direction the player 
+// checks if there is a wall in the direction the player
 // is moving and updates the player's position accordingly
 static void	move_player(t_cub *cub, double move_x, double move_y)
 {
@@ -78,10 +78,18 @@ static void	get_move_input(t_cub *cub, double *move_x, double *move_y)
 // handles camera movement based on the user input
 static void	handle_rotation(t_cub *cub, double rot_speed)
 {
+	int32_t	x;
+	int32_t y;
+
 	if (mlx_is_key_down(cub->game->mlx, MLX_KEY_LEFT))
 		rotate_player(cub->player, -rot_speed);
 	if (mlx_is_key_down(cub->game->mlx, MLX_KEY_RIGHT))
 		rotate_player(cub->player, rot_speed);
+	mlx_get_mouse_pos(cub->game->mlx, &x, &y);
+	if (x != cub->game->last_mouse_x)
+		rotate_player(cub->player,
+			(x - cub->game->last_mouse_x) * MOUSE_SENS);
+	cub->game->last_mouse_x = x;
 }
 
 // accept movement input from the user and update the player's

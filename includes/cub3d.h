@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
+/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:07 by MP9               #+#    #+#             */
-/*   Updated: 2026/07/22 16:00:39 by MP9              ###   ########.fr       */
+/*   Updated: 2026/08/13 12:52:17 by alegeber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 # define FINISH_TILE '9'
 # define FINISH_TOUCH 0.4
 # define FINISH_LOCK_SHADE 3
+
+# define MOUSE_SENS 0.0015
 
 # define WHITE 0xFFFFFFFF
 # define BLACK 0x000000FF
