@@ -27,7 +27,6 @@ typedef struct s_game		t_game;
 typedef struct s_player		t_player;
 typedef struct s_npc		t_npc;
 typedef struct s_ray		t_ray;
-typedef enum e_tiletype		t_tyletype;
 
 typedef struct s_bfs
 {
@@ -99,14 +98,6 @@ typedef struct s_game
 	int32_t			height;
 	int32_t			last_mouse_x;
 }					t_game;
-
-typedef enum e_tiletype
-{
-	POLICE = 6,
-	CAN = 7,
-	ELEVATOR = 8,
-	FINISH = 9,
-}					t_tyletype;
 
 typedef struct s_parsing
 {
