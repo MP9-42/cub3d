@@ -18,9 +18,7 @@
 # define WIDTH 800
 # define HEIGHT 600
 
-# define TILE 32
 # define MINIMAP_PADDING 24
-# define MINIMAP_BG 0x202020FF
 # define MINIMAP_WALL 0xE0E0E0FF
 # define MINIMAP_FLOOR 0x101010FF
 # define MINIMAP_VOID 0x050505FF
@@ -45,7 +43,6 @@
 # define PAUSE_DIM 3
 
 # define WHITE 0xFFFFFFFF
-# define BLACK 0x000000FF
 # define RED   0xFF0000FF
 # define GREEN 0x00FF00FF
 # define BLUE  0x0000FFFF
@@ -137,10 +134,7 @@ void		draw_billboard_sprite(t_cub *cub, t_dpoint pos,
 				mlx_texture_t *tex, double *raycaster_buffer);
 
 /* window/init.c */
-mlx_t		*init_window(t_cub *cub);
 void		get_image(t_game *game, t_cub *cub);
-void		resize_hook(int32_t width, int32_t height, void *param);
-void		redraw(t_game *game);
 
 /* window/pause.c */
 void		draw_pause_overlay(t_cub *cub);

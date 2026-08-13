@@ -25,8 +25,7 @@ void	update_npc(void *param)
 	if (!npc || !npc->active || cub->game_over || cub->you_win || cub->paused)
 		return ;
 	ft_memset(&bfs, 0, sizeof(t_bfs));
-	bfs.now = get_time();
-	get_length(cub, npc, &bfs, bfs.now);
+	get_length(cub, npc, &bfs, get_time());
 	if (cub->npc->path_length < 2)
 		return ;
 	if (cub->npc->current_target >= cub->npc->path_length)

@@ -32,8 +32,6 @@ void	init_cub(char **argv, t_cub *cub, t_parsing *parsing)
 	cub->game = ft_calloc(1, sizeof(t_game));
 	cub->player = init_player(cub->map);
 	cub->npc = init_npc(cub->map);
-	cub->game->width = WIDTH;
-	cub->game->height = HEIGHT;
 	cub->game->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
 }
 
@@ -75,8 +73,6 @@ int	main(int argc, char **argv)
 	init_cub(argv, cub, parsing);
 	if (!cub->game->mlx)
 		exit(1);
-	cub->game->player = cub->player;
-	cub->game->cub = cub;
 	mlx_loops(cub);
 	close(parsing->fd);
 	mlx_loop(cub->game->mlx);

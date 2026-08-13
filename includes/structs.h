@@ -30,7 +30,6 @@ typedef struct s_ray		t_ray;
 
 typedef struct s_bfs
 {
-	double			now;
 	double			target_x;
 	double			target_y;
 	double			dist;
@@ -50,8 +49,6 @@ typedef struct s_bfs
 	int				i;
 	int				end_x;
 	int				end_y;
-	int				player_tile_x;
-	int				player_tile_y;
 	int				nx;
 	int				ny;
 	int				current_x;
@@ -68,8 +65,6 @@ typedef struct s_textures
 	char			*south;
 	char			*west;
 	char			*east;
-	char			*police;
-	char			*can;
 	mlx_texture_t	*police_tex;
 	mlx_texture_t	*can_tex;
 	mlx_texture_t	*finish_tex;
@@ -92,10 +87,6 @@ typedef struct s_game
 {
 	mlx_t			*mlx;
 	mlx_image_t		*img;
-	t_player		*player;
-	t_cub			*cub;
-	int32_t			width;
-	int32_t			height;
 	int32_t			last_mouse_x;
 }					t_game;
 
@@ -103,7 +94,6 @@ typedef struct s_parsing
 {
 	int				fd;
 	int				file_len;
-	int				map_len;
 	char			**floor;
 	char			**ceiling;
 	char			**file;
@@ -183,7 +173,6 @@ typedef struct s_cub
 	t_map			*map;
 	t_player		*player;
 	t_npc			*npc;
-	int				*fd;
 	int				can_count;
 	int				total_cans;
 	bool			game_over;
