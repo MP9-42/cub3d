@@ -6,7 +6,7 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:27 by MP9               #+#    #+#             */
-/*   Updated: 2026/08/12 16:07:04 by MP9              ###   ########.fr       */
+/*   Updated: 2026/08/13 13:19:03 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ bool	validate_helper(t_rowcols *rowcols)
 	return (false);
 }
 
-// validates the padded map, checks for multiple spawnpoints, and frees the padded map 
-// if the map is invalid. returns true if the map is valid, false if not
+// validates the padded map, checks for multiple
+// spawnpoints, and frees the padded map 
+// if the map is invalid. returns true if the map
+// is valid, false if not
 bool	validate_map(t_map *map)
 {
 	t_rowcols	rowcols;

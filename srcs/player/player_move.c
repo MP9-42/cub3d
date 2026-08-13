@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_move.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/24 10:11:03 by alegeber          #+#    #+#             */
-/*   Updated: 2026/08/13 12:53:42 by alegeber         ###   ########.fr       */
+/*   Updated: 2026/08/13 13:19:22 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void	get_move_input(t_cub *cub, double *move_x, double *move_y)
 static void	handle_rotation(t_cub *cub, double rot_speed)
 {
 	int32_t	x;
-	int32_t y;
+	int32_t	y;
 
 	if (mlx_is_key_down(cub->game->mlx, MLX_KEY_LEFT))
 		rotate_player(cub->player, -rot_speed);

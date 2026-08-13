@@ -6,7 +6,7 @@
 /*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/21 16:50:12 by alegeber          #+#    #+#             */
-/*   Updated: 2026/08/12 16:11:22 by MP9              ###   ########.fr       */
+/*   Updated: 2026/08/13 13:19:36 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ static void	clamp_tile(t_point *start, t_point *end, mlx_image_t *img)
 		end->y = img->height;
 }
 
-// draws our minimap tile by tile, clamping the start and end points to the image boundaries
+// draws our minimap tile by tile, clamping the start and
+// end points to the image boundaries
 void	draw_tile(mlx_image_t *img, t_point start, int size, uint32_t color)
 {
 	t_point	end;
