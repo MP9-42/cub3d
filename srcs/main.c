@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alegeber <alegeber@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: MP9 <mikjimen@student.42heilbronn.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 14:54:35 by MP9               #+#    #+#             */
-/*   Updated: 2026/08/13 14:56:38 by alegeber         ###   ########.fr       */
+/*   Updated: 2026/08/14 14:14:25 by MP9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	init_cub(char **argv, t_cub *cub, t_parsing *parsing)
 	cub->game = ft_calloc(1, sizeof(t_game));
 	cub->player = init_player(cub->map);
 	cub->npc = init_npc(cub->map);
-	cub->game->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
+	cub->game->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
 }
 
 void	mlx_loops(t_cub *cub)
